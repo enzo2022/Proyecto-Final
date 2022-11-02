@@ -4,7 +4,7 @@ on: [push]
 
 defaults:
   run:
-    working-directory: ProyectoFinal/
+    working-directory: Proyecto-Final
 
 jobs:
   lint-job:
