@@ -8,14 +8,7 @@ import VideogameCreate from './components/VideoGameCreate';
 
 function App() {
   return (
-    <BrowserRouter>
-    
-  <Route exact path='/' component={LandingPage}/>
-  <Route path='/home' component ={Home}/>
-  <Route exact path='/videogame/:id' component={Detail}/>
-  <Route path='/creategame' component={VideogameCreate}/>
-      
-   </BrowserRouter> 
+    <div>holaaaaa</div>
   );
 }
 
