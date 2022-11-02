@@ -2,9 +2,7 @@ name: Proyecto final Workshop CI
 
 on: [push]
 
-defaults:
-  run:
-    working-directory: Proyecto-Final
+
 
 jobs:
   lint-job:
