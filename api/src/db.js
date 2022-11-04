@@ -1,3 +1,5 @@
+//COMENTADO HASTA QUE SE CREE LA BASE DE DATOS
+
 // require("dotenv").config();
 // const { Sequelize } = require("sequelize");
 // const fs = require("fs");
