@@ -3,6 +3,6 @@ const router = require("express").Router();
 const controller = require("../controller/properties.controller.js");
 
 //Post a backend con JSON para ir practicando
-router.post("/getHouses", controller.getProperties);
+router.get("/getHouses", controller.getProperties);
 
 module.exports = router;
