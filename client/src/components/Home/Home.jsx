@@ -30,6 +30,7 @@ return(
             <Card
             descripcion={el.descripcion}
             propiedades={el.propiedades}
+            images = {el.images}
             />
         )
     })
