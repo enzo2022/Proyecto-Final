@@ -34,6 +34,7 @@ return(
                            propertiesPage={propertiesPage}
                            properties={properties.length}
                            currentPage={currentPage}
+                           setCurrentPage={setCurrentPage}
                             paginado={paginado}
                         />  
                          
