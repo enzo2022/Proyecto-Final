@@ -1,12 +1,16 @@
 import './App.css';
 import {Route, BrowserRouter} from 'react-router-dom'
+import Home from './components/Home/Home';
 
 function App() {
-  return (<>
-    <h1>Ahora si A hacer Cambios</h1>
-    <Route />
-
-  </>);
+  return ( <BrowserRouter>
+    
+   
+    <Route path='/home' component ={Home}/>
+    
+    
+        
+     </BrowserRouter> );
 }
 
 export default App;
