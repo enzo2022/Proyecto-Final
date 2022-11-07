@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
-import { getallProperties } from '../actions'
-import Card from './Card'
+import { getallProperties } from '../../redux/actions/index'
+import Card from '../Card/Card'
 
 
 export default function Home(){
@@ -25,7 +25,7 @@ const currentProperties = properties.slice(indexOfFirstProperties,indexOfLastPro
 return(
 <div>
 {
-    currentProperties.map((el)=>{
+    currentProperties?.map((el)=>{
         return(
             <Card
             descripcion={el.descripcion}
