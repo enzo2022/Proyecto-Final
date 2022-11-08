@@ -9,18 +9,17 @@ const {
 
 const router = Router();
 
-router.get("/falseInfo", async (req, res, next) => {
+router.get("/datosPubli", async (req, res, next) => {
 	try {
-		await Property.bulkCreate(fakePropiedades);
+		await Property.bulkCreate(fakePropiedades)
 		await Publication.bulkCreate(fakePublicacion);
-
 		res.send("info cargado con éxito . ");
 	} catch (error) {
 		next(error);
 	}
 });
 
-router.get("/fakePubAll", async (req, res, next) => {
+router.get("/posteoEjemplo", async (req, res, next) => {
 	try {
 		const allPubli = await getAll();
 		res.status(200).json(allPubli);

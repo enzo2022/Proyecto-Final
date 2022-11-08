@@ -2,7 +2,7 @@ const axios = require("axios");
 const {Property, Publication} = require("../db");
 
 //obetenemos  publicaciones y propiedades
-const getAll = async () => {
+const getAllPublications = async () => {
 	return await Publication.findAll({
 		include: [
 			{
@@ -29,6 +29,8 @@ const getAll = async () => {
 	});
 };
 
+
+
 //Aca harcodeao propiedades y publicaciones
 let fakePropiedades = [
 	{
@@ -44,8 +46,7 @@ let fakePropiedades = [
 		pets: false,
 		age: 50505,
 		propVideo: null,
-		createdAt: "2022-09-04T00:34:30.267Z",
-		updatedAt: "2022-09-04T00:34:30.321Z",
+	
 		TypeOfPropId: 8
 	},
 	{
@@ -310,7 +311,7 @@ const tipoDePropiedades = [
 let tipoServicio = ["Luz", "Agua", "Gas", "Internet", "Calefacción"];
 
 module.exports = {
-	getAll,
+	getAllPublications,
 	fakePropiedades,
 	fakePublicacion
 };
