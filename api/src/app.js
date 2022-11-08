@@ -22,7 +22,7 @@ app.use("/", require("./routes/properties.routes"));
 app.use("/publications", require("./routes/publications.routes"));
 
 (async function () {
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ force: false });
   app.listen(PORT, () => console.log("Listening on port ", PORT));
 })();
 

@@ -8,4 +8,15 @@ const sequelize = new Sequelize(
   }
 );
 
+
+// // //Relaciones propiedad
+// Property.hasOne(Publication); // 1 a 1
+// Publication.belongsTo(Property); //
+// module.exports = {
+// 	...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
+// 	conn: sequelize // para importart la conexión { conn } = require('./db.js');
+// };
+
+
+
 module.exports = sequelize;
