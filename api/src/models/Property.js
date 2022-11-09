@@ -12,7 +12,10 @@ const Property = sequelize.define(
       allowNull: false,
       primaryKey: true,
     },
-
+    id_User: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -103,6 +106,7 @@ const Property = sequelize.define(
 //muchas porpiedades pertenecen a un usuario
 Property.belongsTo(Users, { foreignKey: "User_Property", targetKey: "id" }); // 1 a muchos
 Users.hasMany(Property, { foreignKey: "User_Property" });
+
 module.exports = Property;
 
 // id_Property: {
