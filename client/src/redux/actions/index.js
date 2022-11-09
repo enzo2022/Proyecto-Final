@@ -10,3 +10,22 @@ dispatch({
 })
     }
 }
+
+
+// export function getIdProperties(id){
+//     return async function (dispatch) {
+//       try {
+//         var json = await axios.get(
+//           "http://localhost:3001//"+id
+//         );
+//         return dispatch({
+//           type: "GET_ID_PROPERTIES",
+//           payload: json.data, 
+//         });
+//       }catch(err){
+//         console.log(err)
+//       }
+        
+  
+//   }
+//   };

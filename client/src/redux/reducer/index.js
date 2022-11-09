@@ -1,6 +1,7 @@
 const initialState = {
     allProperties : [],
-    properties : []
+    properties : [],
+    detail:[]
 }
 
 
@@ -16,6 +17,12 @@ export default function rootReducer(state = initialState,action){
                 properties: [...action.payload]
                 
             }
+        // case "GET_ID_PROPERTIES":
+        //     return{
+        //         ...state,
+        //         detail: action.payload
+
+        //     }
 
 
 
