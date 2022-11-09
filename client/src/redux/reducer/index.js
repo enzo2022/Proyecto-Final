@@ -1,6 +1,7 @@
 const initialState = {
     allProperties : [],
-    properties : []
+    properties : [],
+    detail:[]
 }
 
 
@@ -15,6 +16,7 @@ export default function rootReducer(state = initialState,action){
                 properties: [...action.payload]
                 
             }
+
         default: 
         return state
     }
