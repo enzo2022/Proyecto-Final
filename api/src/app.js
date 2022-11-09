@@ -19,7 +19,7 @@ sequelize
 
 //ROUTES
 app.use("/properties", require("./routes/properties.routes"));
-app.use("/publications", require("./routes/publications.routes"));
+
 
 (async function () {
   await sequelize.sync({ force: false });
