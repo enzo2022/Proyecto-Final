@@ -18,7 +18,7 @@ sequelize
   .catch((err) => console.log(err.message));
 
 //ROUTES
-app.use("/", require("./routes/properties.routes"));
+app.use("/properties", require("./routes/properties.routes"));
 app.use("/publications", require("./routes/publications.routes"));
 
 (async function () {

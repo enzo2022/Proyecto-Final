@@ -1,6 +1,6 @@
 //Llamado al JSON de properties
 const myJSON = require("../utils/fakeProperties.json");
-const Properties = require("../models/Property.js");
+const Property = require("../models/Property.js");
 
 //Envio el Array harcodeado al front
 const fakeProperties = async (req, res) => {
@@ -15,12 +15,16 @@ const fakeProperties = async (req, res) => {
 
 //create properties //POST AL FRONT
 const createProperty = async (req, res) => {
-  const { tipoPropiedades } = req.body;
+  const { images, services } = req.body;
   try {
-    if (!Object.values(req.body).every(Boolean) || !tipoPropiedades.length) {
+    if (
+      !Object.values(req.body).every(Boolean) ||
+      !images.length ||
+      !services.length
+    ) {
       throw new Error("Faltan completar datos");
     }
-    const properties = await Properties.create(req.body);
+    const properties = await Property.create(req.body);
 
     res.status(201).json({ Message: "Propiedad creada", payload: properties });
   } catch (err) {
@@ -31,30 +35,46 @@ const createProperty = async (req, res) => {
 //GET ALL PROPERTIES / GET AL FRONT
 const getAllProperties = async (req, res) => {
   try {
-    const properties = await Properties.findAll();
+    const properties = await Property.findAll();
+
     if (!properties.length) throw new Error("No hay propeidades");
-    res.status(200).json({ Message: "Succes", payload: properties });
+    res.status(200).json({ Message: "Succes", payload: operation });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
 };
 
+//function find by id
 const findPropertyById = async (req, res) => {
   try {
     const { id } = req.params;
-    if (!id) throw new Error("Id inexistente");
-    const searchByPK = await Properties.findByPk(id);
+
+    const searchByPK = await Property.findByPk(id);
+    if (!searchByPK) throw new Error("Id inexistente");
 
     res.status(200).json({ Message: "Succes", paylaod: searchByPK });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
 };
+
+//function delete property
+const deleteProperty = async (req, res) => {
+  const { id } = req.params;
+  if (!id) throw new Error("Falta Id");
+  // const deleteProperty =
+  try {
+  } catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+};
+
 module.exports = {
   fakeProperties,
   createProperty,
   getAllProperties,
   findPropertyById,
+  deleteProperty,
 };
 
 // !surface ||
