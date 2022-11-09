@@ -1,12 +1,11 @@
 import {Link} from 'react-router-dom'
-
+import LandingSearch from '../../components/LandingSearch/LandingSearch'
 
 
 export default function LandingPage(){
     return(
         <div >
-           <h1>a trabajar se a dicho</h1> 
-            
+           <LandingSearch/>
         </div>
         )
 }
