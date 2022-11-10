@@ -37,9 +37,15 @@ const getAllProperties = async (req, res) => {
   try {
     const properties = await Property.findAll();
 
-    if (!properties.length) throw new Error("No hay propeidades");
+    if (!properties.length && false) throw new Error("No hay propeidades");
 
-    res.status(200).json({ Message: "Succes", payload: properties });
+    // res.status(200).json({ Message: "Succes", payload: properties });
+    res
+      .status(200)
+      .json({
+        Message: "Succes",
+        payload: [...properties, require("../utils/propertiesRent.json")],
+      });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
