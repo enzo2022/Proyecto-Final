@@ -40,12 +40,10 @@ const getAllProperties = async (req, res) => {
     if (!properties.length && false) throw new Error("No hay propeidades");
 
     // res.status(200).json({ Message: "Succes", payload: properties });
-    res
-      .status(200)
-      .json({
-        Message: "Succes",
-        payload: [...properties, require("../utils/propertiesRent.json")],
-      });
+    res.status(200).json({
+      Message: "Succes",
+      payload: [...properties, ...require("../utils/fakeProperties.json")],
+    });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
