@@ -2,13 +2,17 @@
 import { useEffect, useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { getallProperties } from '../../redux/actions/index'
-import Card from '../Card/Card'
+import Paginado from "../../components/Paginado/Paginado"
+import Card from '../../components/Card/Card'
 
 
 export default function Home(){
 const Dispatch = useDispatch()
 const properties = useSelector(state => state.properties)
 
+const paginado = (pageNumbers) =>{
+    setCurrentPage(pageNumbers)
+}
 
 useEffect(()=> {
 Dispatch(getallProperties())
@@ -24,6 +28,18 @@ const currentProperties = properties.slice(indexOfFirstProperties,indexOfLastPro
 
 return(
 <div>
+<ul>                  
+                <Paginado
+                           
+                           propertiesPage={propertiesPage}
+                           properties={properties.length}
+                           currentPage={currentPage}
+                           setCurrentPage={setCurrentPage}
+                            paginado={paginado}
+                        />  
+                         
+                           
+       </ul>
 {
     currentProperties?.map((el)=>{
         return(
