@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import { filterByOperation, filterByPropertyType, filterByLocation, getLoacations} from '../../redux/actions';
+//import { filterByOperation, filterByPropertyType, filterByLocation, getLoacations} from '../../redux/actions';
 
 export default function LandingSearch() {
   const dispatch = useDispatch();
@@ -47,9 +47,9 @@ export default function LandingSearch() {
       <Link to='/home'>
         <button 
           onClick={() => {
-            operation && operation !== 'default' && dispatch(filterByOperation(operation));
-            propertyType && propertyType !== 'default' && dispatch(filterByPropertyType(propertyType));
-            location && location !== 'default' && dispatch(filterByLocation(location));
+            // operation && operation !== 'default' && dispatch(filterByOperation(operation));
+            // propertyType && propertyType !== 'default' && dispatch(filterByPropertyType(propertyType));
+            // location && location !== 'default' && dispatch(filterByLocation(location));
           }}
         >
           Buscar
