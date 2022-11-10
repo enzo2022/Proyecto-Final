@@ -38,6 +38,7 @@ const getAllProperties = async (req, res) => {
     const properties = await Property.findAll();
 
     if (!properties.length) throw new Error("No hay propeidades");
+
     res.status(200).json({ Message: "Succes", payload: properties });
   } catch (err) {
     res.status(400).json({ Error: err.message });
