@@ -20,6 +20,7 @@ sequelize
 //ROUTES
 app.use("/", require("./routes/properties.routes"));
 app.use("/publications", require("./routes/publications.routes"));
+app.use("/", require("./routes/cities.routes"));
 
 (async function () {
   await sequelize.sync({ force: true });
