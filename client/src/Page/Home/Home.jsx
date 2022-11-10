@@ -41,14 +41,17 @@ return(
                            
        </ul>
 {
-    currentProperties?.map((el)=>{
+    currentProperties?.map((el)=>el.payload.map(el=>{
         return(
             <Card
             address={el.address}
-            geolocation={el.geolocation}
+            price={el.price}
+            images={el.images}
+            garage={el.garage}
+            
             />
         )
-    })
+    }))
 }
     
 </div>
