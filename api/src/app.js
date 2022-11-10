@@ -18,8 +18,14 @@ sequelize
   .catch((err) => console.log(err.message));
 
 //ROUTES
-app.use("/properties", require("./routes/properties.routes"));
+ add_modelCity2
+app.use("/", require("./routes/properties.routes"));
 app.use("/publications", require("./routes/publications.routes"));
+app.use("/", require("./routes/cities.routes"));
+
+app.use("/properties", require("./routes/properties.routes"));
+
+ BACK-END
 
 (async function () {
   await sequelize.sync({ force: false });
