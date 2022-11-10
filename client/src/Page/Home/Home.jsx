@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { getallProperties } from '../../redux/actions/index'
-import Paginado from "../Paginado/Paginado"
-import Card from '../Card/Card'
+import Paginado from "../../components/Paginado/Paginado"
+import Card from '../../components/Card/Card'
 
 
 export default function Home(){

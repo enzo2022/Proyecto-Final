@@ -1,6 +1,7 @@
 const initialState = {
     allProperties : [],
-    properties : []
+    properties : [],
+    detail:[]
 }
 
 
@@ -8,7 +9,6 @@ const initialState = {
 
 export default function rootReducer(state = initialState,action){
     switch(action.type){
-
         case "GET_ALL_PROPERTIES":
             return{
                 ...state,
@@ -16,8 +16,6 @@ export default function rootReducer(state = initialState,action){
                 properties: [...action.payload]
                 
             }
-
-
 
         default: 
         return state
