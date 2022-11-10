@@ -3,6 +3,8 @@ const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
 const sequelize = require("./config/db.js");
+const { UpCities } = require("./controllers/cities.controller.js");
+
 const PORT = process.env.PORT || 3001;
 
 //Middlewares
@@ -21,16 +23,15 @@ sequelize
 
 app.use("/", require("./routes/properties.routes"));
 // app.use("/publications", require("./routes/publications.routes"));
-app.use("/", require("./routes/cities.routes"));
-
+app.use("/", require("./routes/cities_routes.js"));
 app.use("/properties", require("./routes/properties.routes"));
 
-
-
 (async function () {
-  await sequelize.sync({ force: false });
+  await sequelize.sync({ force: true });
   app.listen(PORT, () => console.log("Listening on port ", PORT));
 })();
+
+UpCities();
 
 // const express = require("express");
 // const cookieParser = require("cookie-parser");
