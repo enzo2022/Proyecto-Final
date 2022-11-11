@@ -37,13 +37,14 @@ const getAllProperties = async (req, res) => {
   try {
     const properties = await Property.findAll();
 
-    if (!properties.length && false) throw new Error("No hay propeidades");
+    // if (!properties.length && false) throw new Error("No hay propeidades");
+    if (!properties.length) throw new Error("No hay propeidades");
 
-    // res.status(200).json({ Message: "Succes", payload: properties });
-    res.status(200).json({
-      Message: "Succes",
-      payload: [...properties, ...require("../utils/fakeProperties.json")],
-    });
+    res.status(200).json({ Message: "Success", payload: properties });
+    // res.status(200).json({
+    //   Message: "Succes",
+    //   payload: [...properties, ...require("../utils/fakeProperties.json")],
+    // });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
@@ -63,14 +64,15 @@ const findPropertyById = async (req, res) => {
   }
 };
 
-//function delete property
-const deleteProperty = async (req, res) => {
-  const { id } = req.params;
-  if (!id) throw new Error("Falta Id");
-  // const deleteProperty =
+const getAllAddress = async (req, res) => {
   try {
+    const addressUser = await Property.findAll({
+      attributes: ["address"],
+    });
+
+    res.status(200).json({ address: addressUser });
   } catch (err) {
-    res.status(400).json({ Error: err.message });
+    res.status(400).json({ Error: "No hay direcciones en la tabla" });
   }
 };
 
@@ -79,15 +81,7 @@ module.exports = {
   createProperty,
   getAllProperties,
   findPropertyById,
-  deleteProperty,
+  // deleteProperty,
+  getAllAddress,
+  // fucntionJson,
 };
-
-// !surface ||
-// !image ||
-// !price ||
-// !enviroments ||
-// !bathrooms ||
-// !rooms ||
-// !rooms ||
-// tipoPropiedades.length
-// !address ||
