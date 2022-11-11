@@ -32,3 +32,4 @@ app.use("/properties", require("./routes/properties.routes"));
 })();
 
 UpCities();
+fucntionJson();

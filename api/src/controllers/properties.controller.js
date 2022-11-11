@@ -13,6 +13,13 @@ const fakeProperties = async (req, res) => {
   }
 };
 
+const fucntionJson = async () => {
+  const data = myJSON.map(async (el) => {
+    await Property.create(el);
+  });
+  return data;
+};
+
 //create properties //POST AL FRONT
 const createProperty = async (req, res) => {
   const { images, services } = req.body;
@@ -81,7 +88,7 @@ module.exports = {
   createProperty,
   getAllProperties,
   findPropertyById,
-  // deleteProperty,
+
   getAllAddress,
-  // fucntionJson,
+  fucntionJson,
 };
