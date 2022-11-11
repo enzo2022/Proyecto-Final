@@ -13,6 +13,7 @@ const fakeProperties = async (req, res) => {
   }
 };
 
+//Llenar base de datos
 const fucntionJson = async () => {
   const data = myJSON.map(async (el) => {
     await Property.create(el);
@@ -88,7 +89,6 @@ module.exports = {
   createProperty,
   getAllProperties,
   findPropertyById,
-
   getAllAddress,
   fucntionJson,
 };

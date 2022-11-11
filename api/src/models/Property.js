@@ -80,7 +80,7 @@ const Property = sequelize.define(
     // },
     observation: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     services: {
       type: DataTypes.ARRAY(DataTypes.STRING),
@@ -92,10 +92,19 @@ const Property = sequelize.define(
     },
     geolocation: {
       type: DataTypes.JSON("Latitud", "Longitud"),
-      allowNull: false,
+      allowNull: true,
     },
     state: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+      get() {
+        if (this.getDataValue(state)) {
+          return "Activado";
+        } else {
+          return "Desactivado";
+        }
+      },
     },
   },
   {

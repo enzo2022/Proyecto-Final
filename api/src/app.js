@@ -25,7 +25,10 @@ app.use("/", require("./routes/properties.routes"));
 // app.use("/publications", require("./routes/publications.routes"));
 app.use("/", require("./routes/cities_routes.js"));
 app.use("/properties", require("./routes/properties.routes"));
-
+// app.use(
+//   "/user",
+//   require("./routes/user_routes.js")
+// )
 (async function () {
   await sequelize.sync({ force: false });
   app.listen(PORT, () => console.log("Listening on port ", PORT));
