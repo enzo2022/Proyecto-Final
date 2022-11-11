@@ -12,10 +12,10 @@ const Property = sequelize.define(
       allowNull: false,
       primaryKey: true,
     },
-    id_User: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
+    // id_User: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: true,
+    // },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -74,10 +74,10 @@ const Property = sequelize.define(
       type: DataTypes.ENUM("Venta", "Alquiler"),
       allowNull: false,
     },
-    state_modality: {
-      type: DataTypes.ENUM("Alquilado", "Vendida"),
-      allowNull: false,
-    },
+    // state_modality: {
+    //   type: DataTypes.ENUM("Alquilado", "Vendida"),
+    //   allowNull: false,
+    // },
     observation: {
       type: DataTypes.TEXT,
       allowNull: false,

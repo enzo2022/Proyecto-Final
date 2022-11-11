@@ -14,4 +14,7 @@ router.get("/findById/:id", controller.findPropertyById);
 //Post a backend con JSON para ir practicando
 router.get("/getAllProperties", controller.fakeProperties);
 
+//Get all address
+router.get("/getAllAddress", controller.getAllAddress);
+
 module.exports = router;
