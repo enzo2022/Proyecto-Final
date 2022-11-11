@@ -82,3 +82,4 @@ const Users = sequelize.define(
 //  RELACION   // UNO => MUCHOS
 
 module.exports = Users;
+//holaa
