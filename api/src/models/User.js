@@ -17,7 +17,7 @@ const Users = sequelize.define(
         "https://res.cloudinary.com/dtzesfyt1/image/upload/v1668008325/robot-image_xrpox8.png",
       ],
     },
-    name: {
+    userName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -25,31 +25,28 @@ const Users = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+
     user_auth_0: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: false,
     },
     rating: {
       type: DataTypes.ENUM("1", "2", "3", "4", "5"),
-      allowNull: false,
+      defaultValue: "1",
     },
+
     user_type: {
       type: DataTypes.ENUM("Admin", "Usuario"),
-      allowNull: false,
+      allowNull: true,
+      defaultValue: "Usuario",
     },
 
     id_membership: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    id_city: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -57,27 +54,24 @@ const Users = sequelize.define(
       validate: {
         isEmail: true,
       },
-      id_city: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      mobil: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-      },
-
-      state: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        get() {
-          if (this.getDataValue(state)) {
-            return "Activado";
-          } else {
-            return "Desactivado";
-          }
-        },
-      },
     },
+
+    mobil: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+
+    // state: {
+    //   type: DataTypes.BOOLEAN,
+    //   allowNull: true,
+    //   get() {
+    //     if (this.getDataValue(state)) {
+    //       return "Activado";
+    //     } else {
+    //       return "Desactivado";
+    //     }
+    //   },
+    // },
   },
   {
     timestamps: false,
