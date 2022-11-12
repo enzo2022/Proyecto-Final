@@ -3,8 +3,6 @@ const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
 const sequelize = require("./config/db.js");
-const { UpCities } = require("./controllers/cities.controller.js");
-const { fucntionJson } = require("./controllers/properties.controller.js");
 const PORT = process.env.PORT || 3001;
 
 //Middlewares
@@ -72,3 +70,4 @@ app.use("/properties", require("./routes/properties.routes"));
 UpCities();
 // fucntionJson();
 //hola
+

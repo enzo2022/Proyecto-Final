@@ -87,7 +87,6 @@ module.exports = {
   createProperty,
   getAllProperties,
   findPropertyById,
-
   getAllAddress,
   fucntionJson,
 };
