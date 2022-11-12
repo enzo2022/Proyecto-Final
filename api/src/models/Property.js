@@ -64,7 +64,7 @@ const Property = sequelize.define(
     },
     idCity: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     description: {
       type: DataTypes.TEXT,
@@ -88,7 +88,7 @@ const Property = sequelize.define(
     },
     published: {
       type: DataTypes.ENUM("Revision", "Cancelada", "Publicada"),
-      allowNull: false,
+      allowNull: true,
     },
     geolocation: {
       type: DataTypes.JSON("Latitud", "Longitud"),

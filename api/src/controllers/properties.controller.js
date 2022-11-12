@@ -13,11 +13,10 @@ const fakeProperties = async (req, res) => {
   }
 };
 
-const fucntionJson = async () => {
+const fucntionJson = () => {
   const data = myJSON.map(async (el) => {
     await Property.create(el);
   });
-  return data;
 };
 
 //create properties //POST AL FRONT
