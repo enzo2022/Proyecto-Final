@@ -12,10 +12,10 @@ const Property = sequelize.define(
       allowNull: false,
       primaryKey: true,
     },
-    // id_User: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: true,
-    // },
+    id_User: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     address: {
       type: DataTypes.STRING,
       allowNull: false,

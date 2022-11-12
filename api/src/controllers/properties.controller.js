@@ -13,7 +13,7 @@ const fakeProperties = async (req, res) => {
   }
 };
 
-const fucntionJson = () => {
+const functionJson = async () => {
   const data = myJSON.map(async (el) => {
     await Property.create(el);
   });
@@ -21,15 +21,15 @@ const fucntionJson = () => {
 
 //create properties //POST AL FRONT
 const createProperty = async (req, res) => {
-  const { images, services } = req.body;
+  // const { images, services } = req.body;
   try {
-    if (
-      !Object.values(req.body).every(Boolean) ||
-      !images.length ||
-      !services.length
-    ) {
-      throw new Error("Faltan completar datos");
-    }
+    // if (
+    //   // !Object.values(req.body).every(Boolean) ||
+    //   !images.length ||
+    //   !services.length
+    // ) {
+    //   throw new Error("Faltan completar datos");
+    // }
     const properties = await Property.create(req.body);
 
     res.status(201).json({ Message: "Propiedad creada", payload: properties });
@@ -88,5 +88,5 @@ module.exports = {
   getAllProperties,
   findPropertyById,
   getAllAddress,
-  fucntionJson,
+  functionJson,
 };
