@@ -64,7 +64,7 @@ const Property = sequelize.define(
     },
     idCity: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     description: {
       type: DataTypes.TEXT,
@@ -88,7 +88,7 @@ const Property = sequelize.define(
     },
     published: {
       type: DataTypes.ENUM("Revision", "Cancelada", "Publicada"),
-      allowNull: false,
+      allowNull: true,
     },
     geolocation: {
       type: DataTypes.JSON("Latitud", "Longitud"),
@@ -96,10 +96,10 @@ const Property = sequelize.define(
     },
     state: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+
       defaultValue: true,
       get() {
-        if (this.getDataValue(state)) {
+        if (this.getDataValue("state")) {
           return "Activado";
         } else {
           return "Desactivado";
@@ -113,8 +113,6 @@ const Property = sequelize.define(
 );
 
 //muchas porpiedades pertenecen a un usuario
-Property.belongsTo(Users, { foreignKey: "User_Property", targetKey: "id" }); // 1 a muchos
-Users.hasMany(Property, { foreignKey: "User_Property" });
 
 module.exports = Property;
 
