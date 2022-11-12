@@ -3,6 +3,8 @@ const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
 const sequelize = require("./config/db.js");
+const { UpCities } = require("./controllers/cities.controller.js");
+const { functionJson } = require("./controllers/properties.controller.js");
 const PORT = process.env.PORT || 3001;
 
 //Middlewares
@@ -11,6 +13,7 @@ app.use(morgan("dev"));
 app.use(cors());
 
 //DB-CONNECTION
+
 sequelize
   .authenticate()
   .then(() => console.log("DB-Connected"))
@@ -66,7 +69,6 @@ app.use("/properties", require("./routes/properties.routes"));
 // });
 
 // module.exports = server;
-//UpCities();
-// fucntionJson();
+UpCities();
+// functionJson();
 //hola
-
