@@ -11,7 +11,6 @@ app.use(morgan("dev"));
 app.use(cors());
 
 //DB-CONNECTION
-
 sequelize
   .authenticate()
   .then(() => console.log("DB-Connected"))
@@ -67,7 +66,7 @@ app.use("/properties", require("./routes/properties.routes"));
 // });
 
 // module.exports = server;
-UpCities();
+//UpCities();
 // fucntionJson();
 //hola
 
