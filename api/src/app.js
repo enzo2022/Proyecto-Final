@@ -7,7 +7,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const sequelize = require("./config/db.js");
 const { UploadData } = require("./controllers/uploadData");
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.DB_PORT;
 
 //Middlewares
 app.use(express.json());
