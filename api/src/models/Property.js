@@ -9,12 +9,11 @@ const Property = sequelize.define(
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
       primaryKey: true,
     },
     id_User: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
+      type: DataTypes.UUID,
+      allowNull: false,
     },
     address: {
       type: DataTypes.STRING,
@@ -58,14 +57,14 @@ const Property = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    // type1: {
-    //   type: DataTypes.ENUM("Casa", "PH", "Departamento", "Finca"),
-    //   allowNull: false,
-    // },
-    // idCity: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: true,
-    // },
+    type: {
+      type: DataTypes.ENUM("Casa", "PH", "Departamento", "Finca"),
+      allowNull: false,
+    },
+    idCity: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -74,13 +73,9 @@ const Property = sequelize.define(
       type: DataTypes.ENUM("Venta", "Alquiler"),
       allowNull: false,
     },
-    // state_modality: {
-    //   type: DataTypes.ENUM("Alquilado", "Vendida"),
-    //   allowNull: false,
-    // },
-    observation: {
-      type: DataTypes.TEXT,
-      allowNull: true,
+    state_modality: {
+      type: DataTypes.ENUM("Alquilado", "Vendida", "Pendiente"),
+      allowNull: false,
     },
     services: {
       type: DataTypes.ARRAY(DataTypes.STRING),
@@ -91,13 +86,16 @@ const Property = sequelize.define(
       allowNull: true,
     },
     geolocation: {
-      type: DataTypes.JSON("Latitud", "Longitud"),
+      type: DataTypes.JSON(),
+      allowNull: true,
+    },
+    observation: {
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     state: {
       type: DataTypes.BOOLEAN,
-
-      defaultValue: true,
+      defaultValue: false,
       get() {
         if (this.getDataValue("state")) {
           return "Activado";

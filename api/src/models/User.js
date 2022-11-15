@@ -1,14 +1,13 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db.js");
-// const Properties = require("../models/Property.js");
+const Property = require("../models/Property.js");
 
-const Users = sequelize.define(
-  "Users",
+const User = sequelize.define(
+  "User",
   {
-    id: {
+    id_User: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
       primaryKey: true,
     },
     photo: {
@@ -38,13 +37,12 @@ const Users = sequelize.define(
 
     user_type: {
       type: DataTypes.ENUM("Admin", "Usuario"),
-      allowNull: true,
       defaultValue: "Usuario",
     },
 
     id_membership: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      defaultValue: 0,
     },
 
     email: {
@@ -55,23 +53,22 @@ const Users = sequelize.define(
         isEmail: true,
       },
     },
-
-    mobil: {
+    cellphone: {
       type: DataTypes.BIGINT,
       allowNull: true,
     },
 
-    // state: {
-    //   type: DataTypes.BOOLEAN,
-    //   allowNull: true,
-    //   get() {
-    //     if (this.getDataValue(state)) {
-    //       return "Activado";
-    //     } else {
-    //       return "Desactivado";
-    //     }
-    //   },
-    // },
+    state: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      get() {
+        if (this.getDataValue("state")) {
+          return "Activado";
+        } else {
+          return "Desactivado";
+        }
+      },
+    },
   },
   {
     timestamps: false,
@@ -81,5 +78,7 @@ const Users = sequelize.define(
 // Relacion User => Users => Properties
 //  RELACION   // UNO => MUCHOS
 
-module.exports = Users;
-//holaa
+Property.belongsTo(User, { foreignKey: "id_User" });
+User.hasMany(Property, { foreignKey: "id_User" });
+
+module.exports = User;
