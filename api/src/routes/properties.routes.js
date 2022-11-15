@@ -2,6 +2,10 @@ const router = require("express").Router();
 //Llamado a properties.controller donde tengo la logica
 const controller = require("../controllers/properties.controller.js");
 
+//CREATE PROPER
+
+router.post("/createProper", controller.createProper)
+
 //CREATE PROPERTIE
 router.post("/createProperty", controller.createProperty);
 
