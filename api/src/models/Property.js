@@ -58,14 +58,14 @@ const Property = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    type: {
-      type: DataTypes.ENUM("Casa", "PH", "Departamento", "Finca"),
-      allowNull: false,
-    },
-    idCity: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
+    // type1: {
+    //   type: DataTypes.ENUM("Casa", "PH", "Departamento", "Finca"),
+    //   allowNull: false,
+    // },
+    // idCity: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: true,
+    // },
     description: {
       type: DataTypes.TEXT,
       allowNull: false,

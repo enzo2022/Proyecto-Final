@@ -1,19 +1,19 @@
-const { Router } = require("express");
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
+// const { Router } = require("express");
+// // Importar todos los routers;
+// // Ejemplo: const authRouter = require('./auth.js');
 
-const router = Router();
+// const router = Router();
 
-// Configurar los routers
+// // Configurar los routers
 
-const getHouse = require("./properties.routes");
-const { getCity } = require("../controllers/cities.controller");
-router.use("/houses", getHouse);
+// const getHouse = require("./properties.routes");
+// const { getCity } = require("../controllers/cities.controller");
+// router.use("/houses", getHouse);
  
-router.use("/fake", fakePub);
-router.use("/city", getCity);
+// router.use("/fake", fakePub);
+// router.use("/city", getCity);
 
 
 
-router.use;
-module.exports = router;
+// router.use;
+// module.exports = router;
