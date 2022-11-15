@@ -1,7 +1,7 @@
 const axios = require("axios");
 const City = require("../models/City.js");
 
-const getCitiesApiSNDG = async () => {
+const getCitiesApiSNDG = async (req, res, next) => {
   try {
     let Url =
       "https://apis.datos.gob.ar/georef/api/municipios?campos=id,nombre,%20provincia.nombre&max=5000";
@@ -52,4 +52,4 @@ const getCitiesApi = async (req, res, next) => {
   }
 };
 
-module.exports = { getCitiesApi, getCities, UpCities };
+module.exports = { getCitiesApi, getCities, UpCities, getCitiesApiSNDG };
