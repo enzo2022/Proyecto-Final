@@ -1,7 +1,7 @@
 //Llamado al JSON de properties
 const myJSON = require("../utils/fakeProperties.json");
 const Property = require("../models/Property.js");
-
+const cloudinary = require("../utils/cloudinary")
 //Envio el Array harcodeado al front
 const fakeProperties = async (req, res) => {
   try {
@@ -37,6 +37,74 @@ const createProperty = async (req, res) => {
     res.status(401).json({ Error: err.message });
   }
 };
+
+
+//CREAR UNA  PROPIEDAD CON LA IMAGEN QUE RECIBE   DEL FRONT..
+const createProper = async (req, res) => {
+  const { images, id_user,
+    address, 
+    area, 
+    bathrooms, 
+    environments,
+    antiquity, 
+    floors, 
+    rooms, 
+    garage, 
+    price, 
+    idCity, 
+    description, 
+    modality,
+    observation, 
+    services, 
+    geolocation, 
+    state,  } = req.body
+
+  try {
+    
+    const properImage = await cloudinary.uploader.upload(
+      images,
+      {
+        upload_preset: "unlnkewq",
+        public_id: `alggo`,
+        allowed_formats: ["png", "jpg", "jpeg",]
+      },
+      function (error, result) {
+        if (error) {
+          console.log(error)
+        }
+        console.log(result)
+      }
+    )
+     let newProperty = await Property.create({
+      id_user,
+      address, 
+      area, 
+      bathrooms, 
+      environments,
+      antiquity, 
+      floors,
+      rooms, 
+      garage, 
+      price, 
+      idCity, 
+      description, 
+      modality,
+      observation, 
+      services, 
+      geolocation, 
+      state,
+      image:[properImage.url],
+    }) 
+
+    console.log(newProperty)
+    return  res.status(200).json({ Message: "Success", payload: properImage })
+  }catch(error){
+    return  console.log(error)
+  }
+  
+
+ 
+}
 
 //GET ALL PROPERTIES / GET AL FRONT
 const getAllProperties = async (req, res) => {
@@ -89,4 +157,5 @@ module.exports = {
   findPropertyById,
   getAllAddress,
   functionJson,
+  createProper
 };
