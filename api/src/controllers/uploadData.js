@@ -1,8 +1,6 @@
-const User = require("../models/User.js");
-const City = require("../models/City.js");
-const Property = require("../models/Property.js");
+const { User, City, Property } = require("../db.js");
 
-const { getCitiesApiSNDG } = require("./cities.controller");
+const { getCitiesApiSNDG } = require("./controller_cities");
 const { dataUsers, dataProperties } = require("../utils/fakeData.js");
 
 const UploadData = async (req, res, next) => {
@@ -36,7 +34,7 @@ const UploadUsers = async (req, res, next) => {
   try {
     for (let i = 0; i < dataUsers.length; i++) await User.create(dataUsers[i]);
   } catch (err) {
-    console.log("UpUsers : ", err);
+    console.log("controlles.uploaddata.UploadUsers: ", err);
   }
 };
 
@@ -44,13 +42,10 @@ const UploadProperties = async (req, res, next) => {
   try {
     Promise.all(dataProperties.map((e) => Property.create(e)));
   } catch (error) {
-    console.log("Properties : ", err);
+    console.log("controlles.uploaddata.UploadProperties: ", err);
   }
 };
 
 module.exports = {
-  UploadCities,
-  UploadUsers,
-  UploadProperties,
   UploadData,
 };
