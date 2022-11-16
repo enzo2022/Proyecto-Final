@@ -1,14 +1,13 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db.js");
-// const Properties = require("../models/Property.js");
+const Property = require("../models/Property.js");
 
-const Users = sequelize.define(
-  "Users",
+const User = sequelize.define(
+  "User",
   {
-    id: {
+    id_User: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
       primaryKey: true,
     },
     photo: {
@@ -17,7 +16,7 @@ const Users = sequelize.define(
         "https://res.cloudinary.com/dtzesfyt1/image/upload/v1668008325/robot-image_xrpox8.png",
       ],
     },
-    name: {
+    userName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -25,31 +24,27 @@ const Users = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+
     user_auth_0: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: false,
     },
     rating: {
       type: DataTypes.ENUM("1", "2", "3", "4", "5"),
-      allowNull: false,
+      defaultValue: "1",
     },
+
     user_type: {
       type: DataTypes.ENUM("Admin", "Usuario"),
-      allowNull: false,
+      defaultValue: "Usuario",
     },
 
     id_membership: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      defaultValue: 0,
     },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    id_city: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -57,25 +52,21 @@ const Users = sequelize.define(
       validate: {
         isEmail: true,
       },
-      id_city: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      mobil: {
-        type: DataTypes.BIGINT,
-        allowNull: false,
-      },
+    },
+    cellphone: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
 
-      state: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        get() {
-          if (this.getDataValue(state)) {
-            return "Activado";
-          } else {
-            return "Desactivado";
-          }
-        },
+    state: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      get() {
+        if (this.getDataValue("state")) {
+          return "Activado";
+        } else {
+          return "Desactivado";
+        }
       },
     },
   },
@@ -87,4 +78,7 @@ const Users = sequelize.define(
 // Relacion User => Users => Properties
 //  RELACION   // UNO => MUCHOS
 
-module.exports = Users;
+Property.belongsTo(User, { foreignKey: "id_User" });
+User.hasMany(Property, { foreignKey: "id_User" });
+
+module.exports = User;

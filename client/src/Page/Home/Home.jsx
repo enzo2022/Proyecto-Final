@@ -8,7 +8,7 @@ import Card from '../../components/Card/Card'
 
 export default function Home(){
 const Dispatch = useDispatch()
-const properties = useSelector(state => state.properties)
+const properties = useSelector((state)=> state.properties)
 
 const paginado = (pageNumbers) =>{
     setCurrentPage(pageNumbers)
@@ -44,9 +44,8 @@ return(
     currentProperties?.map((el)=>{
         return(
             <Card
-            descripcion={el.descripcion}
-            propiedades={el.propiedades}
-            images = {el.images}
+            address={el.address}
+            geolocation={el.geolocation}
             />
         )
     })

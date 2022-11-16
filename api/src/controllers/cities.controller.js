@@ -1,30 +1,55 @@
 const axios = require("axios");
-const e = require("express");
-const { City } = require("../models/City");
+const City = require("../models/City.js");
 
-const getCity = async (req, res) => {
+const getCitiesApiSNDG = async (req, res, next) => {
   try {
-    const localidades = await axios.get(
-      "https://apis.datos.gob.ar/georef/api/localidades"
-    );
-    const name1 = await localidades.data.localidades.map((e) => {
-      City.findOrCreate({
-        where: {
-          city: e.localidad_censal.nombre,
-          provincia: e.provincia.nombre,
-        },
-        default: {
-          city: e.localidad_censal.nombre,
-          provincia: e.provincia.nombre,
-        },
-      });
-    });
-    res.status(200).json({ message: "succses", payload: name1 });
-  } catch (error) {
-    res.status(404).json({ message: error.message });
+    let Url =
+      "https://apis.datos.gob.ar/georef/api/municipios?campos=id,nombre,%20provincia.nombre&max=5000";
+    let cities = await axios.get(Url);
+    return cities;
+  } catch (err) {
+    console.log(err);
   }
 };
 
-module.exports = {
-  getCity,
+const UpCities = async (req, res, next) => {
+  try {
+    let cities = await getCitiesApiSNDG();
+    // console.log(cities.data.municipios);
+    await Promise.all(
+      cities.data.municipios.map(
+        async (e) =>
+          await City.findOrCreate({
+            where: {
+              idCity: e.id,
+              city: e.nombre,
+              provincia: e.provincia.nombre,
+            },
+          })
+      )
+    ).then(() => console.log("UpCities"));
+  } catch (err) {
+    console.log(err);
+  }
 };
+
+const getCities = async (req, res, next) => {
+  try {
+    let cities = await City.findAll();
+
+    res.status(200).json({ Message: "Succes", payload: cities });
+  } catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+};
+
+const getCitiesApi = async (req, res, next) => {
+  try {
+    let cities = await getCitiesApiSNDG();
+    res.status(200).json({ Message: "Succes", payload: cities.data });
+  } catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+};
+
+module.exports = { getCitiesApi, getCities, UpCities, getCitiesApiSNDG };

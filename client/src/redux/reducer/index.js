@@ -13,7 +13,7 @@ export default function rootReducer(state = initialState,action){
             return{
                 ...state,
                 allProperties: action.payload,
-                properties: [...action.payload]
+                properties: [action.payload]
                 
             }
 

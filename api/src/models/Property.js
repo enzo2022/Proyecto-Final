@@ -9,12 +9,11 @@ const Property = sequelize.define(
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
       primaryKey: true,
     },
     id_User: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
+      type: DataTypes.UUID,
+      allowNull: false,
     },
     address: {
       type: DataTypes.STRING,
@@ -62,10 +61,10 @@ const Property = sequelize.define(
       type: DataTypes.ENUM("Casa", "PH", "Departamento", "Finca"),
       allowNull: false,
     },
-    // idCity: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: false,
-    // },
+    idCity: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -75,11 +74,7 @@ const Property = sequelize.define(
       allowNull: false,
     },
     state_modality: {
-      type: DataTypes.ENUM("Alquilado", "Vendida"),
-      allowNull: false,
-    },
-    observation: {
-      type: DataTypes.TEXT,
+      type: DataTypes.ENUM("Alquilado", "Vendida", "Pendiente"),
       allowNull: false,
     },
     services: {
@@ -88,14 +83,26 @@ const Property = sequelize.define(
     },
     published: {
       type: DataTypes.ENUM("Revision", "Cancelada", "Publicada"),
-      allowNull: false,
+      allowNull: true,
     },
     geolocation: {
-      type: DataTypes.JSON("Latitud", "Longitud"),
-      allowNull: false,
+      type: DataTypes.JSON(),
+      allowNull: true,
+    },
+    observation: {
+      type: DataTypes.TEXT,
+      allowNull: true,
     },
     state: {
       type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      get() {
+        if (this.getDataValue("state")) {
+          return "Activado";
+        } else {
+          return "Desactivado";
+        }
+      },
     },
   },
   {
@@ -104,8 +111,6 @@ const Property = sequelize.define(
 );
 
 //muchas porpiedades pertenecen a un usuario
-Property.belongsTo(Users, { foreignKey: "User_Property", targetKey: "id" }); // 1 a muchos
-Users.hasMany(Property, { foreignKey: "User_Property" });
 
 module.exports = Property;
 
