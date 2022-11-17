@@ -61,11 +61,18 @@ const login = async (req, res) => {
     if (!bcrypt.compareSync(password, user.password))
       throw new Error("Password incorrecto");
 
-    const token = jwt.sign({ user }, secret, { expiresIn: expires });
+    let sendData = {
+      email: user.email,
+      idUser: user.id_User,
+      photo: user.photo,
+      userType: user.user_type,
+    };
 
-    res.status(200).json({ user: user, token: token });
+    const token = jwt.sign({ sendData }, secret, { expiresIn: expires });
+
+    res.status(200).json({ user: sendData, token: token });
   } catch (error) {
-    res.status(400).json({ Error: error });
+    res.status(400).json({ Error: error.message });
   }
 };
 
