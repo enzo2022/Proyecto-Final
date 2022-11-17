@@ -1,5 +1,5 @@
-
 const { Router } = require("express");
+const router = Router()
 // Importar todos los routers;
 
 const router_cities = require("./router_cities");
