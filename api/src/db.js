@@ -52,3 +52,4 @@ module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { City, Property, User } = require('./db.js');
   conn: sequelize, // para importar la conexión { conn } = require('./db.js');
 };
+//hola
