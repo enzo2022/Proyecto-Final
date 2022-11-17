@@ -7,10 +7,9 @@ const { transport, registerMessage } = require("../utils/nodemailer.js");
 //TRANSPORT NODEMAILER CONFIGURATION
 
 //FUNTION SIGNUP USER
-const signUp = async (req, res) => {
+const createUser = async (req, res) => {
   try {
-    const { email, userName, password, photo, cellphone } = req.body;
-    console.log(email);
+    const { email, userName, password, photo, cellphone, user_type } = req.body;
 
     const findUser = await User.findOne({
       where: { email: email },
@@ -31,6 +30,7 @@ const signUp = async (req, res) => {
         ? photo
         : "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg",
       cellphone,
+      user_type,
     });
 
     const info = await transport.sendMail(registerMessage(userName, email));
@@ -46,31 +46,31 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({
+    const serachUser = await User.findOne({
       where: { email: email },
       include: { model: Property },
     });
 
-    if (!user) {
+    if (!serachUser) {
       return res.status(404).json({
         ok: false,
         err: { message: "La cuenta no existe, deberias loguearte!" },
       });
     }
 
-    if (!bcrypt.compareSync(password, user.password))
+    if (!bcrypt.compareSync(password, serachUser.password))
       throw new Error("Password incorrecto");
 
-    let sendData = {
-      email: user.email,
-      idUser: user.id_User,
-      photo: user.photo,
-      userType: user.user_type,
+    let user = {
+      email: serachUser.email,
+      id_User: serachUser.id_User,
+      photo: serachUser.photo,
+      user_type: serachUser.user_type,
     };
 
-    const token = jwt.sign({ sendData }, secret, { expiresIn: expires });
+    const token = jwt.sign({ user }, secret, { expiresIn: expires });
 
-    res.status(200).json({ user: sendData, token: token });
+    res.status(200).json({ user: user, token: token });
   } catch (error) {
     res.status(400).json({ Error: error.message });
   }
@@ -86,45 +86,32 @@ const getUsers = async (req, res) => {
   }
 };
 
-const validate = async (req, res) => {
+const prueba = (req, res) => {
   try {
-    const { password, email } = req.body;
-    let userEmail = await User.findOne({
-      where: { email: email },
-    });
-    if (!userEmail) return res.json({ message: "Email or password incorrect" });
-
-    let match = await bcrypt.compare(password, userEmail.password);
-    if (match) {
-      return res.json({ Message: "Correct password" });
-    } else {
-      return res.json({ Message: "Email or password incorrect" });
-    }
+    res
+      .status(200)
+      .json("ACCESO PERMITIDO PEUS ERES=> SOLO PEUDEN ENTRAR PREMIUN Y ADMIN");
   } catch (err) {
-    res.status(400).json({ Error: err.message });
+    res.status(400).json(err.message);
   }
 };
-const UpUsers = async (req, res, next) => {
+
+const pruebados = (req, res) => {
   try {
-    for (let i = 0; i < data.length; i++) {
-      let { userName, photo, password, email, cellphone } = data[i];
-      let createUser = await User.create({
-        email: email,
-        userName: userName,
-        password: password,
-        photo: photo,
-        cellphone: cellphone,
-      });
-    }
+    res
+      .status(200)
+      .json(
+        "ACCESO PERMITIDO PUES ERES =>  PUEDEN ENTRAR PREMIUN ADMIN Y LOGGED"
+      );
   } catch (err) {
-    console.log("UpUsers : ", err);
+    res.status(400).json(err.message);
   }
 };
 
 module.exports = {
-  UpUsers,
   getUsers,
-  validate,
-  signUp,
+  createUser,
   login,
+  prueba,
+  pruebados,
 };

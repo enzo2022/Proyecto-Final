@@ -38,8 +38,13 @@ module.exports = (sequelize) => {
       },
 
       user_type: {
-        type: DataTypes.ENUM("Admin", "Usuario"),
-        defaultValue: "Usuario",
+        type: DataTypes.ENUM(
+          "admin",
+          "userPremiun",
+          "userLogged",
+          "userNotLogged"
+        ),
+        defaultValue: "userNotLogged",
       },
 
       id_membership: {
