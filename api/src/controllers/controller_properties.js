@@ -1,3 +1,5 @@
+const url = require("../Utils/imageUploader");
+const cloudinary = require("../Utils/cloudinary");
 const { Property } = require("../db.js");
 // const {
 //   transport,
@@ -5,7 +7,49 @@ const { Property } = require("../db.js");
 //   // messageProperties,
 // } = require("../utils/nodemailer.js");
 
+
+
+//CREAR PROPERTIS CON IMAGE
+
+const addImage = async (req) => {
+  const { id, image,  } =
+    req.body;
+
+    try {
+      const propertyImage = await cloudinary.uploader.upload(
+        image,
+        {
+          upload_preset: "yvjjtrzu",
+          public_id: `algo`,
+          allowed_formats: ["png", "jpg", "jpeg"],
+        },
+        function (error, result) {
+          if (error) {
+            console.log(error);
+          }
+          console.log(result);
+        }
+      );
+      const newProperties = await product.create({
+        image: [productImage.url],
+      });
+ 
+      // await p.addProduct(newProduct);
+      return "Producto creado con exito";
+    } catch (error) {
+      console.log(error);
+    }
+    //console.log(arrayImages)
+
+};
+
+ 
+
+
 //create properties //POST AL FRONT
+
+
+
 const createProperty = async (req, res) => {
   try {
     // if (
