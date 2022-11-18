@@ -1,6 +1,25 @@
 const url = require("../Utils/imageUploader");
 const cloudinary = require("../Utils/cloudinary");
 const { Property } = require("../db.js");
+
+
+
+//IMAGE UPLOAD CONFIGURATION
+const multer = require("multer");
+const storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+const imageFilter = function(req, file, cb) {
+  // accept image files only
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    return cb(new Error("Only image files are accepted!"), false);
+  }
+  cb(null, true);
+};
+const upload = multer({ storage: storage, fileFilter: imageFilter });
+
 // const {
 //   transport,
 //   registerMessage,
@@ -11,37 +30,45 @@ const { Property } = require("../db.js");
 
 //CREAR PROPERTIS CON IMAGE
 
-const addImage = async (req) => {
-  const { id, image,  } =
-    req.body;
-
-    try {
-      const propertyImage = await cloudinary.uploader.upload(
-        image,
-        {
-          upload_preset: "yvjjtrzu",
-          public_id: `algo`,
-          allowed_formats: ["png", "jpg", "jpeg"],
-        },
-        function (error, result) {
-          if (error) {
-            console.log(error);
-          }
-          console.log(result);
-        }
-      );
-      const newProperties = await product.create({
-        image: [productImage.url],
-      });
+const addImage = async (req, res) => {
+  
+  
+      const {  image  } =
+        req.body;
+           res.send("ok Post Image")
+        try {
+          const propertyImage = await cloudinary.uploader.upload(
+            image,
+            {
+              upload_preset: "propertiesyou",
+              public_id: `algo`,
+              allowed_formats: ["png", "jpg", "jpeg"],
+              file:"file"
+            },
+            function (error, result) {
+              if (error) {
+                console.log(error);
+              }
+              console.log(result);
+            }
+          );
+ 
+      
+      // const newProperties = await product.create({
+      //   image: [productImage.url],  --> aca usamos multer 
+      // });  
  
       // await p.addProduct(newProduct);
-      return "Producto creado con exito";
-    } catch (error) {
-      console.log(error);
-    }
-    //console.log(arrayImages)
+      res.status(200).json({ Message: "Success", payload: propertyImage})
+    
+      
+    
+  } catch (error) {
+    console.log(error);
+  }
+  // //console.log(arrayImages)
+}
 
-};
 
  
 
@@ -120,4 +147,7 @@ module.exports = {
   getAllProperties,
   findPropertyById,
   getAllAddress,
+  addImage,
+  upload
+
 };

@@ -21,4 +21,7 @@ router.get("/properties/findById/:id", controller.findPropertyById);
 //Get all address
 router.get("/properties/getAllAddress", controller.getAllAddress);
 
+//Post IMAGEEEE 
+router.post("/properties/image", controller.addImage);
+
 module.exports = router;
