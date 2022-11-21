@@ -24,50 +24,12 @@ const registerMessage = (userName, email) => {
   </div>`,
   });
 };
-
-// const messageProperties = {
-//   from: `${user}`,
-//   to: "pfgrupo05@gmail.com",
-//   subject: `${modality} - ${addrres} - ${price} `,
-//   text: `Solicitud ${modality}`,
-//   html: `<div style="text-align:center;">
-
-//   <p>Dirección:${address}</p>
-//   <p>Area:${area}</p>
-//   <p>Habitaciones:${bathrooms}</p>
-//   <p>Ambientes:${enviroments}</p>
-//   <p>Antiguedad:${antiquity}</p>
-//   <p>Pisos:${floors}</p>
-//   <p>Baños:${rooms}</p>
-//   <p>Garages:${garage}</p>
-//   <p>	Precio:${price}</p>
-//   <p>Tipo_Inmueble:${type}</p>
-//   <p>Ciudad:${id_city}</p>
-//   <p>descripción:${description}</p>
-//   <p>modalidad:${modality}</p>
-//   <p>Obs:${observation}</p>
-//   <p>Imagenes:${images}</p>
-//   <p>Servicios:${services}</p>
-//   <p>Geolocalizacion:${geolocation}</p>
-
-//   <p>Nombre: ${name}</p>
-//         </br>
-//         <p>Localizacion: ${
-//           (geolocalizacion.longitude, geolocalizacion.latitude)
-//         }</p>
-//         <p>Direccion: ${address}</p>
-//         <p>Tipo: ${type}</p>
-//         <p>Precio: ${price}</p>
-//         <p>Para: ${modalite}</p>
-//         <p>Habitaciones: ${rooms}</p>
-//         <p>Pisos: ${floors}</p>
-//         <p>Garage: ${garage}</p>
-//         <p>M2: ${m2}</p>
-//         <p>Descripcion: ${description}</p>
-//         <p>Expensas: ${expenses}</p>
-//         <p>Vendedor: ${seller}</p>
-//  <div style="text-align:center;">
-//   <img src=${images} alt="thanks!" />
-//   </div>`,
-// };
-module.exports = { transport, registerMessage };
+const registerMessageProperty = (email, userName) => {
+  const messageProperties = {
+    from: "'Properties&you' <pfgrupo05a@gmail.com>",
+    to: email,
+    subject: `Gracias  ${userName} por postular tu propiedad en Properties&you `,
+  };
+  return messageProperties;
+};
+module.exports = { transport, registerMessage, registerMessageProperty };
