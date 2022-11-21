@@ -1,15 +1,26 @@
-const { Property } = require("../db.js");
-// const {
-//   transport,
-//   registerMessage,
-//   // messageProperties,
-// } = require("../utils/nodemailer.js");
+const { Property, User } = require("../db.js");
+const {
+  messageForClient,
+  transport,
+} = require("../utils/nodemailer/nodemailer.js");
 
 //create properties //POST AL FRONT
 const createProperty = async (req, res) => {
   try {
+    const { id_User } = req.body;
     // if (
-    //   // !Object.values(req.body).every(Boolean) ||
+    //   !Object.values(
+    //     id_User,
+    //     addrres,
+    //     price,
+    //     floors,
+    //     antiquity,
+    //     modality,
+    //     address,
+    //     area,
+    //     bathrooms,
+    //     enviroments
+    //   ).every(Boolean) ||
     //   !images.length ||
     //   !services.length
     // ) {
@@ -17,7 +28,7 @@ const createProperty = async (req, res) => {
     // }
     const properties = await Property.create(req.body);
 
-    // messageProperties(properties);
+    // const client = await transport.sendMail(messageForClient);
     res.status(201).json({
       Message: "Propiedad creada",
       payload: properties,
@@ -75,5 +86,6 @@ module.exports = {
   createProperty,
   getAllProperties,
   findPropertyById,
+  getAllAddress,
   getAllAddress,
 };
