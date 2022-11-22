@@ -21,4 +21,11 @@ router.get("/properties/findById/:id", controller.findPropertyById);
 //Get all address
 router.get("/properties/getAllAddress", controller.getAllAddress);
 
+//logicalDeleteion route
+router.put(
+  "/properties/disableProperty/:id",
+  verifyTokenAdminPremiun,
+  controller.disableProperty
+);
+
 module.exports = router;

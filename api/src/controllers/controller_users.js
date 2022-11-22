@@ -5,9 +5,10 @@ const { JWT_SECRET, JWT_EXPIRES } = process.env;
 const notifier = require("node-notifier");
 const path = require("path");
 const { User, Property } = require("../db.js");
-const { transport, registerMessage } = require("../utils/nodemailer.js");
-
-//TRANSPORT NODEMAILER CONFIGURATION
+const {
+  transport,
+  registerMessage,
+} = require("../utils/nodemailer/nodemailer.js");
 
 //FUNTION SIGNUP USER
 const createUser = async (req, res) => {
@@ -51,15 +52,17 @@ const createUser = async (req, res) => {
         console.log(err, response);
       }
     );
-    const info = await transport.sendMail(registerMessage(userName, email));
 
-    return res.status(200).send("Usuario creado");
-  } catch (e) {
-    return res.status(500).send({ Error: e.message });
+    //NODEMAILER, SEND EMAIL TO USER
+    // const info = await transport.sendMail(registerMessage(userName, email));
+
+    return res.status(200).send({ Message: "Usuario creado" });
+  } catch (err) {
+    return res.status(500).send({ Error: err.message });
   }
 };
 
-//FUNTION LOGIN USER
+//FUNTION LOGIN USER => POST
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -77,6 +80,8 @@ const login = async (req, res) => {
         },
       });
     }
+    if (!email || !password)
+      return res.send({ Message: "Necesitas ingresar usuario y contraseña" });
 
     if (!bcrypt.compareSync(password, serachUser.password))
       throw new Error("Password incorrecto");
@@ -92,7 +97,7 @@ const login = async (req, res) => {
       expiresIn: JWT_EXPIRES,
     });
 
-    res.status(200).json({ user: user, token: token });
+    res.status(200).json({ Message: user, token: token });
   } catch (error) {
     res.status(400).json({ Error: error.message });
   }
@@ -102,31 +107,30 @@ const login = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     let users = await User.findAll();
+    if (!users.length)
+      return res.send({ Message: "No hay usuarios en la base de datos" });
+
     res.status(200).json({ Message: "Success", payload: users });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
 };
 
-const prueba = (req, res) => {
+const uplaodUser = async (req, res) => {
+  const { id_user } = req.params;
   try {
-    res
-      .status(200)
-      .json("ACCESO PERMITIDO PEUS ERES=> SOLO PEUDEN ENTRAR PREMIUN Y ADMIN");
-  } catch (err) {
-    res.status(400).json(err.message);
-  }
-};
+    let user = await User.findByPk(id_user);
 
-const pruebados = (req, res) => {
-  try {
-    res
-      .status(200)
-      .json(
-        "ACCESO PERMITIDO PUES ERES =>  PUEDEN ENTRAR PREMIUN ADMIN Y LOGGED"
-      );
+    const newUploadUser = await User.update(req.body, {
+      where: {
+        id_User: id_user,
+      },
+    });
+
+    if (newUploadUser[0] === 0) throw new Error("Id inexistente");
+    res.status(200).send({ Message: user });
   } catch (err) {
-    res.status(400).json(err.message);
+    res.status(404).send({ Error: err.message });
   }
 };
 
@@ -134,6 +138,5 @@ module.exports = {
   getUsers,
   createUser,
   login,
-  prueba,
-  pruebados,
+  uplaodUser,
 };

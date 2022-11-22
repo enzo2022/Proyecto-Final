@@ -7,8 +7,7 @@ const {
   getUsers,
   createUser,
   login,
-  prueba,
-  pruebados,
+  uplaodUser,
 } = require("../controllers/controller_users");
 
 //Create User
@@ -17,13 +16,9 @@ router.post("/users/createUser", createUser);
 //login
 router.post("/users/login", login);
 
-//verify-token
-router.post("/users/verifytoken", verifyTokenAdminPremiun, prueba);
-
-//verify-toke-user not logged
-router.post("/users/userLogged", verifyTokenUserLogged, pruebados);
-
 //Get all User
 router.get("/users/allUsers", getUsers);
+
+router.put("/users/upload/:id_user", uplaodUser);
 
 module.exports = router;

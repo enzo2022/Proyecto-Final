@@ -3,36 +3,61 @@ const notifier = require("node-notifier");
 const path = require("path");
 const {
   transport,
-  registerMessageProperty,
-} = require("../utils/nodemailer.js");
-
-// const notifier = require("../nodeNotifier/index.js");
+  messageForUsersCreateProperty,
+} = require("../utils/nodemailer/nodemailer.js");
 
 //create properties //POST AL FRONT
 const createProperty = async (req, res) => {
+  const {
+    address,
+    area,
+    bathrooms,
+    environments,
+    antiquity,
+    floors,
+    rooms,
+    garage,
+    price,
+    type,
+    description,
+  } = req.body;
+
   try {
-    const { id_User } = req.body;
-    // if (
-    //   // !Object.values(req.body).every(Boolean) ||
-    //   !images.length ||
-    //   !services.length
-    // ) {
-    //   throw new Error("Faltan completar datos");
-    // }
-    const findUser = await User.findOne({
-      where: {
-        id_User: id_User,
-      },
-    });
+    if (
+      ![
+        address,
+        area,
+        bathrooms,
+        environments,
+        antiquity,
+        floors,
+        rooms,
+        garage,
+        price,
+        type,
+        description,
+      ].every(Boolean)
+    ) {
+      throw new Error("Faltan completar datos");
+    }
     const properties = await Property.create(req.body);
-    const email = findUser._previousDataValues.email;
-    const userName = findUser._previousDataValues.userName;
 
-    const stateMail = await transport.sendMail(
-      registerMessageProperty(email, userName)
-    );
+    const { id_User } = req.body;
 
-    //notify property created succes
+    // const findUser = await User.findOne({
+    //   where: {
+    //     id_User: id_User,
+    //   },
+    // });
+
+    // const email = findUser._previousDataValues.email;
+    // const userName = findUser._previousDataValues.userName;
+
+    // const stateMail = await transport.sendMail(
+    //   messageForUsersCreateProperty(email, userName)
+    // );
+
+    // notify property created succes
     notifier.notify(
       {
         sound: true,
@@ -101,9 +126,36 @@ const getAllAddress = async (req, res) => {
   }
 };
 
+//Borrado logico Property => PUT
+const disableProperty = async (req, res) => {
+  const { id } = req.params;
+  const { state } = req.body;
+  console.log(state);
+  try {
+    const searchPropertyById = await Property.findByPk(id);
+
+    if (!searchPropertyById) return res.send("Propiedad no encontrada");
+    console.log(searchPropertyById.toJSON().state);
+
+    const uploadProperty = await Property.update(
+      { ...req.body, state: !state },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+
+    res.status(200).send({ Message: uploadProperty });
+  } catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+};
+
 module.exports = {
   createProperty,
   getAllProperties,
   findPropertyById,
   getAllAddress,
+  disableProperty,
 };
