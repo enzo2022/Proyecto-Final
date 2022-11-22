@@ -2,14 +2,13 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { JWT_SECRET, JWT_EXPIRES } = process.env;
-
+const notifier = require("node-notifier");
+const path = require("path");
 const { User, Property } = require("../db.js");
 const {
   transport,
   registerMessage,
 } = require("../utils/nodemailer/nodemailer.js");
-
-//TRANSPORT NODEMAILER CONFIGURATION
 
 //FUNTION SIGNUP USER
 const createUser = async (req, res) => {
@@ -38,17 +37,32 @@ const createUser = async (req, res) => {
       user_type,
     });
 
-    // const emailInfo = await transport.sendMail(
-    //   registerMessage(userName, email)
-    // );
+    //notify property created succes
+    notifier.notify(
+      {
+        sound: true,
+        wait: true,
+        title: `Bienvenid@ ${myuser.userName}! `,
+        message: "Gracias por registrarte en Properties&&you",
+        icon: path.join(
+          "https://res.cloudinary.com/dg05pzjsq/image/upload/v1669030750/propertiesandyouicon_c9h24a.png"
+        ),
+      },
+      function (err, response) {
+        console.log(err, response);
+      }
+    );
+
+    //NODEMAILER, SEND EMAIL TO USER
+    // const info = await transport.sendMail(registerMessage(userName, email));
 
     return res.status(200).send({ Message: "Usuario creado" });
-  } catch (e) {
-    return res.status(500).send({ Error: e.message });
+  } catch (err) {
+    return res.status(500).send({ Error: err.message });
   }
 };
 
-//FUNTION LOGIN USER
+//FUNTION LOGIN USER => POST
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -66,6 +80,8 @@ const login = async (req, res) => {
         },
       });
     }
+    if (!email || !password)
+      return res.send({ Message: "Necesitas ingresar usuario y contraseña" });
 
     if (!bcrypt.compareSync(password, serachUser.password))
       throw new Error("Password incorrecto");
@@ -91,6 +107,9 @@ const login = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     let users = await User.findAll();
+    if (!users.length)
+      return res.send({ Message: "No hay usuarios en la base de datos" });
+
     res.status(200).json({ Message: "Success", payload: users });
   } catch (err) {
     res.status(400).json({ Error: err.message });

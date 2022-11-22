@@ -1,34 +1,78 @@
 const { Property, User } = require("../db.js");
+const notifier = require("node-notifier");
+const path = require("path");
 const {
-  messageForClient,
   transport,
+  messageForUsersCreateProperty,
 } = require("../utils/nodemailer/nodemailer.js");
 
 //create properties //POST AL FRONT
 const createProperty = async (req, res) => {
+  const {
+    address,
+    area,
+    bathrooms,
+    environments,
+    antiquity,
+    floors,
+    rooms,
+    garage,
+    price,
+    type,
+    description,
+  } = req.body;
+
   try {
-    const { id_User } = req.body;
-    // if (
-    //   !Object.values(
-    //     id_User,
-    //     addrres,
-    //     price,
-    //     floors,
-    //     antiquity,
-    //     modality,
-    //     address,
-    //     area,
-    //     bathrooms,
-    //     enviroments
-    //   ).every(Boolean) ||
-    //   !images.length ||
-    //   !services.length
-    // ) {
-    //   throw new Error("Faltan completar datos");
-    // }
+    if (
+      ![
+        address,
+        area,
+        bathrooms,
+        environments,
+        antiquity,
+        floors,
+        rooms,
+        garage,
+        price,
+        type,
+        description,
+      ].every(Boolean)
+    ) {
+      throw new Error("Faltan completar datos");
+    }
     const properties = await Property.create(req.body);
 
-    // const client = await transport.sendMail(messageForClient);
+    const { id_User } = req.body;
+
+    // const findUser = await User.findOne({
+    //   where: {
+    //     id_User: id_User,
+    //   },
+    // });
+
+    // const email = findUser._previousDataValues.email;
+    // const userName = findUser._previousDataValues.userName;
+
+    // const stateMail = await transport.sendMail(
+    //   messageForUsersCreateProperty(email, userName)
+    // );
+
+    // notify property created succes
+    notifier.notify(
+      {
+        sound: true,
+        wait: true,
+        title: `Propiedad creada con exito! `,
+        message: "Gracias por confiar en Properties&&you",
+        icon: path.join(
+          "https://res.cloudinary.com/dg05pzjsq/image/upload/v1669030750/propertiesandyouicon_c9h24a.png"
+        ),
+      },
+      function (err, response) {
+        console.log(err, response);
+      }
+    );
+
     res.status(201).json({
       Message: "Propiedad creada",
       payload: properties,
@@ -82,10 +126,36 @@ const getAllAddress = async (req, res) => {
   }
 };
 
+//Borrado logico Property => PUT
+const disableProperty = async (req, res) => {
+  const { id } = req.params;
+  const { state } = req.body;
+  console.log(state);
+  try {
+    const searchPropertyById = await Property.findByPk(id);
+
+    if (!searchPropertyById) return res.send("Propiedad no encontrada");
+    console.log(searchPropertyById.toJSON().state);
+
+    const uploadProperty = await Property.update(
+      { ...req.body, state: !state },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+
+    res.status(200).send({ Message: uploadProperty });
+  } catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+};
+
 module.exports = {
   createProperty,
   getAllProperties,
   findPropertyById,
   getAllAddress,
-  getAllAddress,
+  disableProperty,
 };
