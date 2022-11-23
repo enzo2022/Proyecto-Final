@@ -120,9 +120,13 @@ const getAllAddress = async (req, res) => {
       attributes: ["address"],
     });
 
-    res.status(200).json({ address: addressUser });
+    //Send all address to frontend array string
+    let arrAddress = [];
+    addressUser.forEach((el) => arrAddress.push(el.toJSON().address));
+
+    res.status(200).json({ Message: arrAddress });
   } catch (err) {
-    res.status(400).json({ Error: "No hay direcciones en la tabla" });
+    res.status(400).json({ Error: err.message });
   }
 };
 
