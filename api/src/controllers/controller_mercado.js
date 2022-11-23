@@ -1,17 +1,26 @@
-//ACCES_TOKEN= process.env.ACCESS_TOKEN
-const mercadoPago = require("../utils/mercadopago");
+const mercadopago = require("mercadopago");
 
-//mp
-const premiumController = async (req, res) => {
-  try {
+//Harcodeo el Acces Token
+mercadopago.configure({
+  access_token:
+    "APP_USR-8932710584644285-112219-78d220634cd77b58987c834d1f4a172c-1245736185",
+});
+
+const premiumController =
+  ("/",
+  (req, res) => {
     let preference = {
       items: [
         {
-          title: "User Premium",
+          id: 123,
+          title: "Mi producto",
+          unit_price: 100,
           quantity: 1,
-          unit_price: 200,
+          currency_id: "ARS",
         },
       ],
+
+      //notification_url: "https://misitio/api", //redirige despues de la compra
       back_urls: {
         failure: "http://localhost:3001/PaymentFail",
         pending: "http://localhost:3001/PaymentFail",
@@ -19,12 +28,19 @@ const premiumController = async (req, res) => {
       },
       auto_return: "approved",
     };
-    const response = await mercadoPago.preferences.create(preference);
-    const preferenceId = response.body.init_point;
-    res.redirect(preferenceId);
-  } catch (error) {
-    throw Error("Payment error");
-  }
-};
+
+    mercadopago.preferences
+      .create(preference)
+      .then(function (response) {
+        // En esta instancia deberás asignar el valor dentro de response.body.id por el ID de preferencia solicitado en el siguiente paso
+
+        console.log(response.body.init_point);
+        res.redirect(response.body.init_point);
+      })
+
+      .catch(function (error) {
+        console.log(error);
+      });
+  });
 
 module.exports = { premiumController };

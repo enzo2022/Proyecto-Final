@@ -3,6 +3,6 @@ const { premiumController } = require("../controllers/controller_mercado");
 
 const router = Router();
 
-router.post("/premium", premiumController);
+router.post("/payments", premiumController);
 
 module.exports = router;
