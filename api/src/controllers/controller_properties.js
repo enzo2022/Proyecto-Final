@@ -106,6 +106,7 @@ const findPropertyById = async (req, res) => {
     const { id } = req.params;
 
     const searchByPK = await Property.findByPk(id);
+
     if (!searchByPK) throw new Error("Id inexistente");
 
     res.status(200).json({ Message: "Succes", paylaod: searchByPK });
