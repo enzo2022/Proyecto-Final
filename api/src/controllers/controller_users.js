@@ -104,6 +104,7 @@ const login = async (req, res) => {
 };
 
 //GET ALL users / GET AL FRONT
+//agregar tipo membresia
 const getUsers = async (req, res) => {
   try {
     let users = await User.findAll();

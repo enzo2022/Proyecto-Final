@@ -34,7 +34,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { City, Property, User, Favorite, Feedback } = sequelize.models;
+const { City, Property, User, Favorite, Feedback, Membership, MembershipType } =
+  sequelize.models;
 
 // Relationships between the tables
 // Product.hasMany(Reviews);
@@ -54,6 +55,14 @@ User.hasMany(Favorite, { foreignKey: "id_User" });
 //Relacion 1:M=>Propiedad=>Comentarios
 Feedback.belongsTo(Property, { foreignKey: "id_Property" });
 Property.hasMany(Feedback, { foreignKey: "id_Property" });
+
+// //Relacion 1:M => User => Membership
+// Membership.belongsTo(User, { foreignKey: "id_Membership" });
+// User.hasMany(Membership, { foreignKey: "id_Membership" });
+
+// //Relacion 1:M=> Membership => membership_type
+Membership.belongsTo(MembershipType, { foreignKey: "id_Membership_type" });
+MembershipType.hasMany(Membership, { foreignKey: "id_Membership_type" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { City, Property, User } = require('./db.js');
