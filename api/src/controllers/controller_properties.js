@@ -106,6 +106,7 @@ const findPropertyById = async (req, res) => {
     const { id } = req.params;
 
     const searchByPK = await Property.findByPk(id);
+
     if (!searchByPK) throw new Error("Id inexistente");
 
     res.status(200).json({ Message: "Succes", paylaod: searchByPK });
@@ -123,7 +124,6 @@ const getAllAddress = async (req, res) => {
     //Send all address to frontend array string
     let arrAddress = [];
     addressUser.forEach((el) => arrAddress.push(el.toJSON().address));
-
     res.status(200).json({ Message: arrAddress });
   } catch (err) {
     res.status(400).json({ Error: err.message });
@@ -134,7 +134,7 @@ const getAllAddress = async (req, res) => {
 const disableProperty = async (req, res) => {
   const { id } = req.params;
   const { state } = req.body;
-  console.log(state);
+
   try {
     const searchPropertyById = await Property.findByPk(id);
 

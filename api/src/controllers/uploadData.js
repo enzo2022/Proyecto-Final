@@ -17,16 +17,16 @@ const {
 } = require("../utils/fakeData.js");
 
 const UploadData = async (req, res, next) => {
-  // await UploadCities();
-  // await UploadUsers();
-  // await UploadProperties();
-  // await UploadFavorites();
+  await UploadCities();
+  await UploadUsers();
+  await UploadProperties();
+  await UploadFavorites();
   await UploadMemberships_types();
   await UploadMemberships();
-  // console.log("Cities: ", await City.count());
-  // console.log("Users: ", await User.count());
-  // console.log("Properties: ", await Property.count());
-  // console.log("Favorites: ", await Favorite.count());
+  console.log("Cities: ", await City.count());
+  console.log("Users: ", await User.count());
+  console.log("Properties: ", await Property.count());
+  console.log("Favorites: ", await Favorite.count());
   console.log("MembershipTypes: ", await MembershipType.count());
   console.log("MembershipTypes: ", await MembershipType.count());
 
