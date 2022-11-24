@@ -139,7 +139,6 @@ const disableProperty = async (req, res) => {
     const searchPropertyById = await Property.findByPk(id);
 
     if (!searchPropertyById) return res.send("Propiedad no encontrada");
-    console.log(searchPropertyById.toJSON().state);
 
     const uploadProperty = await Property.update(
       { ...req.body, state: !state },
