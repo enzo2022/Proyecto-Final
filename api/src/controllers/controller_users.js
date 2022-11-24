@@ -4,7 +4,13 @@ require("dotenv").config();
 const { JWT_SECRET, JWT_EXPIRES } = process.env;
 const notifier = require("node-notifier");
 const path = require("path");
-const { User, Property, Favorite, Membership } = require("../db.js");
+const {
+  User,
+  Property,
+  Favorite,
+  Membership,
+  MembershipType,
+} = require("../db.js");
 
 const {
   transport,
@@ -113,7 +119,7 @@ const login = async (req, res) => {
 const getAll = async (req, res) => {
   try {
     let users = await User.findAll({
-      include: { model: Membership },
+      include: { model: Membership, include: { model: MembershipType } },
     });
 
     if (!users.length)
