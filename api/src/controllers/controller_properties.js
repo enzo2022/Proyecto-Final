@@ -42,7 +42,7 @@ const createProperty = async (req, res) => {
     }
     const properties = await Property.create(req.body);
 
-    const { id_User } = req.body;
+    // const { id_User } = req.body;
 
     // const findUser = await User.findOne({
     //   where: {
@@ -89,14 +89,12 @@ const getAllProperties = async (req, res) => {
       include: { model: Feedback },
     });
 
-    // if (!properties.length && false) throw new Error("No hay propeidades");
+
+   
     if (!properties.length) throw new Error("No hay propiedades");
 
+
     res.status(200).json({ Message: "Success", payload: properties });
-    // res.status(200).json({
-    //   Message: "Succes",
-    //   payload: [...properties, ...require("../utils/fakeProperties.json")],
-    // });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
@@ -161,10 +159,35 @@ const disableProperty = async (req, res) => {
   }
 };
 
+const uplaodProperty = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // let findProperty = await Property.findByPk(id);
+
+    const newUploadProperty = await Property.update(req.body, {
+      where: {
+        id: id,
+      },
+    });
+
+    const updatedProperty = req.body;
+
+    if (newUploadProperty[0] === 0) throw new Error("Propiedad inexistente");
+
+    res
+      .status(200)
+      .json({ Message: "Propeidad actualizada!", payload: updatedProperty });
+  } catch (err) {
+    res.status(404).json({ Error: err.message });
+  }
+};
+
 module.exports = {
   createProperty,
   getAllProperties,
   findPropertyById,
   getAllAddress,
   disableProperty,
+  uplaodProperty,
 };

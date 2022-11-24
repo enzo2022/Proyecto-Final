@@ -661,6 +661,7 @@ const dataMemberships = [
   },
 ];
 
+
 const dataFeedback = [
   {
     id_User: "325c1472-31fc-475f-8894-b12daf86b8ee",
@@ -685,6 +686,9 @@ const dataFeedback = [
     id: "a60ee218-be36-4b2e-98a0-e9a08f8c9c28",
     questions: "esta casa no tiene baños ? ",
     answer: " no, pero tiene arboles",
+
+
+
   },
 ];
 
@@ -694,5 +698,8 @@ module.exports = {
   dataFavorites,
   dataMembershipTypes,
   dataMemberships,
+
   dataFeedback,
+
+
 };
