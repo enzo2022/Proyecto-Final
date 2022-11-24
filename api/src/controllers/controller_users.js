@@ -149,9 +149,28 @@ const uplaodUser = async (req, res) => {
   }
 };
 
+const upDate = async (req, res) => {
+  const { id_user } = req.params;
+  try {
+    await User.update(
+      { user_type: "userPremiun" },
+      {
+        where: {
+          id_User: id_user,
+        },
+      }
+    );
+
+    res.status(200).send({ Message: User });
+  } catch (err) {
+    res.status(404).send({ Error: err.message });
+  }
+};
+
 module.exports = {
   getAll,
   createUser,
   login,
   uplaodUser,
+  upDate,
 };

@@ -8,6 +8,7 @@ const {
   createUser,
   login,
   uplaodUser,
+  upDate,
 } = require("../controllers/controller_users");
 
 //Create User
@@ -20,5 +21,7 @@ router.post("/users/login", login);
 router.get("/users/allUsers", getAll);
 
 router.put("/users/upload/:id_user", uplaodUser);
+
+router.put("/users/upDate/:id_user", upDate);
 
 module.exports = router;
