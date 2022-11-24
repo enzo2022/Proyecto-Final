@@ -50,12 +50,12 @@ const createProperty = async (req, res) => {
     //   },
     // });
 
-    // const email = findUser._previousDataValues.email;
-    // const userName = findUser._previousDataValues.userName;
+    const email = findUser._previousDataValues.email;
+    const userName = findUser._previousDataValues.userName;
 
-    // const stateMail = await transport.sendMail(
-    //   messageForUsersCreateProperty(email, userName)
-    // );
+    const stateMail = await transport.sendMail(
+      messageForUsersCreateProperty(email, userName)
+    );
 
     // notify property created succes
     notifier.notify(
@@ -87,14 +87,9 @@ const getAllProperties = async (req, res) => {
   try {
     const properties = await Property.findAll();
 
-    // if (!properties.length && false) throw new Error("No hay propeidades");
     if (!properties.length) throw new Error("No hay propeidades");
 
     res.status(200).json({ Message: "Success", payload: properties });
-    // res.status(200).json({
-    //   Message: "Succes",
-    //   payload: [...properties, ...require("../utils/fakeProperties.json")],
-    // });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }

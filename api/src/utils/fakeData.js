@@ -661,10 +661,30 @@ const dataMemberships = [
   },
 ];
 
+const dataFeedbacks = [
+  {
+    id_Property: "27990073-a398-4df6-89dd-533d457c47e8",
+    id_User: "325c1472-31fc-475f-8894-b12daf86b8ee",
+    comment:
+      "Hola mi nombre es Esteban, me gustaria saber si esta propiedad la tiene la inmobiliaria Remax, muchas gracias!",
+  },
+  {
+    id_Property: "7534a2c1-e1d0-4bad-bd3e-ca805cd2c5ab",
+    id_User: "08f76aa7-5b8f-4b7a-94d4-672a6dcabc95",
+    comment: "Hollaa! esta casa tambien esta en alquiler",
+  },
+  {
+    id_Property: "aed4fe8e-e6a1-4358-b9eb-2fd88bd3e873",
+    id_User: "08f76aa7-5b8f-4b7a-94d4-672a6dcabc95",
+    comment: "Hola me gustaria consultar ",
+  },
+];
+
 module.exports = {
   dataUsers,
   dataProperties,
   dataFavorites,
   dataMembershipTypes,
   dataMemberships,
+  dataFeedbacks,
 };

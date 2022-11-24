@@ -4,7 +4,7 @@ require("dotenv").config();
 const { JWT_SECRET, JWT_EXPIRES } = process.env;
 const notifier = require("node-notifier");
 const path = require("path");
-const { User, Property } = require("../db.js");
+const { User, Property, Favorite } = require("../db.js");
 const {
   transport,
   registerMessage,
@@ -70,6 +70,7 @@ const login = async (req, res) => {
     const serachUser = await User.findOne({
       where: { email: email },
       include: { model: Property },
+      include: { model: Favorite },
     });
 
     if (!serachUser) {
@@ -88,9 +89,11 @@ const login = async (req, res) => {
 
     let user = {
       email: serachUser.email,
+      userName: serachUser.userName,
       id_User: serachUser.id_User,
       photo: serachUser.photo,
       user_type: serachUser.user_type,
+      favorites: serachUser.toJSON().Favorites,
     };
 
     const token = jwt.sign({ user }, JWT_SECRET, {

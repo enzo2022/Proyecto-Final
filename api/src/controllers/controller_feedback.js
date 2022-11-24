@@ -1,4 +1,5 @@
 const { User, Feedback, Property } = require("../db");
+
 const createFeedback = async (req, res) => {
   try {
     var feedback = await Feedback.create(req.body);
@@ -12,7 +13,6 @@ const createFeedback = async (req, res) => {
   }
 };
 
-//
 const feedbackById_Property = async (req, res, next) => {
   console.log("holaaaa");
   try {
