@@ -5,6 +5,7 @@ const {
   Favorite,
   MembershipType,
   Membership,
+  Feedback,
 } = require("../db.js");
 
 const { getCitiesApiSNDG } = require("./controller_cities");
@@ -14,6 +15,7 @@ const {
   dataFavorites,
   dataMembershipTypes,
   dataMemberships,
+  dataFeedbacks,
 } = require("../utils/fakeData.js");
 
 const UploadData = async (req, res, next) => {
@@ -23,14 +25,14 @@ const UploadData = async (req, res, next) => {
   await UploadFavorites();
   await UploadMemberships_types();
   await UploadMemberships();
+  await UploadFeedbacks();
   console.log("Cities: ", await City.count());
   console.log("Users: ", await User.count());
   console.log("Properties: ", await Property.count());
   console.log("Favorites: ", await Favorite.count());
   console.log("MembershipTypes: ", await MembershipType.count());
   console.log("MembershipTypes: ", await MembershipType.count());
-
-  console.log("Membership: ", await Membership.count());
+  console.log("Feedbacks: ", await Feedback.count());
 
   // console.log("MembershipTypes: ", await MembershipType.count());
 };
@@ -91,6 +93,14 @@ const UploadMemberships = async (req, res, next) => {
     Promise.all(dataMemberships.map((e) => Membership.create(e)));
   } catch (error) {
     console.log("controlles.uploaddata.UploadMembership: ", err);
+  }
+};
+
+const UploadFeedbacks = () => {
+  try {
+    Promise.all(dataFeedbacks.map((e) => Feedback.create(e)));
+  } catch (error) {
+    console.log("controlles.uploaddata.UploadFeedback: ", err);
   }
 };
 module.exports = {
