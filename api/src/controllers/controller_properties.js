@@ -1,4 +1,4 @@
-const { Property, User } = require("../db.js");
+const { Property, Feedback } = require("../db.js");
 const notifier = require("node-notifier");
 const path = require("path");
 const {
@@ -100,7 +100,10 @@ const findPropertyById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const searchByPK = await Property.findByPk(id);
+    const searchByPK = await Property.findOne({
+      where: { id: id },
+      include: { model: Feedback },
+    });
 
     if (!searchByPK) throw new Error("Id inexistente");
 
@@ -169,7 +172,7 @@ const uplaodProperty = async (req, res) => {
 
     res
       .status(200)
-      .json({ Message: "Propeidad actualizada!", payload: updatedProperty });
+      .json({ Message: "Propiedad actualizada!", payload: updatedProperty });
   } catch (err) {
     res.status(404).json({ Error: err.message });
   }
