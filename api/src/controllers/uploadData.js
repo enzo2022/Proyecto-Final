@@ -17,9 +17,6 @@ const {
   dataMemberships,
 
   dataFeedback,
-
-  
-
 } = require("../utils/fakeData.js");
 
 const UploadData = async (req, res, next) => {
@@ -32,28 +29,17 @@ const UploadData = async (req, res, next) => {
 
   await UploadFeedback();
 
-
- 
-
   console.log("Cities: ", await City.count());
   console.log("Users: ", await User.count());
   console.log("Properties: ", await Property.count());
   console.log("Favorites: ", await Favorite.count());
   console.log("MembershipTypes: ", await MembershipType.count());
-<<<<<<< HEAD
+
   console.log("Feedbacks: ", await Feedback.count());
   console.log("Membership: ", await Membership.count());
-=======
   console.log("MembershipTypes: ", await MembershipType.count());
 
-  console.log("Membership: ", await Membership.count());
-  console.log("Feeedback:", await Feedback.count());
-
- 
-
-
   // console.log("MembershipTypes: ", await MembershipType.count());
->>>>>>> 18e3794bb9fb5672d81617f0be8f81c4729217a0
 };
 
 const UploadCities = async (req, res, next) => {
@@ -118,9 +104,6 @@ const UploadMemberships = async (req, res, next) => {
 const UploadFeedback = async (req, res, next) => {
   try {
     Promise.all(dataFeedback.map((e) => Feedback.create(e)));
-
-
-
   } catch (error) {
     console.log("controlles.uploaddata.UploadFeedback: ", err);
   }
