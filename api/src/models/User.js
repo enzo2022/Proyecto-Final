@@ -47,11 +47,6 @@ module.exports = (sequelize) => {
         defaultValue: "userNotLogged",
       },
 
-      id_Membership: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-      },
-
       email: {
         type: DataTypes.STRING,
         allowNull: false,

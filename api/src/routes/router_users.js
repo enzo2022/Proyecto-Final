@@ -4,7 +4,7 @@ const verifyTokenAdminPremiun = require("../JWT/verifyTokenAdminPremiun.js");
 const verifyTokenUserLogged = require("../JWT/verifyTokenUserLogged");
 
 const {
-  getUsers,
+  getAll,
   createUser,
   login,
   uplaodUser,
@@ -17,7 +17,7 @@ router.post("/users/createUser", createUser);
 router.post("/users/login", login);
 
 //Get all User
-router.get("/users/allUsers", getUsers);
+router.get("/users/allUsers", getAll);
 
 router.put("/users/upload/:id_user", uplaodUser);
 

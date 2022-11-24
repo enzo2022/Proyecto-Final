@@ -31,10 +31,8 @@ const UploadData = async (req, res, next) => {
   console.log("Properties: ", await Property.count());
   console.log("Favorites: ", await Favorite.count());
   console.log("MembershipTypes: ", await MembershipType.count());
-  console.log("MembershipTypes: ", await MembershipType.count());
   console.log("Feedbacks: ", await Feedback.count());
-
-  // console.log("MembershipTypes: ", await MembershipType.count());
+  console.log("Membership: ", await Membership.count());
 };
 
 const UploadCities = async (req, res, next) => {

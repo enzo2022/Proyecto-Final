@@ -4,7 +4,8 @@ require("dotenv").config();
 const { JWT_SECRET, JWT_EXPIRES } = process.env;
 const notifier = require("node-notifier");
 const path = require("path");
-const { User, Property, Favorite } = require("../db.js");
+const { User, Property, Favorite, Membership } = require("../db.js");
+
 const {
   transport,
   registerMessage,
@@ -71,6 +72,7 @@ const login = async (req, res) => {
       where: { email: email },
       include: { model: Property },
       include: { model: Favorite },
+      include: { model: Membership },
     });
 
     if (!serachUser) {
@@ -108,9 +110,12 @@ const login = async (req, res) => {
 
 //GET ALL users / GET AL FRONT
 //agregar tipo membresia
-const getUsers = async (req, res) => {
+const getAll = async (req, res) => {
   try {
-    let users = await User.findAll();
+    let users = await User.findAll({
+      include: { model: Membership },
+    });
+
     if (!users.length)
       return res.send({ Message: "No hay usuarios en la base de datos" });
 
@@ -139,7 +144,7 @@ const uplaodUser = async (req, res) => {
 };
 
 module.exports = {
-  getUsers,
+  getAll,
   createUser,
   login,
   uplaodUser,

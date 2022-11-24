@@ -57,12 +57,12 @@ Feedback.belongsTo(Property, { foreignKey: "id_Property" });
 Property.hasMany(Feedback, { foreignKey: "id_Property" });
 
 // //Relacion 1:M => User => Membership
-// Membership.belongsTo(User, { foreignKey: "id_Membership" });
-// User.hasMany(Membership, { foreignKey: "id_Membership" });
+Membership.belongsTo(User, { foreignKey: "id_User" });
+User.hasMany(Membership, { foreignKey: "id_User" });
 
 // //Relacion 1:M=> Membership => membership_type
-// Membership.belongsTo(MembershipType, { foreignKey: "id_Membership_type" });
-// MembershipType.hasMany(Membership, { foreignKey: "id_Membership_type" });
+Membership.belongsTo(MembershipType, { foreignKey: "id_Membership_type" });
+MembershipType.hasMany(Membership, { foreignKey: "id_Membership_type" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { City, Property, User } = require('./db.js');

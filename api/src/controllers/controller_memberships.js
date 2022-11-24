@@ -1,4 +1,4 @@
-const { Membership, MembershipType } = require("../db.js");
+const { Membership } = require("../db.js");
 
 // id_Membership: "325c1472-31fc-475f-8894-b12daf86b8ee",
 // id_User: "325c1472-31fc-475f-8894-b12daf86b8ee",
@@ -6,8 +6,13 @@ const { Membership, MembershipType } = require("../db.js");
 // payment: 100,
 
 //INGRESE PAGO
-const makePayment = (req, res) => {
+const createMembership = async (req, res) => {
   try {
+    const createMembership = await Membership.create(req.body);
+
+    res
+      .status(201)
+      .json({ Message: "Membership creado", payload: createMembership });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
@@ -15,3 +20,5 @@ const makePayment = (req, res) => {
 
 //funciomn qiue te devuelva los usuario dependiendo
 // el tipo de membresia
+
+module.exports = { createMembership };
