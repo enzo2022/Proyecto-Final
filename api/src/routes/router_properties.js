@@ -28,4 +28,7 @@ router.put(
   controller.disableProperty
 );
 
+//Uplaod property
+router.put("/properties/uplaodProperty/:id", controller.uplaodProperty);
+
 module.exports = router;

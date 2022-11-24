@@ -42,7 +42,7 @@ const createProperty = async (req, res) => {
     }
     const properties = await Property.create(req.body);
 
-    const { id_User } = req.body;
+    // const { id_User } = req.body;
 
     // const findUser = await User.findOne({
     //   where: {
@@ -50,12 +50,12 @@ const createProperty = async (req, res) => {
     //   },
     // });
 
-    const email = findUser._previousDataValues.email;
-    const userName = findUser._previousDataValues.userName;
+    // const email = findUser._previousDataValues.email;
+    // const userName = findUser._previousDataValues.userName;
 
-    const stateMail = await transport.sendMail(
-      messageForUsersCreateProperty(email, userName)
-    );
+    // const stateMail = await transport.sendMail(
+    //   messageForUsersCreateProperty(email, userName)
+    // );
 
     // notify property created succes
     notifier.notify(
@@ -151,10 +151,35 @@ const disableProperty = async (req, res) => {
   }
 };
 
+const uplaodProperty = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // let findProperty = await Property.findByPk(id);
+
+    const newUploadProperty = await Property.update(req.body, {
+      where: {
+        id: id,
+      },
+    });
+
+    const updatedProperty = req.body;
+
+    if (newUploadProperty[0] === 0) throw new Error("Propiedad inexistente");
+
+    res
+      .status(200)
+      .json({ Message: "Propeidad actualizada!", payload: updatedProperty });
+  } catch (err) {
+    res.status(404).json({ Error: err.message });
+  }
+};
+
 module.exports = {
   createProperty,
   getAllProperties,
   findPropertyById,
   getAllAddress,
   disableProperty,
+  uplaodProperty,
 };
