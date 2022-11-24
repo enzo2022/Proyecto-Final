@@ -38,7 +38,7 @@ const UploadData = async (req, res, next) => {
   console.log("Feedbacks: ", await Feedback.count());
   console.log("Membership: ", await Membership.count());
   console.log("MembershipTypes: ", await MembershipType.count());
-
+  console.log("hola");
   // console.log("MembershipTypes: ", await MembershipType.count());
 };
 
