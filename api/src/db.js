@@ -53,8 +53,8 @@ Favorite.belongsTo(User, { foreignKey: "id_User" });
 User.hasMany(Favorite, { foreignKey: "id_User" });
 
 //Relacion 1:M=>Propiedad=>Comentarios
-Feedback.belongsTo(Property, { foreignKey: "id_Property" });
-Property.hasMany(Feedback, { foreignKey: "id_Property" });
+Feedback.belongsTo(Property, { foreignKey: "id" });
+Property.hasMany(Feedback, { foreignKey: "id" });
 
 // //Relacion 1:M => User => Membership
 // Membership.belongsTo(User, { foreignKey: "id_Membership" });

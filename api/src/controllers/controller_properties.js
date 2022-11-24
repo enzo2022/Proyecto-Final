@@ -1,4 +1,4 @@
-const { Property, User } = require("../db.js");
+const { Property, User, Feedback } = require("../db.js");
 const notifier = require("node-notifier");
 const path = require("path");
 const {
@@ -85,10 +85,12 @@ const createProperty = async (req, res) => {
 //GET ALL PROPERTIES / GET AL FRONT
 const getAllProperties = async (req, res) => {
   try {
-    const properties = await Property.findAll();
+    const properties = await Property.findAll({
+      include: { model: Feedback },
+    });
 
     // if (!properties.length && false) throw new Error("No hay propeidades");
-    if (!properties.length) throw new Error("No hay propeidades");
+    if (!properties.length) throw new Error("No hay propiedades");
 
     res.status(200).json({ Message: "Success", payload: properties });
     // res.status(200).json({
@@ -105,7 +107,10 @@ const findPropertyById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const searchByPK = await Property.findByPk(id);
+    const searchByPK = await Property.findAll({
+      include: { model: Feedback },
+      where: { id: id },
+    });
 
     if (!searchByPK) throw new Error("Id inexistente");
 

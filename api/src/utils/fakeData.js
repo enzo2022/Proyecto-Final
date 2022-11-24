@@ -661,10 +661,38 @@ const dataMemberships = [
   },
 ];
 
+const dataFeedback = [
+  {
+    id_User: "325c1472-31fc-475f-8894-b12daf86b8ee",
+    id: "27990073-a398-4df6-89dd-533d457c47e8",
+    questions: "hay escuelas por la zona ? ",
+    answer: " no sabemos que es eso",
+  },
+  {
+    id_User: "08f76aa7-5b8f-4b7a-94d4-672a6dcabc95",
+    id: "27990073-a398-4df6-89dd-533d457c47e8",
+    questions: "hay escuelas por la zona ? ",
+    answer: " no sabemos que es eso",
+  },
+  {
+    id_User: "119e8569-22e7-47c2-9ae5-1eb87a5b317a",
+    id: "8577872e-49ae-41bc-9042-6b9d35e7add1",
+    questions: "hay escuelas por la zona ? ",
+    answer: " no sabemos que es eso",
+  },
+  {
+    id_User: "119e8569-22e7-47c2-9ae5-1eb87a5b317a",
+    id: "a60ee218-be36-4b2e-98a0-e9a08f8c9c28",
+    questions: "esta casa no tiene baños ? ",
+    answer: " no, pero tiene arboles",
+  },
+];
+
 module.exports = {
   dataUsers,
   dataProperties,
   dataFavorites,
   dataMembershipTypes,
   dataMemberships,
+  dataFeedback,
 };
