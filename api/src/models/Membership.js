@@ -13,7 +13,6 @@ module.exports = (sequelize) => {
       },
       id_User: {
         type: DataTypes.UUID,
-        allowNull: false,
       },
       id_Membership_type: {
         type: DataTypes.UUID,

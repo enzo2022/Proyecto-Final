@@ -86,13 +86,11 @@ const createProperty = async (req, res) => {
 const getAllProperties = async (req, res) => {
   try {
     const properties = await Property.findAll({
+      include: { model: User, attributes: { exclude: ["password"] } },
       include: { model: Feedback },
     });
 
-
-   
     if (!properties.length) throw new Error("No hay propiedades");
-
 
     res.status(200).json({ Message: "Success", payload: properties });
   } catch (err) {
@@ -105,9 +103,9 @@ const findPropertyById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const searchByPK = await Property.findAll({
-      include: { model: Feedback },
+    const searchByPK = await Property.findOne({
       where: { id: id },
+      include: { model: Feedback },
     });
 
     if (!searchByPK) throw new Error("Id inexistente");
@@ -142,7 +140,6 @@ const disableProperty = async (req, res) => {
     const searchPropertyById = await Property.findByPk(id);
 
     if (!searchPropertyById) return res.send("Propiedad no encontrada");
-    console.log(searchPropertyById.toJSON().state);
 
     const uploadProperty = await Property.update(
       { ...req.body, state: !state },
@@ -177,7 +174,7 @@ const uplaodProperty = async (req, res) => {
 
     res
       .status(200)
-      .json({ Message: "Propeidad actualizada!", payload: updatedProperty });
+      .json({ Message: "Propiedad actualizada!", payload: updatedProperty });
   } catch (err) {
     res.status(404).json({ Error: err.message });
   }
