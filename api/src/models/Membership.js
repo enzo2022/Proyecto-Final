@@ -14,10 +14,10 @@ module.exports = (sequelize) => {
       id_User: {
         type: DataTypes.UUID,
       },
-      id_Membership_type: {
-        type: DataTypes.UUID,
-        allowNull: false,
-      },
+      // id_Membership_type: {
+      //   type: DataTypes.UUID,
+      //   allowNull: false,
+      // },
       //Precio ya pagado por el usuario
       payment: {
         type: DataTypes.INTEGER,

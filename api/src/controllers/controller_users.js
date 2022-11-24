@@ -119,7 +119,7 @@ const login = async (req, res) => {
 const getAll = async (req, res) => {
   try {
     let users = await User.findAll({
-      include: { model: Membership, include: { model: MembershipType } },
+      include: { model: Membership },
     });
 
     if (!users.length)

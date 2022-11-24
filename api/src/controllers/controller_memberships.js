@@ -20,9 +20,7 @@ const createMembership = async (req, res) => {
 const getAllMemebership = async (req, res) => {
   try {
     console.log("holaaaaaa");
-    const membershisp = await Membership.findAll({
-      include: { model: MembershipType },
-    });
+    const membershisp = await Membership.findAll();
     console.log("lleguee al membership");
     if (!membershisp.length) throw new Error("No hay membresias");
 
