@@ -1,4 +1,4 @@
-const { Property, Feedback, User } = require("../db.js");
+const { Property, User, Feedback } = require("../db.js");
 const notifier = require("node-notifier");
 const path = require("path");
 const {
@@ -87,9 +87,10 @@ const getAllProperties = async (req, res) => {
   try {
     const properties = await Property.findAll({
       include: { model: User, attributes: { exclude: ["password"] } },
+      include: { model: Feedback },
     });
 
-    if (!properties.length) throw new Error("No hay propeidades");
+    if (!properties.length) throw new Error("No hay propiedades");
 
     res.status(200).json({ Message: "Success", payload: properties });
   } catch (err) {
