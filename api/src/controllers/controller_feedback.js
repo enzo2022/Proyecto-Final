@@ -66,6 +66,19 @@ const answerFeedback = async (req, res) => {
   }
 };
 
+const deleteFeetback = async (req, res) => {
+  const { id_Feedback } = req.params;
+  try {
+    if (!id_Feedback) return res.send("Id inexistente");
+    const deleteFeetback = await Feedback.destroy({
+      where: { id_Feedback: id_Feedback },
+    });
+    res.status(200).json({ Message: "Delete feedback succes" });
+  } catch (err) {
+    res.status(400).json({ Message: err.message });
+  }
+};
+
 // const isBossFeedback = async (req, res, next) => {
 //   const { id_User, id_Feedback } = req.body;
 //   try {
@@ -88,4 +101,5 @@ module.exports = {
   feedbackById_Property,
   feedbackById_User,
   answerFeedback,
+  deleteFeetback,
 };
