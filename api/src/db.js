@@ -60,9 +60,9 @@ Property.hasMany(Feedback, { foreignKey: "id" });
 Membership.belongsTo(User, { foreignKey: "id_User" });
 User.hasMany(Membership, { foreignKey: "id_User" });
 
-// //Relacion 1:M=> Membership => membership_type
-// Membership.belongsTo(MembershipType, { foreignKey: "id_Membership_type" });
-// MembershipType.hasMany(Membership, { foreignKey: "id_Membership_type" });
+//Relacion 1:M=> Membership => membership_type
+Membership.belongsTo(MembershipType, { foreignKey: "id_membresia_tipo" });
+MembershipType.hasMany(Membership, { foreignKey: "id_membresia_tipo" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { City, Property, User } = require('./db.js');

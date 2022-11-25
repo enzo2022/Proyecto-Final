@@ -19,6 +19,25 @@ module.exports = (sequelize) => {
       //   allowNull: false,
       // },
       //Precio ya pagado por el usuario
+
+      price: {
+        type: DataTypes.INTEGER,
+        allowNull: null,
+        defaultValue: 100,
+      },
+
+      state: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        get() {
+          if (this.getDataValue("state")) {
+            return "Activado";
+          } else {
+            return "Desactivado";
+          }
+        },
+      },
+      //visa- Mastercard o Dinero en Cuenta en Mercado Pago
       payment: {
         type: DataTypes.INTEGER,
         allowNull: false,
