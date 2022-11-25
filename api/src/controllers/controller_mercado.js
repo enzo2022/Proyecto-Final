@@ -20,13 +20,14 @@ const premiumController =
         },
       ],
 
-      //notification_url: "https://misitio/api", //redirige despues de la compra
+      //notification_url: "http://localhost:3000/bePremium", //redirige despues de la compra
       back_urls: {
-        failure: "http://localhost:3001/PaymentFail",
-        pending: "http://localhost:3001/PaymentFail",
-        success: "https://localhost:3001/PaymentOk",
+        failure: "https://testing-url-mercadopago-git-testing-url-mercadopago-jhoniernem.vercel.app/bePremium",
+        pending: "https://testing-url-mercadopago-git-testing-url-mercadopago-jhoniernem.vercel.app/bePremium",
+        success: "https://testing-url-mercadopago-git-testing-url-mercadopago-jhoniernem.vercel.app/bePremium",
       },
       auto_return: "approved",
+      external_reference: req.body.user_id,
     };
 
     mercadopago.preferences
@@ -35,7 +36,7 @@ const premiumController =
         // En esta instancia deberás asignar el valor dentro de response.body.id por el ID de preferencia solicitado en el siguiente paso
 
         console.log(response.body.init_point);
-        res.redirect(response.body.init_point);
+        res.send(response.body.init_point);
       })
 
       .catch(function (error) {
