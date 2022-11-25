@@ -1,10 +1,28 @@
 const mercadopago = require("mercadopago");
+const { PayOrder } = require("../db.js");
 
 //Harcodeo el Acces Token
 mercadopago.configure({
   access_token:
     "APP_USR-8932710584644285-112219-78d220634cd77b58987c834d1f4a172c-1245736185",
 });
+
+const boletaPago = async (preference) => {
+  try {
+    let preferenceOrder = await PayOrder.create({
+      idPage: preference.id_pago,
+      clientId: preference.clientId,
+      linkPage: preference.linkPago,
+      collectorId: preference.collector_id,
+      date: preference.date,
+    });
+    console.log("ok!. Se almaceno en la Tabla PayOrder");
+
+    return preferenceOrder;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const premiumController =
   ("/",
@@ -43,6 +61,9 @@ const premiumController =
           collector_id: response.body.collector_id,
           date: response.body.date_created,
         };
+
+        boletaPago(generarPago);
+
         console.log(
           "Se generaron los siguientes datos relevantes  de Mercado Pago ",
           generarPago
@@ -55,4 +76,4 @@ const premiumController =
       });
   });
 
-module.exports = { premiumController };
+module.exports = { premiumController, boletaPago };
