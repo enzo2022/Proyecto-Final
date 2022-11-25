@@ -1,10 +1,28 @@
 const mercadopago = require("mercadopago");
+const { PayOrder } = require("../db.js");
 
 //Harcodeo el Acces Token
 mercadopago.configure({
   access_token:
     "APP_USR-8932710584644285-112219-78d220634cd77b58987c834d1f4a172c-1245736185",
 });
+
+const boletaPago = async (preference) => {
+  try {
+    let preferenceOrder = await PayOrder.create({
+      idPage: preference.id_pago,
+      clientId: preference.clientId,
+      linkPage: preference.linkPago,
+      collectorId: preference.collector_id,
+      date: preference.date,
+    });
+    console.log("ok!. Se almaceno en la Tabla PayOrder");
+
+    return preferenceOrder;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const premiumController =
   ("/",
@@ -13,12 +31,15 @@ const premiumController =
       items: [
         {
           id: 123,
-          title: "Mi producto",
+          title: "Properties & You ",
+          description:
+            "Gracias por la  Compra , una vez actualizado el pago podrá editar las propiedades ya sea venta o alquiler ",
           unit_price: 100,
           quantity: 1,
           currency_id: "ARS",
         },
       ],
+
 
       //notification_url: "http://localhost:3000/bePremium", //redirige despues de la compra
       back_urls: {
@@ -38,10 +59,9 @@ const premiumController =
         console.log(response.body.init_point);
         res.send(response.body.init_point);
       })
-
       .catch(function (error) {
         console.log(error);
       });
   });
 
-module.exports = { premiumController };
+module.exports = { premiumController, boletaPago };

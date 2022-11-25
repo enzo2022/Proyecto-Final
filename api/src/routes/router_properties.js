@@ -31,4 +31,7 @@ router.put(
 //Uplaod property
 router.put("/properties/uplaodProperty/:id", controller.uplaodProperty);
 
+//delete
+router.delete("/properties/deleteProperty/:id", controller.deleteProperty);
+
 module.exports = router;

@@ -81,19 +81,13 @@ const login = async (req, res) => {
       include: { model: Membership },
     });
 
-    if (!serachUser) {
-      return res.status(404).json({
-        ok: false,
-        err: {
-          message: "La cuenta no existe, deberias loguearte!",
-        },
-      });
-    }
+    if (!serachUser)
+      return res.send({ ok: false, Error: "El correo no existe" });
     if (!email || !password)
-      return res.send({ Message: "Necesitas ingresar usuario y contraseña" });
+      return res.send({ Error: "Necesitas ingresar usuario y contraseña" });
 
     if (!bcrypt.compareSync(password, serachUser.password))
-      throw new Error("Password incorrecto");
+      return res.send({ Error: "Password incorrecto" });
 
     let user = {
       email: serachUser.email,
@@ -123,7 +117,7 @@ const getAll = async (req, res) => {
     });
 
     if (!users.length)
-      return res.send({ Message: "No hay usuarios en la base de datos" });
+      return res.send({ Error: "No hay usuarios en la base de datos" });
 
     res.status(200).json({ Message: "Success", payload: users });
   } catch (err) {

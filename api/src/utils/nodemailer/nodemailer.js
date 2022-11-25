@@ -44,6 +44,29 @@ const messageForUsersCreateProperty = (data, email, userName) => {
   });
 };
 
+const sendEmailToOwner = (
+  email,
+  userName,
+  cellphone,
+  photo,
+  emailOwuner,
+  userNameOwner
+) => {
+  return (message = {
+    from: `<${emailOwuner}>`,
+    to: email,
+    subject: `Registo de Propiedad`,
+    text: `Propertis&you, un usuario esta interesado en su propiedad!`,
+    html: `<p style="text-align:center;">
+          Hola ${userNameOwner} !!, el usuario ${userName} esta interesado en su propiedad. Aqui le dejamos los datos de interesado. Telefono ${cellphone}, foto: ${photo}
+          Contactese con el/ella a la brevedad! 
+  
+          Cordial saludo,
+          Propertis&you.
+`,
+  });
+};
+
 // const messageForClient = (userName, email) => {
 //   return (message = {
 //     from: "Propertis&you' <pfgrupo05@@gmail.com>",
@@ -69,5 +92,6 @@ const messageForUsersCreateProperty = (data, email, userName) => {
 module.exports = {
   transport,
   registerMessage,
+  sendEmailToOwner,
   messageForUsersCreateProperty,
 };
