@@ -42,7 +42,9 @@ const {
   Feedback,
   Membership,
   MembershipType,
+ deleteProperty,
   Interested,
+  PayOrder,
 } = sequelize.models;
 
 // Relationships between the tables
@@ -75,6 +77,10 @@ MembershipType.hasMany(Membership, { foreignKey: "id_Membership_type" });
 //Relacion 1:M => Propiedad(id) => interesados
 Interested.belongsTo(Property, { foreignKey: "id" });
 Property.hasMany(Interested, { foreignKey: "id" });
+
+//Relacion de 1:M User => PayOrder { un usuario genera varias ordeners}
+PayOrder.belongsTo(User, { foreignKey: "id_User" });
+User.hasMany(PayOrder, { foreignKey: "id_User" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { City, Property, User } = require('./db.js');
