@@ -9,6 +9,7 @@ const router_feedback = require("./router_feedback");
 const router_mercado = require("./router_mercado");
 const router_admin = require("./router_admin");
 const router_membership = require("./router_memberships");
+const router_interested = require("./router_interested");
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use("/", router_feedback);
 router.use("/", router_mercado);
 router.use("/", router_admin);
 router.use("/", router_membership);
+router.use("/", router_interested);
 
 module.exports = router;

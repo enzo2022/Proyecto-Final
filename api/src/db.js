@@ -34,15 +34,23 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { City, Property, User, Favorite, Feedback, Membership, MembershipType } =
-  sequelize.models;
+const {
+  City,
+  Property,
+  User,
+  Favorite,
+  Feedback,
+  Membership,
+  MembershipType,
+  Interested,
+} = sequelize.models;
 
 // Relationships between the tables
 // Product.hasMany(Reviews);
 
 // Relacion 1:M => User => Property
-Property.belongsTo(User, { foreignKey: "id_User" });
-User.hasMany(Property, { foreignKey: "id_User" });
+Property.belongsTo(User, { foreignKey: "id_User", onDelete: "CASCADE" });
+User.hasMany(Property, { foreignKey: "id_User", onDelete: "CASCADE" });
 
 // Relacion 1:M => City => Property
 Property.belongsTo(City, { foreignKey: "idCity" });
@@ -53,16 +61,20 @@ Favorite.belongsTo(User, { foreignKey: "id_User" });
 User.hasMany(Favorite, { foreignKey: "id_User" });
 
 //Relacion 1:M=>Propiedad=>Comentarios
-Feedback.belongsTo(Property, { foreignKey: "id" });
-Property.hasMany(Feedback, { foreignKey: "id" });
+Feedback.belongsTo(Property, { foreignKey: "id", onDelete: "CASCADE" });
+Property.hasMany(Feedback, { foreignKey: "id", onDelete: "CASCADE" });
 
 // //Relacion 1:M => User => Membership
 Membership.belongsTo(User, { foreignKey: "id_User" });
 User.hasMany(Membership, { foreignKey: "id_User" });
 
 //Relacion 1:M=> Membership => membership_type
-Membership.belongsTo(MembershipType, { foreignKey: "id_membresia_tipo" });
-MembershipType.hasMany(Membership, { foreignKey: "id_membresia_tipo" });
+Membership.belongsTo(MembershipType, { foreignKey: "id_Membership_type" });
+MembershipType.hasMany(Membership, { foreignKey: "id_Membership_type" });
+
+//Relacion 1:M => Propiedad(id) => interesados
+Interested.belongsTo(Property, { foreignKey: "id" });
+Property.hasMany(Interested, { foreignKey: "id" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { City, Property, User } = require('./db.js');

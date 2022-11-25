@@ -29,7 +29,7 @@ const dataUsers = [
       "https://res.cloudinary.com/dtzesfyt1/image/upload/v1668008325/robot-image_xrpox8.png",
     password: "$2b$10$PkXCPmCniHbIrbuhBHTCN.ahiU4X2s84Hvmc07HV6MeNSQaszyWja",
     user_auth_0: false,
-    email: "rodrigo@gmail.com",
+    email: "chanticou@hotmail.com",
     cellphone: 777777777,
   },
   {
@@ -59,7 +59,7 @@ const dataUsers = [
       "https://res.cloudinary.com/dtzesfyt1/image/upload/v1668008325/robot-image_xrpox8.png",
     password: "$2b$10$PkXCPmCniHbIrbuhBHTCN.ahiU4X2s84Hvmc07HV6MeNSQaszyWja",
     user_auth_0: false,
-    email: "chanti@gmail.com",
+    email: "hborasou@gmail.com",
     cellphone: 55555,
   },
 ];
@@ -653,11 +653,10 @@ const dataMemberships = [
   {
     // id_Membership: "aed4fe8e-e6a1-4358-b9eb-2fd88bd3e873",
     id_User: "08f76aa7-5b8f-4b7a-94d4-672a6dcabc95",
-    id_Membership_type: "a60ee218-be36-4b2e-98a0-e9a08f8c9c28",
+    id_Membership_type: "27990073-a398-4df6-89dd-533d457c47e8",
     payment: 50,
   },
 ];
-
 
 const dataFeedback = [
   {
@@ -683,9 +682,6 @@ const dataFeedback = [
     id: "a60ee218-be36-4b2e-98a0-e9a08f8c9c28",
     questions: "esta casa no tiene baños ? ",
     answer: " no, pero tiene arboles",
-
-
-
   },
 ];
 
@@ -697,6 +693,4 @@ module.exports = {
   dataMemberships,
 
   dataFeedback,
-
-
 };

@@ -180,6 +180,17 @@ const uplaodProperty = async (req, res) => {
   }
 };
 
+const deleteProperty = async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (!id) return res.send("Id inexistente");
+    const deleteProperty = await Property.destroy({ where: { id: id } });
+    res.status(200).json({ Message: "Delete property succes" });
+  } catch (err) {
+    res.status(400).json({ Message: err.message });
+  }
+};
+
 module.exports = {
   createProperty,
   getAllProperties,
@@ -187,4 +198,5 @@ module.exports = {
   getAllAddress,
   disableProperty,
   uplaodProperty,
+  deleteProperty,
 };
