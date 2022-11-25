@@ -40,13 +40,15 @@ const premiumController =
         },
       ],
 
-      //notification_url: "https://proyecto-final-frontend-lyart.vercel.app/admin ", //redirige despues de la compra
+
+      //notification_url: "http://localhost:3000/bePremium", //redirige despues de la compra
       back_urls: {
-        failure: "http://localhost:3001/PaymentFail", // https://proyecto-final-frontend-lyart.vercel.app/dasboard
-        pending: "http://localhost:3001/PaymentFail",
-        success: "https://localhost:3001/PaymentOk",
+        failure: "https://testing-url-mercadopago-git-testing-url-mercadopago-jhoniernem.vercel.app/bePremium",
+        pending: "https://testing-url-mercadopago-git-testing-url-mercadopago-jhoniernem.vercel.app/bePremium",
+        success: "https://testing-url-mercadopago-git-testing-url-mercadopago-jhoniernem.vercel.app/bePremium",
       },
       auto_return: "approved",
+      external_reference: req.body.user_id,
     };
 
     mercadopago.preferences
@@ -54,23 +56,9 @@ const premiumController =
       .then(function (response) {
         // En esta instancia deberás asignar el valor dentro de response.body.id por el ID de preferencia solicitado en el siguiente paso
 
-        const generarPago = {
-          id_pago: response.body.id,
-          clientId: response.body.client_id,
-          linkPago: response.body.init_point,
-          collector_id: response.body.collector_id,
-          date: response.body.date_created,
-        };
-
-        boletaPago(generarPago);
-
-        console.log(
-          "Se generaron los siguientes datos relevantes  de Mercado Pago ",
-          generarPago
-        );
-        res.redirect(response.body.init_point);
+        console.log(response.body.init_point);
+        res.send(response.body.init_point);
       })
-
       .catch(function (error) {
         console.log(error);
       });

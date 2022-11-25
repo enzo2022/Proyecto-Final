@@ -154,8 +154,9 @@ const upDate = async (req, res) => {
         },
       }
     );
+    const user = await User.findByPk(id_user)
 
-    res.status(200).send({ Message: User });
+    res.status(200).send({ Message: user });
   } catch (err) {
     res.status(404).send({ Error: err.message });
   }
