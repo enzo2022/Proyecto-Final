@@ -39,7 +39,7 @@ const createUser = async (req, res) => {
       password: encrypted,
       photo: photo
         ? photo
-        : "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg",
+        : "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png",
       cellphone,
       user_type,
     });

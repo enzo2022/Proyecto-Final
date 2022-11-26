@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
       photo: {
         type: DataTypes.STRING,
         defaultValue:
-          "https://res.cloudinary.com/dtzesfyt1/image/upload/v1668008325/robot-image_xrpox8.png",
+          "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png",
       },
       userName: {
         type: DataTypes.STRING,
