@@ -74,28 +74,32 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const serachUser = await User.findOne({
+    const searchUser = await User.findOne({
       where: { email: email },
-      include: { model: Property },
-      include: { model: Favorite },
-      include: { model: Membership },
+      include: [
+        { model: Property },
+        { model: Favorite },
+        { model: Membership },
+      ],
     });
 
-    if (!serachUser)
+    if (!searchUser)
       return res.send({ ok: false, Error: "El correo no existe" });
     if (!email || !password)
       return res.send({ Error: "Necesitas ingresar usuario y contraseña" });
 
-    if (!bcrypt.compareSync(password, serachUser.password))
+    if (!bcrypt.compareSync(password, searchUser.password))
       return res.send({ Error: "Password incorrecto" });
 
     let user = {
-      email: serachUser.email,
-      userName: serachUser.userName,
-      id_User: serachUser.id_User,
-      photo: serachUser.photo,
-      user_type: serachUser.user_type,
-      favorites: serachUser.toJSON().Favorites,
+      email: searchUser.email,
+      userName: searchUser.userName,
+      id_User: searchUser.id_User,
+      photo: searchUser.photo,
+      user_type: searchUser.user_type,
+      property: searchUser.Properties,
+      favorites: searchUser.Favorites,
+      memberships: searchUser.Memberships,
     };
 
     const token = jwt.sign({ user }, JWT_SECRET, {

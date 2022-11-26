@@ -58,7 +58,18 @@ const sendEmailToOwner = (
     subject: `Registo de Propiedad`,
     text: `Propertis&you, un usuario esta interesado en su propiedad!`,
     html: `<p style="text-align:center;">
-          Hola ${userNameOwner} !!, el usuario ${userName} esta interesado en su propiedad. Aqui le dejamos los datos de interesado. Telefono ${cellphone}, foto: ${photo}
+          Hola ${userNameOwner} !!, el usuario ${userName} esta interesado en su propiedad. Aqui le dejamos los datos de interesado. 
+          Datos personales:
+          <div>
+            <ul>
+            <li>
+              <img style='width:100px; heigth:100px' src=${photo} alt='foto'>
+            </li>
+            <li>
+             Telefono ${cellphone}
+            </li>
+            </div> 
+          </div>
           Contactese con el/ella a la brevedad! 
   
           Cordial saludo,
