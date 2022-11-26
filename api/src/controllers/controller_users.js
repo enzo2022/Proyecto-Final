@@ -162,10 +162,36 @@ const upDate = async (req, res) => {
   }
 };
 
+const editUser = async (req, res) => {
+  const { id_user } = req.params;
+  try {
+    const {email, userName, photo} = req.body
+    await User.update(
+      {
+        email,
+        userName,
+        photo,
+      },
+      {
+        where: {
+          id_User: id_user,
+        },
+      }
+    );
+    const user = await User.findByPk(id_user)
+
+    res.status(200).send({ Message: user });
+  } catch (err) {
+    res.status(404).send({ Error: err.message });
+  }
+};
+
+
 module.exports = {
   getAll,
   createUser,
   login,
   uplaodUser,
   upDate,
+  editUser
 };
