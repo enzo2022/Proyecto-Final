@@ -44,7 +44,7 @@ const userInterested = async (req, res) => {
     );
     return res
       .status(200)
-      .send({ Message: `Interesado guarda para la propeidad` });
+      .send({ Message: `Email enviado al propietario exitosamente!!` });
   } catch (err) {
     return res.status(500).send({ Error: err.message });
   }

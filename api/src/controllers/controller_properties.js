@@ -86,8 +86,13 @@ const createProperty = async (req, res) => {
 const getAllProperties = async (req, res) => {
   try {
     const properties = await Property.findAll({
-      include: { model: User, attributes: { exclude: ["password"] } },
-      include: { model: Feedback },
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ["password"] },
+        },
+        { model: Feedback },
+      ],
     });
 
     if (!properties.length) throw new Error("No hay propiedades");
