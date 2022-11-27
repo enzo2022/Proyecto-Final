@@ -39,7 +39,7 @@ const createUser = async (req, res) => {
       password: encrypted,
       photo: photo
         ? photo
-        : "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png",
+        : "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg",
       cellphone,
       user_type,
     });
@@ -166,7 +166,6 @@ const upDate = async (req, res) => {
   }
 };
 
- created-delete-user
 //crear el destroy
 const deleteUser = async (req, res) => {
   const { id_User } = req.params;
@@ -178,39 +177,11 @@ const deleteUser = async (req, res) => {
     res.status(400).json({ Message: err.message });
   }
 };
-
-const editUser = async (req, res) => {
-  const { id_user } = req.params;
-  try {
-    const {email, userName, photo} = req.body
-    await User.update(
-      {
-        email,
-        userName,
-        photo,
-      },
-      {
-        where: {
-          id_User: id_user,
-        },
-      }
-    );
-    const user = await User.findByPk(id_user)
-
-    res.status(200).send({ Message: user });
-  } catch (err) {
-    res.status(404).send({ Error: err.message });
-  }
-};
-
-
-
 module.exports = {
   getAll,
   createUser,
   login,
   uplaodUser,
   upDate,
-created-delete-user
-  deleteUser
+  deleteUser,
 };

@@ -9,11 +9,6 @@ const {
   login,
   uplaodUser,
   upDate,
-created-delete-user
-  deleteUser,
-
-  editUser
-
 } = require("../controllers/controller_users");
 
 //Create User
@@ -28,11 +23,5 @@ router.get("/users/allUsers", getAll);
 router.put("/users/upload/:id_user", uplaodUser);
 
 router.put("/users/upDate/:id_user", upDate);
-
-
-router.delete("/users/deleteUser/:id_user", deleteUser);
-
-
-router.put("/users/edit/:id_user", editUser)
 
 module.exports = router;
