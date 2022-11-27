@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
+
       photo: {
         type: DataTypes.STRING,
         defaultValue:
