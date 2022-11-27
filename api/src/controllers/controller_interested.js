@@ -21,11 +21,15 @@ const userInterested = async (req, res) => {
     const idUser = await User.findByPk(id_User);
 
     //email Owner property
-    const { email: emailOwuner, userName: userNameOwner } =
-      feedbackProperty.toJSON().User;
-
+    
+    const emailOwuner = feedbackProperty.User.email;
+    const userNameOwner = feedbackProperty.User.userName;
+    
+    console.log(emailOwuner)
+    console.log(userNameOwner)
     //buscamos el user interesadp //LLEGA BIEN
-    const { email, userName, cellphone, photo } = idUser.toJSON();
+    console.log(idUser)
+    const { email, userName, cellphone, photo } = idUser;
 
     if (!feedbackProperty) return res.send({ Message: "Fedback inexistente" });
 
@@ -46,6 +50,7 @@ const userInterested = async (req, res) => {
       .status(200)
       .send({ Message: `Email enviado al propietario exitosamente!!` });
   } catch (err) {
+    console.log(err)
     return res.status(500).send({ Error: err.message });
   }
 };
