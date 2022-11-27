@@ -158,11 +158,24 @@ const upDate = async (req, res) => {
         },
       }
     );
-    const user = await User.findByPk(id_user)
+    const user = await User.findByPk(id_user);
 
     res.status(200).send({ Message: user });
   } catch (err) {
     res.status(404).send({ Error: err.message });
+  }
+};
+
+ created-delete-user
+//crear el destroy
+const deleteUser = async (req, res) => {
+  const { id_User } = req.params;
+  try {
+    if (!id_User) return res.send("User inexistente");
+    const deleteUser = await Property.destroy({ where: { id_User: id_User } });
+    res.status(200).json({ Message: "Usuario eliminado correctamente!" });
+  } catch (err) {
+    res.status(400).json({ Message: err.message });
   }
 };
 
@@ -191,11 +204,13 @@ const editUser = async (req, res) => {
 };
 
 
+
 module.exports = {
   getAll,
   createUser,
   login,
   uplaodUser,
   upDate,
-  editUser
+created-delete-user
+  deleteUser
 };
