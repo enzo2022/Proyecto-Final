@@ -42,7 +42,7 @@ const {
   Feedback,
   Membership,
   MembershipType,
- deleteProperty,
+  deleteProperty,
   Interested,
   PayOrder,
 } = sequelize.models;
