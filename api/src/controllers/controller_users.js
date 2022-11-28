@@ -190,9 +190,10 @@ const deleteUser = async (req, res) => {
     const deleteUser = await Property.destroy({ where: { id_User: id_User } });
     res.status(200).json({ Message: "Usuario eliminado correctamente!" });
   } catch (err) {
-    res.status(400).json({ Message: err.message });
+    res.status(400).json({ Error: err.message });
   }
 };
+
 module.exports = {
   getAll,
   createUser,
