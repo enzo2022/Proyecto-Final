@@ -135,6 +135,7 @@ const findUserById = async (req, res) => {
     const { id } = req.params;
     const searchByPK = await User.findOne({
       where: { id_User: id },
+      include: { model: Property },
     });
 
     if (!searchByPK) throw new Error("Id inexistente");
