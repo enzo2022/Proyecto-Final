@@ -9,7 +9,11 @@ const {
   login,
   uplaodUser,
   upDate,
+  findUserById,
 } = require("../controllers/controller_users");
+
+//router find Id User
+router.get("/users/findByIdUser/:id", findUserById);
 
 //Create User
 router.post("/users/createUser", createUser);
