@@ -2,22 +2,27 @@ const dataFavorites = [
   {
     id_User: "325c1472-31fc-475f-8894-b12daf86b8ee",
     id_Property: "8577872e-49ae-41bc-9042-6b9d35e7add1",
+    id_Favorite: "fdf7d2e7-3952-4c85-96e3-b69d90b567d0",
   },
   {
     id_User: "325c1472-31fc-475f-8894-b12daf86b8ee",
     id_Property: "2d1a39dd-2d9e-493e-a749-e7bcf26fb9f3",
+    id_Favorite: "b0699600-50a9-4b7b-8fe5-e9c1cc4ace1b",
   },
   {
     id_User: "325c1472-31fc-475f-8894-b12daf86b8ee",
     id_Property: "330801ed-6d2b-47b8-b15b-539f374a57cb",
+    id_Favorite: "036ad173-2903-4b49-b842-caea13c06e91",
   },
   {
     id_User: "08f76aa7-5b8f-4b7a-94d4-672a6dcabc95",
     id_Property: "aed4fe8e-e6a1-4358-b9eb-2fd88bd3e873",
+    id_Favorite: "7141bfbb-ecc4-45ac-b90f-158f969fa006",
   },
   {
     id_User: "08f76aa7-5b8f-4b7a-94d4-672a6dcabc95",
     id_Property: "d93f60b8-a92e-4c33-818b-33aa1f82f81c",
+    id_Favorite: "2a8eed5a-704d-4b83-a690-8b7e992611c8",
   },
 ];
 
