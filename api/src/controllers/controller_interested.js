@@ -10,7 +10,6 @@ const { user } = require("../utils/config.js");
 const userInterested = async (req, res) => {
   try {
     //id_User interesado en la propeudad
-
     const { id_User, id } = req.body;
 
     //Bucamos el propietario de la publicacion
@@ -21,15 +20,13 @@ const userInterested = async (req, res) => {
     const idUser = await User.findByPk(id_User);
 
     //email Owner property
-    
+
     const emailOwuner = feedbackProperty.User.email;
     const userNameOwner = feedbackProperty.User.userName;
-    
-    console.log(emailOwuner)
-    console.log(userNameOwner)
+
     //buscamos el user interesadp //LLEGA BIEN
-    console.log(idUser)
     const { email, userName, cellphone, photo } = idUser;
+    console.log(email, userName, cellphone, photo);
 
     if (!feedbackProperty) return res.send({ Message: "Fedback inexistente" });
 
@@ -50,7 +47,7 @@ const userInterested = async (req, res) => {
       .status(200)
       .send({ Message: `Email enviado al propietario exitosamente!!` });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return res.status(500).send({ Error: err.message });
   }
 };

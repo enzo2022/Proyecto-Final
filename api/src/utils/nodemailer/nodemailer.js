@@ -53,8 +53,8 @@ const sendEmailToOwner = (
   userNameOwner
 ) => {
   return (message = {
-    from: `<${emailOwuner}>`,
-    to: email,
+    from: `"'Properties&you' <pfgrupo05a@gmail.com>"`,
+    to: emailOwuner,
     subject: `Registo de Propiedad`,
     text: `Propertis&you, un usuario esta interesado en su propiedad!`,
     html: `<p style="text-align:center;">
@@ -66,7 +66,8 @@ const sendEmailToOwner = (
               <img style='width:100px; heigth:100px' src=${photo} alt='foto'>
             </li>
             <li>
-             Telefono ${cellphone}
+             Telefono ${cellphone},
+            Email: ${email}
             </li>
             </div> 
           </div>

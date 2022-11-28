@@ -61,7 +61,7 @@ const createUser = async (req, res) => {
     );
 
     //NODEMAILER, SEND EMAIL TO USER
-    // const info = await transport.sendMail(registerMessage(userName, email));
+    const info = await transport.sendMail(registerMessage(userName, email));
 
     return res.status(200).send({ Message: "Usuario creado" });
   } catch (err) {
