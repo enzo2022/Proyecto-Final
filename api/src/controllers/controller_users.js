@@ -56,7 +56,8 @@ const createUser = async (req, res) => {
         ),
       },
       function (err, response) {
-        console.log(err, response);
+        
+        // console.log(err, response);
       }
     );
 
