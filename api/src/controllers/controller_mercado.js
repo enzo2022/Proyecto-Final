@@ -43,9 +43,9 @@ const premiumController =
 
       //notification_url: "http://localhost:3000/bePremium", //redirige despues de la compra
       back_urls: {
-        failure: "https://testing-url-mercadopago-git-testing-url-mercadopago-jhoniernem.vercel.app/bePremium",
-        pending: "https://testing-url-mercadopago-git-testing-url-mercadopago-jhoniernem.vercel.app/bePremium",
-        success: "https://testing-url-mercadopago-git-testing-url-mercadopago-jhoniernem.vercel.app/bePremium",
+        failure: "https://proyecto-final-frontend-jhoniernem.vercel.app/bePremium",
+        pending: "https://proyecto-final-frontend-jhoniernem.vercel.app/bePremium",
+        success: "https://proyecto-final-frontend-jhoniernem.vercel.app/bePremium",
       },
       auto_return: "approved",
       external_reference: req.body.user_id,
