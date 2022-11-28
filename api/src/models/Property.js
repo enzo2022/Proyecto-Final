@@ -94,7 +94,10 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-
+      views: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
       //disable
       state: {
         type: DataTypes.BOOLEAN,

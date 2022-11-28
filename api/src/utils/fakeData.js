@@ -30,6 +30,7 @@ const dataUsers = [
     password: "$2b$10$PkXCPmCniHbIrbuhBHTCN.ahiU4X2s84Hvmc07HV6MeNSQaszyWja",
     user_auth_0: false,
     email: "chanticou@hotmail.com",
+    user_type: "userPremiun",
     cellphone: 777777777,
   },
   {
@@ -50,6 +51,8 @@ const dataUsers = [
     password: "$2b$10$PkXCPmCniHbIrbuhBHTCN.ahiU4X2s84Hvmc07HV6MeNSQaszyWja",
     user_auth_0: false,
     email: "pfgrupo05@gmail.com",
+    user_type: "userPremiun",
+
     cellphone: 55555,
   },
   {
@@ -60,6 +63,7 @@ const dataUsers = [
     password: "$2b$10$PkXCPmCniHbIrbuhBHTCN.ahiU4X2s84Hvmc07HV6MeNSQaszyWja",
     user_auth_0: false,
     email: "hborasou@gmail.com",
+    user_type: "userPremiun",
     cellphone: 55555,
   },
 ];

@@ -113,9 +113,28 @@ const findPropertyById = async (req, res) => {
       include: { model: Feedback },
     });
 
+    const userJson = searchByPK.toJSON();
+
+    await Property.update(
+      {
+        ...userJson,
+        views: userJson.views + 1,
+        state: userJson.state === "Activado",
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+
     if (!searchByPK) throw new Error("Id inexistente");
 
-    res.status(200).json({ Message: "Succes", paylaod: searchByPK });
+    res.status(200).json({
+      Message: "Succes",
+      paylaod: { ...userJson, views: userJson.views + 1 },
+      views: userJson.views + 1,
+    });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
