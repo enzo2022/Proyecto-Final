@@ -129,6 +129,21 @@ const getAll = async (req, res) => {
   }
 };
 
+//function  find User by id
+const findUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const searchByPK = await User.findOne({
+      where: { id_User: id },
+    });
+
+    if (!searchByPK) throw new Error("Id inexistente");
+    res.status(200).json({ Message: "Success", payload: searchByPK });
+  } catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+};
+
 const uplaodUser = async (req, res) => {
   const { id_user } = req.params;
   try {
@@ -184,4 +199,5 @@ module.exports = {
   uplaodUser,
   upDate,
   deleteUser,
+  findUserById,
 };
