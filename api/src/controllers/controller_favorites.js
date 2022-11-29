@@ -26,8 +26,7 @@ const favoritesbyId_user = async (req, res, next) => {
 
         {
           attributes: { exclude: ["password"] },
-          include: [{ model: Favorite, attributes: ["id_Property"] }],
-          include: { model: Property },
+          include: [{ model: Favorite }],
         }
       );
     }
@@ -68,3 +67,4 @@ module.exports = {
   deleteFavorite,
   getAllFavorites,
 };
+//hola
