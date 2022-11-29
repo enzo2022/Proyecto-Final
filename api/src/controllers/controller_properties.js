@@ -110,8 +110,7 @@ const findPropertyById = async (req, res) => {
 
     const searchByPK = await Property.findOne({
       where: { id: id },
-      include: { model: Feedback },
-      include: { model: User },
+      include: [{ model: User }, { model: Feedback }],
     });
 
     const userJson = searchByPK.toJSON();
