@@ -186,8 +186,9 @@ const upDate = async (req, res) => {
 const deleteUser = async (req, res) => {
   const { id_User } = req.params;
   try {
+    
     if (!id_User) return res.send("User inexistente");
-    const deleteUser = await Property.destroy({ where: { id_User: id_User } });
+    const deleteUser = await User.destroy({ where: { id_User: id_User } });
     res.status(200).json({ Message: "Usuario eliminado correctamente!" });
   } catch (err) {
     res.status(400).json({ Error: err.message });
