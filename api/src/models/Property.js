@@ -76,11 +76,11 @@ module.exports = (sequelize) => {
       },
       state_modality: {
         type: DataTypes.ENUM("Alquilado", "Vendida", "Pendiente"),
-        allowNull: false,
+        allowNull: true,
       },
       services: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
+        allowNull: true,
       },
       published: {
         type: DataTypes.ENUM("Revision", "Cancelada", "Publicada"),
