@@ -43,10 +43,11 @@ const dataUsers = [
     userName: "Agustin",
     photo:
       "https://res.cloudinary.com/dtzesfyt1/image/upload/v1668008325/robot-image_xrpox8.png",
-    password: "$2b$10$PkXCPmCniHbIrbuhBHTCN.ahiU4X2s84Hvmc07HV6MeNSQaszyWja",
+    password: "$2b$10$cxnvp87fro5E7R.1fP.Lkugk.T7jNHGhW9/lNZlJecjsYp3WUabJ6",
     user_auth_0: false,
     email: "musicologo@gmail.com",
     cellphone: 6666666666,
+    user_type: "userPremiun",
   },
   {
     id_User: "073fb7d0-ccc6-49bb-ad20-cb47f2e3ae29",
