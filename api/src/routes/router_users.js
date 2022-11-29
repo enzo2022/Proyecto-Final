@@ -10,7 +10,7 @@ const {
   uplaodUser,
   upDate,
   findUserById,
-  deleteUser
+  deleteUser,
 } = require("../controllers/controller_users");
 
 //router find Id User
@@ -29,6 +29,6 @@ router.put("/users/upload/:id_user", uplaodUser);
 
 router.put("/users/upDate/:id_user", upDate);
 
-router.delete("/users/delete/:id_User", deleteUser)
+router.delete("/users/delete/:id_User", deleteUser);
 
 module.exports = router;

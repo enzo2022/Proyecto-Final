@@ -4,6 +4,7 @@ const verifyTokenAdminPremiun = require("../JWT/verifyTokenAdminPremiun.js");
 
 //Llamado a properties.controller donde tengo la logica
 const controller = require("../controllers/controller_properties.js");
+const verifyTokenUserLogged = require("../JWT/verifyTokenUserLogged.js");
 
 //Create Property
 router.post(
