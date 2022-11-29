@@ -135,7 +135,6 @@ const findUserById = async (req, res) => {
     const { id } = req.params;
     const searchByPK = await User.findOne({
       where: { id_User: id },
-      include: { model: Property },
       include: { model: Favorite },
     });
 

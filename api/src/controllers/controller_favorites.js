@@ -21,22 +21,22 @@ const favoritesbyId_user = async (req, res, next) => {
     var id_User = req.params.id_User;
 
     if (id_User) {
-      var sql = await User.findByPk(
-        id_User,
-
-        {
-          attributes: { exclude: ["password"] },
-          include: [{ model: Favorite }],
-        }
-      );
+      var sql = await Favorite.findAll({
+        where: {
+          id_User: id_User,
+        },
+        attributes: ["id_Property"],
+      });
     }
-
-    res.status(200).json(sql);
+    const dataProperty = sql.map((e) => e.id_Property);
+    console.log(dataProperty);
+    res.status(200).json(dataProperty);
   } catch (error) {
     // Passes errors into the error handler
     return next(error);
   }
 };
+
 const deleteFavorite = async (req, res) => {
   const { id_Favorite } = req.params;
   try {
