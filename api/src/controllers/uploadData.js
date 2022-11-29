@@ -88,7 +88,7 @@ const UploadUsers = async (req, res, next) => {
 
 const UploadProperties = async (req, res, next) => {
   try {
-    Promise.all(dataProperties.map((e) => Property.create(e)));
+    await Promise.all(dataProperties.map((e) => Property.create(e)));
   } catch (error) {
     console.log("controlles.uploaddata.UploadProperties: ", err);
   }
