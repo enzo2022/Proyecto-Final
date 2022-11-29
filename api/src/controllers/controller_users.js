@@ -56,7 +56,6 @@ const createUser = async (req, res) => {
         ),
       },
       function (err, response) {
-        
         // console.log(err, response);
       }
     );
@@ -137,6 +136,7 @@ const findUserById = async (req, res) => {
     const searchByPK = await User.findOne({
       where: { id_User: id },
       include: { model: Property },
+      include: { model: Favorite },
     });
 
     if (!searchByPK) throw new Error("Id inexistente");
