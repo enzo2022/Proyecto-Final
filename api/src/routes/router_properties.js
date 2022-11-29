@@ -8,7 +8,7 @@ const controller = require("../controllers/controller_properties.js");
 //Create Property
 router.post(
   "/properties/createProperty",
-  verifyTokenAdminPremiun,
+  //verifyTokenAdminPremiun,
   controller.createProperty
 );
 
