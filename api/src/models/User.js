@@ -63,7 +63,7 @@ module.exports = (sequelize) => {
 
       state: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
+        defaultValue: true,
         get() {
           if (this.getDataValue("state")) {
             return "Activado";
