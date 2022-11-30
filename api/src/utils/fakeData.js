@@ -28,7 +28,7 @@ const dataFavorites = [
 
 const dataUsers = [
   {
-    id_User: "325c1472-31fc-475f-8894-b12daf86b8ee",
+    id_User: "eef25319-3db7-427f-ac60-79b4e74b83b1",
     userName: "Rodrigo",
     photo:
       "https://res.cloudinary.com/dtzesfyt1/image/upload/v1668008325/robot-image_xrpox8.png",
@@ -71,6 +71,28 @@ const dataUsers = [
     email: "hborasou@gmail.com",
     user_type: "userPremiun",
     cellphone: 55555,
+  },
+  {
+    id_User: "325c1472-31fc-475f-8894-b12daf86b8ee",
+    userName: "tomasperez",
+    photo:
+      "https://pps.whatsapp.net/v/t61.24694-24/310107193_1253459732164501_3778443236274806214_n.jpg?ccb=11-4&oh=01_AdQYMM1muXLGsPqaA8BbsSOXRMvxGrAkzPyDJKhVK7gOeQ&oe=6394E740",
+    password: "$2b$10$gQ/x0.ZWNFnXsS9W5Sl55.UotvkfwZlGGvvfi7OthT4Ud88TsXh/e",
+    user_auth_0: false,
+    email: "tomi2001perez@gmail.com",
+    user_type: "userPremiun",
+    cellphone: "2944140001",
+  },
+  {
+    id_User: "499554a7-9cfc-4bc7-befe-c6b98d5717e9",
+    userName: "eltomasperez",
+    photo:
+      "https://img.freepik.com/foto-gratis/hombre-europeo-barbudo-melocoton-casual-aislado-gritando-expresion-loca-haciendo-simbolo-rock-manos-arriba_343596-4947.jpg?w=2000",
+    password: "$2b$10$Jvvp.dbscCJ1zJTycA8mIOyn.XTD0qsRuqTPN8By3wo8ck4ft4TQC",
+    user_auth_0: false,
+    email: "tomasperez.henry@gmail.com",
+    user_type: "admin",
+    cellphone: "2944140001",
   },
 ];
 
