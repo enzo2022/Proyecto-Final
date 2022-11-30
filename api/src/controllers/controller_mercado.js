@@ -34,18 +34,20 @@ const premiumController =
           title: "Properties & You ",
           description:
             "Gracias por la  Compra , una vez actualizado el pago podrá editar las propiedades ya sea venta o alquiler ",
-          unit_price: 100,
+          unit_price: 5000,
           quantity: 1,
           currency_id: "ARS",
         },
       ],
 
-
       //notification_url: "http://localhost:3000/bePremium", //redirige despues de la compra
       back_urls: {
-        failure: "https://proyecto-final-frontend-jhoniernem.vercel.app/bePremium",
-        pending: "https://proyecto-final-frontend-jhoniernem.vercel.app/bePremium",
-        success: "https://proyecto-final-frontend-jhoniernem.vercel.app/bePremium",
+        failure:
+          "https://proyecto-final-frontend-jhoniernem.vercel.app/bePremium",
+        pending:
+          "https://proyecto-final-frontend-jhoniernem.vercel.app/bePremium",
+        success:
+          "https://proyecto-final-frontend-jhoniernem.vercel.app/bePremium",
       },
       auto_return: "approved",
       external_reference: req.body.user_id,
