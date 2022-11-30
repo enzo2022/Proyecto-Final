@@ -38,17 +38,18 @@ const favoritesbyId_user = async (req, res, next) => {
 };
 
 const deleteFavorite = async (req, res) => {
-  const { id_Favorite } = req.params;
+  const { id_Property } = req.params;
   try {
-    if (!id_Favorite) return res.send("Id inexistente");
+    if (!id_Property) return res.send("Id inexistente");
     const deleteFavorite = await Favorite.destroy({
-      where: { id_Favorite: id_Favorite },
+      where: { id_Property: id_Property },
     });
     res.status(200).json({ Message: "Delete favorite succes" });
   } catch (err) {
     res.status(400).json({ Message: err.message });
   }
 };
+
 const getAllFavorites = async (req, res) => {
   try {
     const favorites = await Favorite.findAll();
