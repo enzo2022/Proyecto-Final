@@ -4,9 +4,9 @@ const { UploadData } = require("./src/controllers/uploadData");
 const PORT = process.env.PORT || 3001;
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(async () => {
+conn.sync({ force: true }).then(async () => {
   server.listen(PORT || 3001, () => {
     console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
   });
-  //await UploadData();
+  await UploadData();
 });
