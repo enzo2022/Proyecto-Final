@@ -25,7 +25,7 @@ router.get("/properties/getAllAddress", controller.getAllAddress);
 //logicalDeleteion route
 router.put(
   "/properties/disableProperty/:id",
-  verifyTokenAdminPremiun,
+  //verifyTokenAdminPremiun,
   controller.disableProperty
 );
 
