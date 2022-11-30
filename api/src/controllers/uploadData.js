@@ -90,7 +90,7 @@ const UploadProperties = async (req, res, next) => {
   try {
     await Promise.all(dataProperties.map((e) => Property.create(e)));
   } catch (error) {
-    console.log("controlles.uploaddata.UploadProperties: ", err);
+    console.log("controlles.uploaddata.UploadProperties: ", error);
   }
 };
 
@@ -105,7 +105,7 @@ const UploadFavorites = async (req, res, next) => {
 
 const UploadMemberships_types = async (req, res, next) => {
   try {
-    Promise.all(dataMembershipTypes.map((e) => MembershipType.create(e)));
+    await Promise.all(dataMembershipTypes.map((e) => MembershipType.create(e)));
   } catch (error) {
     console.log("controlles.uploaddata.UploadMembershipTypes: ", err);
   }
@@ -113,7 +113,7 @@ const UploadMemberships_types = async (req, res, next) => {
 
 const UploadMemberships = async (req, res, next) => {
   try {
-    Promise.all(dataMemberships.map((e) => Membership.create(e)));
+    await Promise.all(dataMemberships.map((e) => Membership.create(e)));
   } catch (error) {
     console.log("controlles.uploaddata.UploadMembership: ", err);
   }
@@ -121,9 +121,9 @@ const UploadMemberships = async (req, res, next) => {
 
 const UploadFeedback = async (req, res, next) => {
   try {
-    Promise.all(dataFeedback.map((e) => Feedback.create(e)));
+    await Promise.all(dataFeedback.map((e) => Feedback.create(e)));
   } catch (error) {
-    console.log("controlles.uploaddata.UploadFeedback: ", err);
+    console.log("controlles.uploaddata.UploadFeedback: ", error);
   }
 };
 
