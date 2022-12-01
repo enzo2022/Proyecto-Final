@@ -273,7 +273,7 @@ const dataProperties = [
     type: "Casa",
     description: "casa amplia",
     modality: "Venta",
-    state_modality: "Pendiente",
+    state_modality: "Alquilado",
     services: ["agua", "luz"],
     published: "Publicada",
     geolocation: "Departamento",
