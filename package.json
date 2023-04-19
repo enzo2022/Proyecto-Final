@@ -1,11 +1,12 @@
 {
-  "name": "api",
+  "name": "api-properties-you",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -L",
-    "test": "mocha -w ./tests/**/*.spec.js"
+    "start": "node ./",
+    "test": "mocha -w ./tests/**/*.spec.js",
+    "dev": "nodemon ./"
   },
   "author": "Henry",
   "license": "ISC",
