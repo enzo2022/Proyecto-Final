@@ -4,8 +4,9 @@ const {
   transport,
   sendEmailToOwner,
 } = require("../utils/nodemailer/nodemailer.js");
-const { user } = require("../utils/config.js");
 
+//const { user } = require("../utils/config.js");
+const user = "postgres"
 //usuario interesado en la publicacion
 const userInterested = async (req, res) => {
   try {

@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const sequelize = require("./config/config.js");
+const {sequelize} = require("./config/config.js");
 
 //DB-CONNECTION
 sequelize
