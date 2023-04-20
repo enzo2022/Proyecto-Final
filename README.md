@@ -25,6 +25,16 @@ API_PORT = ""
 SECRET_KEY = ""
 ```
 
+*También puedes mirar el archivo* `.env.example`
+
+**Luego** instala las dependencias necesarias
+
+```bash
+npm i
+```
+
+**Finalmente** tienes los siguientes scripts para hacer funcionar la API → `npm start` para un ambiente de producción y `npm run dev` para un ambiente de desarrollo.
+
 ## Ejecutando las pruebas ⚙️
 
 _Explica como ejecutar las pruebas automatizadas para este sistema_
