@@ -1,26 +1,25 @@
 var { Router } = require("express");
 var router = Router();
+
 const verifyTokenAdminPremiun = require("../JWT/verifyTokenAdminPremiun.js");
-const verifyTokenUserLogged = require("../JWT/verifyTokenUserLogged");
+const verifyTokenUserLogged = require("../JWT/verifyTokenUserLogged.js");
 
 const {
+  signUp,
+  signIn,
   getAll,
-  createUser,
-  login,
   uplaodUser,
   upDate,
   findUserById,
   deleteUser,
-} = require("../controllers/controller_users");
+} = require("../controllers/users.js");
+
+router.post("/signup", signUp);
+
+router.post("/signin", signIn);
 
 //router find Id User
 router.get("/users/findByIdUser/:id", findUserById);
-
-//Create User
-router.post("/users/createUser", createUser);
-
-//login
-router.post("/users/login", login);
 
 //Get all User
 router.get("/users/allUsers", getAll);

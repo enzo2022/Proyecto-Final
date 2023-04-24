@@ -1,4 +1,3 @@
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { JWT_SECRET, JWT_EXPIRES } = process.env;
@@ -11,40 +10,34 @@ const {
   Membership,
   MembershipType,
 } = require("../db.js");
-
 const {
   transport,
   registerMessage,
 } = require("../utils/nodemailer/nodemailer.js");
 
-//FUNTION SIGNUP USER
-const createUser = async (req, res) => {
-  try {
-    const { email, userName, password, photo, cellphone, user_type } = req.body;
+const { hashPassword, verifyPassword } = require("../utils");
 
+const signUp = async (req, res) => {
+  const { fName, lName, userName, password, email } = req.body;
+  if (!fName || !lName || !userName || !password || !email)
+    return res.status(400).send("Some data are missing");
+
+  try {
     const findUser = await User.findOne({
       where: { email: email },
     });
 
-    if (findUser) return res.status(412).send("User already exist");
-
-    if (!userName || !email || !password)
-      return res.status(412).send("Users, Passd y Email no pueder ser nulos");
-
-    const encrypted = await bcrypt.hash(password, 10);
-
-    const myuser = await User.create({
-      email,
+    if (findUser) return res.status(409).send("User already exist");
+    const hashPass = await hashPassword(password);
+    const user = await User.create({
+      lName,
+      fName,
       userName,
-      password: encrypted,
-      photo: photo
-        ? photo
-        : "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg",
-      cellphone,
-      user_type,
+      email,
+      password: hashPass,
     });
 
-    //notify property created succes
+    /*     //notify property created succes
     notifier.notify(
       {
         sound: true,
@@ -59,21 +52,21 @@ const createUser = async (req, res) => {
         // console.log(err, response);
       }
     );
-
     //NODEMAILER, SEND EMAIL TO USER
-    const info = await transport.sendMail(registerMessage(userName, email));
-
-    return res.status(200).send({ Message: "Usuario creado" });
+    const info = await transport.sendMail(registerMessage(userName, email)); */
+    return res.send({ Message: "Usuario creado" });
   } catch (err) {
     return res.status(500).send({ Error: err.message });
   }
 };
 
 //FUNTION LOGIN USER => POST
-const login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+const signIn = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(404).send("Email and password are required");
 
+  try {
     const searchUser = await User.findOne({
       where: { email: email },
       include: [
@@ -84,30 +77,29 @@ const login = async (req, res) => {
     });
 
     if (!searchUser)
-      return res.send({ ok: false, Error: "El correo no existe" });
-    if (!email || !password)
-      return res.send({ Error: "Necesitas ingresar usuario y contraseña" });
+      return res.status(404).send({ ok: false, Error: "Email not found" });
 
-    if (!bcrypt.compareSync(password, searchUser.password))
-      return res.send({ Error: "Password incorrecto" });
+    const passwordMatch = await verifyPassword(searchUser.password, password);
+    if (!passwordMatch)
+      res.status(401).json({ message: "Incorrect email or password." });
 
     let user = {
       email: searchUser.email,
       userName: searchUser.userName,
-      id_User: searchUser.id_User,
+      idUser: searchUser.idUser,
       photo: searchUser.photo,
-      user_type: searchUser.user_type,
+      userType: searchUser.userType,
       property: searchUser.Properties,
       favorites: searchUser.Favorites,
       memberships: searchUser.Memberships,
       cellphone: searchUser.cellphone,
     };
 
-    const token = jwt.sign({ user }, JWT_SECRET, {
-      expiresIn: JWT_EXPIRES,
-    });
+    const token = 2; //jwt.sign({ user }, JWT_SECRET, {
+    //expiresIn: JWT_EXPIRES,
+    //});
 
-    res.status(200).json({ Message: user, token: token });
+    res.json({ Message: user, token: token });
   } catch (error) {
     res.status(400).json({ Error: error.message });
   }
@@ -196,9 +188,9 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
+  signUp,
+  signIn,
   getAll,
-  createUser,
-  login,
   uplaodUser,
   upDate,
   deleteUser,
