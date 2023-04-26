@@ -1,6 +1,3 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
-const { JWT_SECRET, JWT_EXPIRES } = process.env;
 const notifier = require("node-notifier");
 const path = require("path");
 const {
@@ -15,7 +12,9 @@ const {
   registerMessage,
 } = require("../utils/nodemailer/nodemailer.js");
 
+//here
 const { hashPassword, verifyPassword } = require("../utils");
+const {generateToken} = require('../utils')
 
 const signUp = async (req, res) => {
   const { fName, lName, userName, password, email } = req.body;
@@ -94,9 +93,7 @@ const signIn = async (req, res) => {
       cellphone: searchUser.cellphone,
     };
 
-    const token = 2; //jwt.sign({ user }, JWT_SECRET, {
-    //expiresIn: JWT_EXPIRES,
-    //});
+    const token = generateToken({email: user.email,userName: user.userName, type:user.userType});
 
     res.json({ Message: user, token: token });
   } catch (error) {
@@ -135,17 +132,17 @@ const getAll = async (req, res) => {
 };
 
 const uplaodUser = async (req, res) => {
-  const { id_User } = req.params;
+  const { idUser } = req.params;
   try {
-    let user = await User.findByPk(id_user);
-
+    let user = await User.findByPk(idUser);
+    if (newUploadUser[0] === 0) throw new Error("Id inexistente");
+    
     const newUploadUser = await User.update(req.body, {
       where: {
-        id_User: id_user,
+        idUser: idUser,
       },
     });
 
-    if (newUploadUser[0] === 0) throw new Error("Id inexistente");
     res.status(200).send({ Message: user });
   } catch (err) {
     res.status(404).send({ Error: err.message });

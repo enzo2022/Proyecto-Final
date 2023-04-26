@@ -4,6 +4,8 @@ var router = Router();
 const verifyTokenAdminPremiun = require("../JWT/verifyTokenAdminPremiun.js");
 const verifyTokenUserLogged = require("../JWT/verifyTokenUserLogged.js");
 
+const {authenticateToken} = require('../middlewares')
+
 const {
   signUp,
   signIn,
@@ -20,9 +22,9 @@ router.post("/signin", signIn);
 router.get("/all", getAll);
 router.get("/:idUser", findUserById);
 
-router.put("/users/upload/:id_user", uplaodUser);
+router.put("/upload/:id_user", authenticateToken, uplaodUser);
 router.put("/users/upDate/:id_user", upDate);
 
-router.delete("/:idUser", deleteUser);
+router.delete("/:idUser",authenticateToken,  deleteUser);
 
 module.exports = router;
