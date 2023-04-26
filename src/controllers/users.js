@@ -60,7 +60,6 @@ const signUp = async (req, res) => {
   }
 };
 
-//FUNTION LOGIN USER => POST
 const signIn = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -105,8 +104,21 @@ const signIn = async (req, res) => {
   }
 };
 
-//GET ALL users / GET AL FRONT
-//agregar tipo membresia
+const findUserById = async (req, res) => {
+  const { idUser } = req.params;
+  try {
+    const searchByPK = await User.findOne({
+      where: { idUser: idUser },
+      include: { model: Favorite },
+    });
+
+    if (!searchByPK) throw new Error("User not found");
+    res.status(200).json({ Message: "Success", payload: searchByPK });
+  } catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+};
+
 const getAll = async (req, res) => {
   try {
     let users = await User.findAll({
@@ -122,24 +134,8 @@ const getAll = async (req, res) => {
   }
 };
 
-//function  find User by id
-const findUserById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const searchByPK = await User.findOne({
-      where: { id_User: id },
-      include: { model: Favorite },
-    });
-
-    if (!searchByPK) throw new Error("Id inexistente");
-    res.status(200).json({ Message: "Success", payload: searchByPK });
-  } catch (err) {
-    res.status(400).json({ Error: err.message });
-  }
-};
-
 const uplaodUser = async (req, res) => {
-  const { id_user } = req.params;
+  const { id_User } = req.params;
   try {
     let user = await User.findByPk(id_user);
 
@@ -175,24 +171,25 @@ const upDate = async (req, res) => {
   }
 };
 
-//crear el destroy
 const deleteUser = async (req, res) => {
-  const { id_User } = req.params;
+  const { idUser } = req.params;
+  if (!idUser) return res.status(404).send("idUser is required");
+  
   try {
-    if (!id_User) return res.send("User inexistente");
-    const deleteUser = await User.destroy({ where: { id_User: id_User } });
-    res.status(200).json({ Message: "Usuario eliminado correctamente!" });
+    await User.destroy({ where: { idUser: idUser } });
+
+    res.json({ Message: "User delete correctly" });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
 };
 
 module.exports = {
-  signUp,
-  signIn,
-  getAll,
-  uplaodUser,
-  upDate,
   deleteUser,
   findUserById,
+  getAll,
+  signUp,
+  signIn,
+  uplaodUser,
+  upDate,
 };

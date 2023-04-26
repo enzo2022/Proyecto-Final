@@ -1,18 +1,15 @@
 const { DataTypes } = require("sequelize");
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
 
 module.exports = (sequelize) => {
-  // defino el modelo
   sequelize.define(
     "Property",
     {
-      id: {
+      idProperty: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      id_User: {
+      idUser: {
         type: DataTypes.UUID,
         allowNull: false,
       },
@@ -74,7 +71,7 @@ module.exports = (sequelize) => {
         type: DataTypes.ENUM("Venta", "Alquiler"),
         allowNull: false,
       },
-      state_modality: {
+      stateModality: {
         type: DataTypes.ENUM("Alquilado", "Vendida", "Pendiente"),
         allowNull: true,
       },
