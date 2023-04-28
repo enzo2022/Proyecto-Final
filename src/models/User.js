@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         get() {
-          return this.getDataValue("state") ? "online" : "offline";
+          return this.getDataValue("active") ? "online" : "offline";
         },
       },
       photo: {

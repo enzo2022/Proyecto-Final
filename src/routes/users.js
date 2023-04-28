@@ -9,21 +9,21 @@ const {authenticateToken} = require('../middlewares')
 const {
   signUp,
   signIn,
-  getAll,
-  uplaodUser,
-  upDate,
-  findUserById,
+  getUser,
+  getUsers,
+  setPremium,
+  updateUser,
   deleteUser,
 } = require("../controllers/users.js");
 
 router.post("/signup", signUp);
 router.post("/signin", signIn);
 
-router.get("/all", getAll);
-router.get("/:idUser", findUserById);
+router.get("/all", getUsers);
+router.get("/:idUser", getUser);
 
-router.put("/upload/:id_user", authenticateToken, uplaodUser);
-router.put("/users/upDate/:id_user", upDate);
+router.put("/:idUser", authenticateToken, updateUser);
+router.put("premium/:idUser", setPremium);
 
 router.delete("/:idUser",authenticateToken,  deleteUser);
 
