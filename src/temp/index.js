@@ -12,8 +12,7 @@ async function addUsers() {
       await addAdmin(MY_ADMIN)
     }
 
-    const exist = await User.findAll();
-    if (!exist?.length) {
+    if (true) {
       const newUsers = users.map(async (user) => ({
         ...user,
         password: await hashPassword(user.password),
