@@ -1,9 +1,5 @@
 var { Router } = require("express");
 var router = Router();
-
-const verifyTokenAdminPremiun = require("../JWT/verifyTokenAdminPremiun.js");
-const verifyTokenUserLogged = require("../JWT/verifyTokenUserLogged.js");
-
 const {authenticateToken} = require('../middlewares')
 
 const {

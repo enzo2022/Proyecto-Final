@@ -8,9 +8,12 @@ function authenticateToken(req, res, next) {
   if (!token)
     res.status(401).json({ message: "Authentication token not provided." });
   else
-    jwt.verify(token, SECRET_KEY, (err, _user) => {
+    jwt.verify(token, SECRET_KEY, (err, user) => {
       if (err) res.status(403).json({ message: "invalid token" });
-      else next();
+      else{
+        req.user = { email: user.email, type: user.type };
+        next();
+      } 
     });
 }
 
@@ -22,7 +25,37 @@ function handleJwtError(err, req, res, next) {
   }
 }
 
+//Authorization middleware by userType ↓
+
+function authorizeNormal(req, res, next) {
+  if (req.user.type !== 'normal') {
+    return res.status(401).json({ message: 'Action not authorized for this user' });
+  }
+
+  next();
+}
+
+function authorizePremium(req, res, next) {
+  if (req.user.type !== 'premium') {
+    return res.status(401).json({ message: 'Action not authorized for this user' });
+  }
+
+  next();
+}
+
+function authorizeAdmin(req, res, next) {
+  if (req.user.type !== 'admin') {
+    return res.status(401).json({ message: 'Action not authorized for this user' });
+  }
+
+  next();
+}
+
+
 module.exports = {
     authenticateToken,
-    handleJwtError
+    handleJwtError,
+    authorizeNormal,
+    authorizePremium,
+    authorizeAdmin
 }

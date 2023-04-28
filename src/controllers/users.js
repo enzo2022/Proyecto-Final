@@ -94,7 +94,7 @@ const signIn = async (req, res) => {
       cellphone: searchUser.cellphone,
     };
 
-    const token = generateToken({email: user.email,userName: user.userName, type:user.userType});
+    const token = generateToken({email: user.email, user: user.userName, type:user.userType});
 
     res.json({ Message: user, token: token });
   } catch (error) {
