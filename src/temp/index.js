@@ -5,9 +5,13 @@ const { hashPassword } = require("../utils");
 require("dotenv").config();
 const { ADMIN } = process.env;
 
-async function addUsers() {
+async function addUsers() { 
   try {
-    const MY_ADMIN = JSON.parse(ADMIN)
+    if(ADMIN?.length){
+      let MY_ADMIN = JSON.parse(ADMIN)
+      await addAdmin(MY_ADMIN)
+    }
+
     const exist = await User.findAll();
     if (!exist?.length) {
       const newUsers = users.map(async (user) => ({
@@ -16,13 +20,20 @@ async function addUsers() {
       }));
 
       const usersWithHashedPasswords = await Promise.all(newUsers);
-      await User.bulkCreate([...usersWithHashedPasswords,MY_ADMIN]);
+      await User.bulkCreate(usersWithHashedPasswords);
     }
-    return "ok → ☼"
+    return "Ok → users added"
   } catch (error) {
-    console.log(error.message);
-    return "err";
+    return error.message;
   }
+}
+
+async function addAdmin(ADMIN){
+  if(!ADMIN) return
+
+  ADMIN.password = await hashPassword(ADMIN.password)
+  await User.create(ADMIN)
+  return
 }
 
 module.exports = {
