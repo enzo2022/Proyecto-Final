@@ -1,0 +1,36 @@
+{
+    "users": [
+        {
+            "idUser":"eef25319-3db7-427f-ac60-79b4e74b83b1",
+            "fName":"Rodrigo",
+            "lName":"123",
+            "userName":"rodri123",
+            "email":"rodri123@gmail.com",
+            "password":"rodri123"
+        },
+        {
+            "idUser":"119e8569-22e7-47c2-9ae5-1eb87a5b317a",
+            "fName":"Jhonier",
+            "lName":"Alegria",
+            "userName":"ale_jhonier",
+            "email":"jhescaal@gmail.com",
+            "password":"Aj1234"
+        },
+        {
+            "idUser":"073fb7d0-ccc6-49bb-ad20-cb47f2e3ae29",
+            "fName":"Agustin",
+            "lName":"123",
+            "userName":"agus123",
+            "email":"agus123@gmail.com",
+            "password":"agus123"
+        },
+        {
+            "idUser":"08f76aa7-5b8f-4b7a-94d4-672a6dcabc95",
+            "fName":"Tomas",
+            "lName":"Perez",
+            "userName":"perez",
+            "email":"tomas123@gmail.com",
+            "password":"tomas123"
+        }
+    ]
+}
