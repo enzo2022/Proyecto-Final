@@ -16,6 +16,7 @@ const {
 const { hashPassword, verifyPassword } = require("../utils");
 const {generateToken} = require('../utils')
 
+//POST
 const signUp = async (req, res) => {
   const { fName, lName, userName, password, email } = req.body;
   if (!fName || !lName || !userName || !password || !email)
@@ -101,14 +102,15 @@ const signIn = async (req, res) => {
   }
 };
 
-const findUserById = async (req, res) => {
+//GET
+const getUser = async (req, res) => {
   const { idUser } = req.params;
   try {
     const searchByPK = await User.findOne({
       where: { idUser: idUser },
       include: { model: Favorite },
     });
-
+    
     if (!searchByPK) throw new Error("User not found");
     res.status(200).json({ Message: "Success", payload: searchByPK });
   } catch (err) {
@@ -116,7 +118,7 @@ const findUserById = async (req, res) => {
   }
 };
 
-const getAll = async (req, res) => {
+const getUsers = async (req, res) => {
   try {
     let users = await User.findAll({
       include: { model: Membership },
@@ -131,7 +133,8 @@ const getAll = async (req, res) => {
   }
 };
 
-const uplaodUser = async (req, res) => {
+//PUT
+const updateUser = async (req, res) => {
   const { idUser } = req.params;
   try {
     let user = await User.findByPk(idUser);
@@ -149,18 +152,18 @@ const uplaodUser = async (req, res) => {
   }
 };
 
-const upDate = async (req, res) => {
-  const { id_user } = req.params;
+const setPremium = async (req, res) => {
+  const { idUser } = req.params;
   try {
     await User.update(
-      { user_type: "userPremiun" },
+      { userType: "Premium" },
       {
         where: {
-          id_User: id_user,
+          idUser: idUser,
         },
       }
     );
-    const user = await User.findByPk(id_user);
+    const user = await User.findByPk(idUser);
 
     res.status(200).send({ Message: user });
   } catch (err) {
@@ -168,6 +171,7 @@ const upDate = async (req, res) => {
   }
 };
 
+//DELETE
 const deleteUser = async (req, res) => {
   const { idUser } = req.params;
   if (!idUser) return res.status(404).send("idUser is required");
@@ -183,10 +187,10 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
   deleteUser,
-  findUserById,
-  getAll,
+  getUser,
+  getUsers,
   signUp,
   signIn,
-  uplaodUser,
-  upDate,
+  setPremium,
+  updateUser,
 };
