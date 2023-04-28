@@ -6,7 +6,7 @@ const {
   restoreUser,
   acces,
   userDates,
-} = require("../controllers/controller_admin");
+} = require("../controllers/admin");
 
 router.put("/restoreUser/:id", restoreUser);
 router.put("/deleteUser/:id", deleteUser);

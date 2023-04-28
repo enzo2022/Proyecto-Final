@@ -8,7 +8,7 @@ const {
   answerFeedback,
   deleteFeetback,
   // isBossFeedback,
-} = require("../controllers/controller_feedback");
+} = require("../controllers/feedback");
 
 router.post("/feedback/createFeedback", createFeedback);
 router.get("/feedback/property/:id_Property", feedbackById_Property);

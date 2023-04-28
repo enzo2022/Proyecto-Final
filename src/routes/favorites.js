@@ -6,7 +6,7 @@ const {
   favoritesbyId_user,
   deleteFavorite,
   getAllFavorites,
-} = require("../controllers/controller_favorites");
+} = require("../controllers/favorites");
 
 //Add Favorites
 router.post("/favorites/createFavorite", createFavorite);
