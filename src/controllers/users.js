@@ -63,7 +63,7 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
-    return res.status(404).send("Email and password are required");
+    return res.status(404).json({Error:"Email and password are required"});
 
   try {
     const searchUser = await User.findOne({
@@ -76,11 +76,11 @@ const signIn = async (req, res) => {
     });
 
     if (!searchUser)
-      return res.status(404).send({ ok: false, Error: "Email not found" });
+      return res.status(404).json({Error: "Email not found" });
 
     const passwordMatch = await verifyPassword(searchUser.password, password);
     if (!passwordMatch)
-      res.status(401).json({ message: "Incorrect email or password." });
+      res.status(401).json({ Error: "Incorrect email or password." });
 
     let user = {
       email: searchUser.email,
@@ -96,7 +96,7 @@ const signIn = async (req, res) => {
 
     const token = generateToken({email: user.email, user: user.userName, type:user.userType});
 
-    res.json({ Message: user, token: token });
+    res.json({user, token: token });
   } catch (error) {
     res.status(400).json({ Error: error.message });
   }
@@ -138,15 +138,15 @@ const updateUser = async (req, res) => {
   const { idUser } = req.params;
   try {
     let user = await User.findByPk(idUser);
-    if (newUploadUser[0] === 0) throw new Error("Id inexistente");
+    if (!user?.idUser) return res.status(404).json({Error: "User not found"})
     
-    const newUploadUser = await User.update(req.body, {
+    await User.update(req.body, {
       where: {
         idUser: idUser,
       },
     });
 
-    res.status(200).send({ Message: user });
+    res.status(200).send({ Message:"User Updated"});
   } catch (err) {
     res.status(404).send({ Error: err.message });
   }

@@ -6,22 +6,22 @@ module.exports = (sequelize) => {
     "Feedback",
 
     {
-      id_Feedback: {
+      idFeedback: {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
       //id property
-      id: {
+      idProperty: {
         type: DataTypes.UUID,
 
         allowNull: false,
       },
-      id_User: {
+      idUser: {
         type: DataTypes.UUID,
         allowNull: false,
       },
-      questions: {
+      question: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
