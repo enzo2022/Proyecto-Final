@@ -1,14 +1,15 @@
 var { Router } = require("express");
 var router = Router();
-const {authenticateToken} = require('../middlewares')
+const {authenticateToken,authorizeAdmin} = require('../middlewares')
 
 const {
   signUp,
   signIn,
   getUser,
   getUsers,
-  setPremium,
+  setState,
   updateUser,
+  setPremium,
   deleteUser,
 } = require("../controllers/users.js");
 
@@ -18,8 +19,9 @@ router.post("/signin", signIn);
 router.get("/all", getUsers);
 router.get("/:idUser", getUser);
 
+router.put("/state/:idUser", authenticateToken,authorizeAdmin, setState)
+router.put("/premium/:idUser", setPremium);
 router.put("/:idUser", authenticateToken, updateUser);
-router.put("premium/:idUser", setPremium);
 
 router.delete("/:idUser",authenticateToken,  deleteUser);
 
