@@ -27,8 +27,8 @@ function handleJwtError(err, req, res, next) {
 
 //Authorization middleware by userType ↓
 
-function authorizeNormal(req, res, next) {
-  if (req.user.type !== 'normal') {
+function noAuthorizeLogged(req, res, next) {
+  if (req.user.type === 'logged') {
     return res.status(401).json({ message: 'Action not authorized for this user' });
   }
 
@@ -55,7 +55,7 @@ function authorizeAdmin(req, res, next) {
 module.exports = {
     authenticateToken,
     handleJwtError,
-    authorizeNormal,
     authorizePremium,
-    authorizeAdmin
+    authorizeAdmin,
+    noAuthorizeLogged
 }

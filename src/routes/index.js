@@ -19,7 +19,7 @@ router.use("/", feedback);
 router.use("/", interested);
 router.use("/", mercado);
 router.use("/", membership);
-router.use("/", properties);
+router.use("/property", properties);
 router.use("/user", users);
 
 module.exports = router;

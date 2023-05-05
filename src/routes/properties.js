@@ -1,36 +1,30 @@
-var { Router } = require("express");
-var router = Router();
+const { Router } = require("express");
+const router = Router();
+const {
+  getAllProperties,
+  getAllAddress,
+  findPropertyById,
+  disableProperty,
+  uplaodProperty,
+  deleteProperty,
+} = require("../controllers/properties.js");
 
-//Llamado a properties.controller donde tengo la logica
-const controller = require("../controllers/properties.js");
+//here
+const {
+  authenticateToken,
+  authorizePremium,
+  noAuthorizeLogged,
+} = require("../middlewares");
 
-//Create Property
-router.post(
-  "/properties/createProperty",
-  //verifyTokenAdminPremiun,
-  controller.createProperty
-);
+router.post("/create", authenticateToken, authorizePremium, createProperty);
 
-//Get all propeties
-router.get("/properties/getAll", controller.getAllProperties);
+router.get("/all", getAllProperties);
+router.get("/getAllAddress", getAllAddress);
+router.get("/:id", findPropertyById);
 
-//Get find By id
-router.get("/properties/findById/:id", controller.findPropertyById);
+router.put("/disable/:id", disableProperty);
+router.put("/:id", uplaodProperty);
 
-//Get all address
-router.get("/properties/getAllAddress", controller.getAllAddress);
-
-//logicalDeleteion route
-router.put(
-  "/properties/disableProperty/:id",
-  //verifyTokenAdminPremiun,
-  controller.disableProperty
-);
-
-//Uplaod property
-router.put("/properties/uplaodProperty/:id", controller.uplaodProperty);
-
-//delete
-router.delete("/properties/deleteProperty/:id", controller.deleteProperty);
+router.delete("/:id", authenticateToken, noAuthorizeLogged, deleteProperty);
 
 module.exports = router;
