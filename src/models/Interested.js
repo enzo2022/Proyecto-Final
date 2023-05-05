@@ -7,17 +7,17 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Interested",
     {
-      id_Interesed: {
+      idInteresed: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      id_User: {
+      idUser: {
         type: DataTypes.UUID,
         allowNull: false,
       },
       //id property
-      id: {
+      idProperty: {
         type: DataTypes.UUID,
         allowNull: false,
       },

@@ -1,30 +1,27 @@
 const {DataTypes} = require("sequelize");
 
 module.exports = (sequelize) => {
-	sequelize.define("publication", {
-		id: {
+	sequelize.define("Publication", {
+		idPublication: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
 			allowNull: false,
 			primaryKey: true
 		},
-		description: {
-			type: DataTypes.TEXT,
-			allowNull: false
+		state: {
+			type: DataTypes.ENUM("pending","approved", "acquired", "blocked")
 		},
-		status: {
-			type: DataTypes.STRING,
-			defaultValue: "ParaVender"
+		views:{
+			type: DataTypes.INTEGER,
+			defaultValue: 0
 		},
-		premium: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false
+		modality:{
+			type: DataTypes.ENUM("sale","rental")
 		},
-		deleted: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false
+		price: {
+			type: DataTypes.DOUBLE,
 		},
-		approved: {
+		enabled: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: false
 		}

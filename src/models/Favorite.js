@@ -8,16 +8,16 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Favorite",
     {
-      id_Favorite: {
+      idFavorite: {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
-      id_User: {
+      idUser: {
         type: DataTypes.UUID,
         allowNull: false,
       },
-      id_Property: {
+      idProperty: {
         type: DataTypes.UUID,
         allowNull: false,
       },

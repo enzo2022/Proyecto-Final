@@ -1,36 +1,247 @@
 {
-    "users": [
-        {
-            "idUser":"eef25319-3db7-427f-ac60-79b4e74b83b1",
-            "fName":"Rodrigo",
-            "lName":"123",
-            "userName":"rodri123",
-            "email":"rodri123@gmail.com",
-            "password":"rodri123"
-        },
-        {
-            "idUser":"119e8569-22e7-47c2-9ae5-1eb87a5b317a",
-            "fName":"Jhonier",
-            "lName":"Alegria",
-            "userName":"ale_jhonier",
-            "email":"jhescaal@gmail.com",
-            "password":"Aj1234"
-        },
-        {
-            "idUser":"073fb7d0-ccc6-49bb-ad20-cb47f2e3ae29",
-            "fName":"Agustin",
-            "lName":"123",
-            "userName":"agus123",
-            "email":"agus123@gmail.com",
-            "password":"agus123"
-        },
-        {
-            "idUser":"08f76aa7-5b8f-4b7a-94d4-672a6dcabc95",
-            "fName":"Tomas",
-            "lName":"Perez",
-            "userName":"perez",
-            "email":"tomas123@gmail.com",
-            "password":"tomas123"
-        }
-    ]
+  "users": [
+    {
+      "idUser": "eef25319-3db7-427f-ac60-79b4e74b83b1",
+      "fName": "Rodrigo",
+      "lName": "123",
+      "userName": "rodri123",
+      "email": "rodri123@gmail.com",
+      "password": "rodri123"
+    },
+    {
+      "idUser": "119e8569-22e7-47c2-9ae5-1eb87a5b317a",
+      "fName": "Jhonier",
+      "lName": "Alegria",
+      "userName": "ale_jhonier",
+      "email": "jhescaal@gmail.com",
+      "password": "Aj1234"
+    },
+    {
+      "idUser": "073fb7d0-ccc6-49bb-ad20-cb47f2e3ae29",
+      "fName": "Agustin",
+      "lName": "123",
+      "userName": "agus123",
+      "email": "agus123@gmail.com",
+      "password": "agus123"
+    },
+    {
+      "idUser": "08f76aa7-5b8f-4b7a-94d4-672a6dcabc95",
+      "fName": "Tomas",
+      "lName": "Perez",
+      "userName": "perez",
+      "email": "tomas123@gmail.com",
+      "password": "tomas123"
+    },
+    {
+      "idUser": "0e1e11f7-8f0a-4eab-b34f-3dc3d3c3dd0a",
+      "fName": "Maria",
+      "lName": "Gonzalez",
+      "userName": "maria.gonzalez",
+      "email": "maria.gonzalez@gmail.com",
+      "password": "mariag123"
+    },
+    {
+      "idUser": "9b628062-bb5d-4a32-92fb-5c40119dc0e7",
+      "fName": "Juan",
+      "lName": "Perez",
+      "userName": "juan.perez",
+      "email": "juan.perez@gmail.com",
+      "password": "juanp456"
+    },
+    {
+      "idUser": "8cfa406f-16c2-46f3-9c3b-5b5d1b5da5e5",
+      "fName": "Ana",
+      "lName": "Martinez",
+      "userName": "ana.martinez",
+      "email": "ana.martinez@gmail.com",
+      "password": "anam789"
+    },
+    {
+      "idUser": "a81072e6-4a6c-4a36-9e97-77e9a9a9a816",
+      "fName": "Pedro",
+      "lName": "Garcia",
+      "userName": "pedro.garcia",
+      "email": "pedro.garcia@gmail.com",
+      "password": "pedrog321"
+    },
+    {
+      "idUser": "85f01e06-21df-4f07-9b22-34c166f0d8ec",
+      "fName": "Sofia",
+      "lName": "Fernandez",
+      "userName": "sofia.fernandez",
+      "email": "sofia.fernandez@gmail.com",
+      "password": "sofiaf987"
+    },
+    {
+      "idUser": "59fca47f-9a18-4297-89c3-292e57a1c389",
+      "fName": "Lucas",
+      "lName": "Diaz",
+      "userName": "lucas.diaz",
+      "email": "lucas.diaz@gmail.com",
+      "password": "lucasd123"
+    },
+    {
+      "idUser": "7e80e98d-8c6a-4bda-9dbd-4b847c8dc4d4",
+      "fName": "Carla",
+      "lName": "Sanchez",
+      "userName": "carla.sanchez",
+      "email": "carla.sanchez@gmail.com",
+      "password": "carlas456"
+    },
+    {
+      "idUser": "3733c3eb-1d37-4635-864f-c42a8e2e87b9",
+      "fName": "Daniel",
+      "lName": "Ramirez",
+      "userName": "daniel.ramirez",
+      "email": "daniel.ramirez@gmail.com",
+      "password": "danielr789"
+    }
+  ],
+  "properties": [
+    {
+      "property": {
+        "idProperty": "8577872e-49ae-41bc-9042-6b9d35e7add1",
+        "idCity": 820042,
+        "address": "Av Santa fe 908",
+        "images": [
+          "https://cdna.artstation.com/p/assets/images/images/001/855/390/large/emi-martinez-frente-3c.jpg?1534647282"
+        ],
+        "description": "casa amplia y luminosa con un hermoso ventanal con vista a la calle"
+      },
+      "type": {
+        "name": "House",
+        "bedrooms": 3,
+        "bathrooms": 1,
+        "livingRoom": true,
+        "diningRoom": true,
+        "kitchen": true,
+        "garage": false,
+        "garden": false
+      }
+    },
+    {
+      "property": {
+        "idProperty": "6a32d38c-6c25-4250-b22d-1d814fb72a10",
+        "idCity": 386154,
+        "address": "Saenz 45",
+        "images": [
+          "https://cdna.artstation.com/p/assets/images/images/001/855/390/large/emi-martinez-frente-3c.jpg?1534647282"
+        ],
+        "description": "PH con buenos cimientos y gran potencial de renovación"
+      },
+      "type": {
+        "name": "PH",
+        "floors": 0,
+        "bedrooms": 3,
+        "bathrooms": 1,
+        "livingRoom": true,
+        "diningRoom": true,
+        "kitchen": true,
+        "garage": false,
+        "garden": false
+      }
+    },
+    {
+      "property": {
+        "idProperty": "aed4fe8e-e6a1-4358-b9eb-2fd88bd3e873",
+        "idCity": 386252,
+        "address": "Villa Lugano 7867",
+        "images": [
+          "https://http2.mlstatic.com/D_NQ_NP_759608-MLA45114947400_032021-W.jpg"
+        ],
+        "description": "Apartamento acogedor con una hermosa vista panorámica de la ciudad"
+      },
+      "type": {
+        "name": "Apartment",
+        "bedrooms": 3,
+        "bathrooms": 1,
+        "livingRoom": true,
+        "diningRoom": true,
+        "kitchen": true,
+        "balcony": false
+      }
+    },
+    {
+      "property": {
+        "idProperty": "a45d11e5-69f2-4b5e-a02c-5f4840e75e1a",
+        "idCity": 236924,
+        "address": "Calle Mitre 568",
+        "images": [
+          "https://cdn.pixabay.com/photo/2017/03/21/15/09/house-2164635_960_720.jpg"
+        ],
+        "description": "Hermosa casa de dos plantas con detalles de estilo colonial y jardín con piscina"
+      },
+      "type": {
+        "name": "House",
+        "bedrooms": 4,
+        "bathrooms": 2,
+        "livingRoom": true,
+        "diningRoom": true,
+        "kitchen": true,
+        "garage": true,
+        "garden": true
+      }
+    },
+    {
+      "property": {
+        "idProperty": "3b1d1292-3a81-47a2-86c2-e2e9fc9a8401",
+        "idCity": 386025,
+        "address": "Av. Corrientes 1515",
+        "images": [
+          "https://www.viajesfalabella.com.ar/static/img/hoteles/argentina/buenos-aires/centro-historico/sheraton-buenos-aires-hotel-y-centro-de-convenciones.jpg"
+        ],
+        "description": "Departamento elegante y espacioso en el corazón de Buenos Aires."
+      },
+      "type": {
+        "name": "Apartment",
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "livingRoom": true,
+        "diningRoom": true,
+        "kitchen": true,
+        "balcony": true
+      }
+    },
+    {
+      "property": {
+        "idProperty": "f2f9c7c8-f1b3-4fa3-88b5-7b8c0bf14e7e",
+        "idCity": 386110,
+        "address": "Rivadavia 301",
+        "images": [
+          "https://cdn.hotelplanner.com/Common/Images/_HotelPlanner/Home/inner-banner-buenos-aires.jpg"
+        ],
+        "description": "Cómodo departamento en el centro de la ciudad, cerca de tiendas y restaurantes."
+      },
+      "type": {
+        "name": "Apartment",
+        "bedrooms": 1,
+        "bathrooms": 1,
+        "livingRoom": true,
+        "diningRoom": true,
+        "kitchen": true,
+        "balcony": false
+      }
+    },
+    {
+      "property": {
+        "idProperty": "7a348f85-b8df-4e85-a1e3-3f6ce732d4bb",
+        "idCity": 386170,
+        "address": "Los Plátanos 110",
+        "images": [
+          "https://i.pinimg.com/originals/9b/c7/c1/9bc7c10b18a41d342a172a207ca1c8a1.jpg"
+        ],
+        "description": "Hermosa casa con jardín en un barrio tranquilo de la ciudad de Buenos Aires."
+      },
+      "type": {
+        "name": "House",
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "livingRoom": true,
+        "diningRoom": true,
+        "kitchen": true,
+        "garage": true,
+        "garden": true
+      }
+    }
+  ]
 }

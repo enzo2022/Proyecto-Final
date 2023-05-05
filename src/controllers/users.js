@@ -14,7 +14,7 @@ const {
 
 //here
 const { hashPassword, verifyPassword } = require("../utils");
-const {generateToken} = require('../utils')
+const { generateToken } = require("../utils");
 
 //POST
 const signUp = async (req, res) => {
@@ -63,7 +63,7 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
-    return res.status(404).send("Email and password are required");
+    return res.status(404).json({ Error: "Email and password are required" });
 
   try {
     const searchUser = await User.findOne({
@@ -75,12 +75,14 @@ const signIn = async (req, res) => {
       ],
     });
 
-    if (!searchUser)
-      return res.status(404).send({ ok: false, Error: "Email not found" });
+    if (!searchUser) return res.status(404).json({ Error: "Email not found" });
 
     const passwordMatch = await verifyPassword(searchUser.password, password);
     if (!passwordMatch)
-      res.status(401).json({ message: "Incorrect email or password." });
+      res.status(401).json({ Error: "Incorrect email or password." });
+
+    if (searchUser.state === "blocked")
+      return res.status(401).json({ Error: "This user is blocked" });
 
     let user = {
       email: searchUser.email,
@@ -94,9 +96,13 @@ const signIn = async (req, res) => {
       cellphone: searchUser.cellphone,
     };
 
-    const token = generateToken({email: user.email, user: user.userName, type:user.userType});
+    const token = generateToken({
+      email: user.email,
+      user: user.userName,
+      type: user.userType,
+    });
 
-    res.json({ Message: user, token: token });
+    res.json({ user, token: token });
   } catch (error) {
     res.status(400).json({ Error: error.message });
   }
@@ -110,7 +116,7 @@ const getUser = async (req, res) => {
       where: { idUser: idUser },
       include: { model: Favorite },
     });
-    
+
     if (!searchByPK) throw new Error("User not found");
     res.status(200).json({ Message: "Success", payload: searchByPK });
   } catch (err) {
@@ -134,19 +140,40 @@ const getUsers = async (req, res) => {
 };
 
 //PUT
+const setState = async (req, res) => {
+  const { idUser } = req.params;
+  const { state } = req.query;
+
+  if (!state)
+    return res.status(400).json({ Error: "query ?state='' is required" });
+  try {
+    let user = await User.findByPk(idUser);
+    if (!user?.idUser) return res.status(404).json({ Error: "User not found" });
+
+    await User.update({state}, {
+      where: {
+        idUser: idUser,
+      },
+    });
+    res.send({ Message: `Correct updated` });
+  } catch (err) {
+    res.status(404).send({ Error: err.message });
+  }
+};
+
 const updateUser = async (req, res) => {
   const { idUser } = req.params;
   try {
     let user = await User.findByPk(idUser);
-    if (newUploadUser[0] === 0) throw new Error("Id inexistente");
-    
-    const newUploadUser = await User.update(req.body, {
+    if (!user?.idUser) return res.status(404).json({ Error: "User not found" });
+
+    await User.update(req.body, {
       where: {
         idUser: idUser,
       },
     });
 
-    res.status(200).send({ Message: user });
+    res.status(200).send({ Message: "User Updated" });
   } catch (err) {
     res.status(404).send({ Error: err.message });
   }
@@ -175,7 +202,7 @@ const setPremium = async (req, res) => {
 const deleteUser = async (req, res) => {
   const { idUser } = req.params;
   if (!idUser) return res.status(404).send("idUser is required");
-  
+
   try {
     await User.destroy({ where: { idUser: idUser } });
 
@@ -189,8 +216,9 @@ module.exports = {
   deleteUser,
   getUser,
   getUsers,
+  setPremium,
+  setState,
   signUp,
   signIn,
-  setPremium,
   updateUser,
 };

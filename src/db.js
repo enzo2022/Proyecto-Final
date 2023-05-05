@@ -45,42 +45,48 @@ const {
   deleteProperty,
   Interested,
   PayOrder,
+  House,
+  PH,
+  Apartment
 } = sequelize.models;
 
+House.belongsTo(Property, { foreignKey: 'idProperty' })
+PH.belongsTo(Property, { foreignKey: 'idProperty' })
+Apartment.belongsTo(Property, { foreignKey: 'idProperty' })
 // Relationships between the tables
 // Product.hasMany(Reviews);
 
 // Relacion 1:M => User => Property
-Property.belongsTo(User, { foreignKey: "id_User", onDelete: "CASCADE" });
-User.hasMany(Property, { foreignKey: "id_User", onDelete: "CASCADE" });
+Property.belongsTo(User, { foreignKey: "idUser", onDelete: "CASCADE" });
+User.hasMany(Property, { foreignKey: "idUser", onDelete: "CASCADE" });
 
 // Relacion 1:M => City => Property
-Property.belongsTo(City, { foreignKey: "idCity" });
-City.hasMany(Property, { foreignKey: "idCity" });
+//Property.belongsTo(City, { foreignKey: "idCity" });
+//City.hasMany(Property, { foreignKey: "idCity" });
 
 // Relacion 1:M => User => Favorite
-Favorite.belongsTo(User, { foreignKey: "id_User", onDelete: "CASCADE" });
-User.hasMany(Favorite, { foreignKey: "id_User", onDelete: "CASCADE" });
+Favorite.belongsTo(User, { foreignKey: "idUser", onDelete: "CASCADE" });
+User.hasMany(Favorite, { foreignKey: "idUser", onDelete: "CASCADE" });
 
 //Relacion 1:M=>Propiedad=>Comentarios
 Feedback.belongsTo(Property, { foreignKey: "id", onDelete: "CASCADE" });
 Property.hasMany(Feedback, { foreignKey: "id", onDelete: "CASCADE" });
 
 // //Relacion 1:M => User => Membership
-Membership.belongsTo(User, { foreignKey: "id_User", onDelete: "CASCADE" });
-User.hasMany(Membership, { foreignKey: "id_User", onDelete: "CASCADE" });
+Membership.belongsTo(User, { foreignKey: "idUser", onDelete: "CASCADE" });
+User.hasMany(Membership, { foreignKey: "idUser", onDelete: "CASCADE" });
 
 //Relacion 1:M=> Membership => membership_type
-Membership.belongsTo(MembershipType, { foreignKey: "id_Membership_type" });
-MembershipType.hasMany(Membership, { foreignKey: "id_Membership_type" });
+Membership.belongsTo(MembershipType, { foreignKey: "idMembership_type" });
+MembershipType.hasMany(Membership, { foreignKey: "idMembership_type" });
 
 //Relacion 1:M => Propiedad(id) => interesados
 Interested.belongsTo(Property, { foreignKey: "id" });
 Property.hasMany(Interested, { foreignKey: "id" });
 
 //Relacion de 1:M User => PayOrder { un usuario genera varias ordeners}
-PayOrder.belongsTo(User, { foreignKey: "id_User", onDelete: "CASCADE" });
-User.hasMany(PayOrder, { foreignKey: "id_User", onDelete: "CASCADE" });
+PayOrder.belongsTo(User, { foreignKey: "idUser", onDelete: "CASCADE" });
+User.hasMany(PayOrder, { foreignKey: "idUser", onDelete: "CASCADE" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { City, Property, User } = require('./db.js');

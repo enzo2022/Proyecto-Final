@@ -6,16 +6,16 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Membership",
     {
-      id_Membership: {
+      idMembership: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      id_User: {
+      idUser: {
         type: DataTypes.UUID,
       },
 
-      id_Membership_type: {
+      idMembershipType: {
         type: DataTypes.UUID,
         defaultValue: "27990073-a398-4df6-89dd-533d457c47e8",
       },
