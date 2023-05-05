@@ -89,6 +89,7 @@ function ramdomsUsers(size, num) {
 
   return ramdoms;
 }
+
 function  getPropertiesByType(type) {
   const propertiesByType = properties.map((property) =>({
     ...property.type,
