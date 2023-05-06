@@ -1,19 +1,21 @@
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
 
-const { DATABASE, SECRET_KEY, NODE_ENV } = process.env;
+const { DATABASE, SECRET_KEY, NODE_ENV, PGDATABASE, PGHOST, PGPORT, PGUSER, PGPASSWORD } = process.env;
+
+if (!DATABASE && !PGDATABASE) {
+  throw new Error("No se ha definido una variable de entorno para la base de datos");
+}
+
+if (!SECRET_KEY) {
+  throw new Error("No se ha definido una variable de entorno para la clave secreta");
+}
 
 let sequelize;
 
-console.log("§↑↓",NODE_ENV);
-console.log("PROCESS.ENV", process.env)
-
 if (NODE_ENV === "production") {
-
-  const {PGDATABASE, PGHOST, PGPORT, PGUSER, PGPASSWORD} = process.env
-
   sequelize = new Sequelize({
-    database: PGDATABASE,
+    database: PGDATABASE || DATABASE,
     dialect: "postgres",
     host: PGHOST,
     port: PGPORT,
@@ -27,7 +29,6 @@ if (NODE_ENV === "production") {
     dialectOptions: {
       ssl: {
         require: true,
-        // Ref.: https://github.com/brianc/node-postgres/issues/2009
         rejectUnauthorized: false,
       },
       keepAlive: true,
