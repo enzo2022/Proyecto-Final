@@ -125,8 +125,8 @@ async function addCities() {
 
 async function addInformation() {
   console.log(await addUsers());
-  console.log(await addProperties());
   console.log(await addCities());
+  console.log(await addProperties());
 }
 module.exports = {
   addUsers,

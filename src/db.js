@@ -53,6 +53,7 @@ const {
 House.belongsTo(Property, { foreignKey: 'idProperty' })
 PH.belongsTo(Property, { foreignKey: 'idProperty' })
 Apartment.belongsTo(Property, { foreignKey: 'idProperty' })
+
 // Relationships between the tables
 // Product.hasMany(Reviews);
 
@@ -61,7 +62,7 @@ Property.belongsTo(User, { foreignKey: "idUser", onDelete: "CASCADE" });
 User.hasMany(Property, { foreignKey: "idUser", onDelete: "CASCADE" });
 
 // Relacion 1:M => City => Property
-//Property.belongsTo(City, { foreignKey: "idCity" });
+Property.belongsTo(City, { foreignKey: "idCity" });
 //City.hasMany(Property, { foreignKey: "idCity" });
 
 // Relacion 1:M => User => Favorite
