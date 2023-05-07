@@ -2,6 +2,10 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define("House", {
+    type: {
+      type: DataTypes.STRING,
+      defaultValue: "house"
+    },
     bedrooms: {
       type: DataTypes.INTEGER,
       allowNull: false,

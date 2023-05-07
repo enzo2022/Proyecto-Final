@@ -109,7 +109,7 @@
         "description": "casa amplia y luminosa con un hermoso ventanal con vista a la calle"
       },
       "type": {
-        "name": "House",
+        "type": "House",
         "bedrooms": 3,
         "bathrooms": 1,
         "livingRoom": true,
@@ -130,7 +130,7 @@
         "description": "PH con buenos cimientos y gran potencial de renovación"
       },
       "type": {
-        "name": "PH",
+        "type": "PH",
         "floors": 0,
         "bedrooms": 3,
         "bathrooms": 1,
@@ -152,7 +152,7 @@
         "description": "Apartamento acogedor con una hermosa vista panorámica de la ciudad"
       },
       "type": {
-        "name": "Apartment",
+        "type": "Apartment",
         "bedrooms": 3,
         "bathrooms": 1,
         "livingRoom": true,
@@ -172,7 +172,7 @@
         "description": "Hermosa casa de dos plantas con detalles de estilo colonial y jardín con piscina"
       },
       "type": {
-        "name": "House",
+        "type": "House",
         "bedrooms": 4,
         "bathrooms": 2,
         "livingRoom": true,
@@ -193,7 +193,7 @@
         "description": "Departamento elegante y espacioso en el corazón de Buenos Aires."
       },
       "type": {
-        "name": "Apartment",
+        "type": "Apartment",
         "bedrooms": 2,
         "bathrooms": 2,
         "livingRoom": true,
@@ -213,7 +213,7 @@
         "description": "Cómodo departamento en el centro de la ciudad, cerca de tiendas y restaurantes."
       },
       "type": {
-        "name": "Apartment",
+        "type": "Apartment",
         "bedrooms": 1,
         "bathrooms": 1,
         "livingRoom": true,
@@ -233,7 +233,7 @@
         "description": "Hermosa casa con jardín en un barrio tranquilo de la ciudad de Buenos Aires."
       },
       "type": {
-        "name": "House",
+        "type": "House",
         "bedrooms": 4,
         "bathrooms": 3,
         "livingRoom": true,

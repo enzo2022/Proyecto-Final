@@ -4,6 +4,10 @@ module.exports = (sequelize) => {
   sequelize.define(
     "PH",
     {
+      type: {
+        type: DataTypes.STRING,
+        defaultValue: "ph"
+      },
       floors: {
         type: DataTypes.INTEGER,
         allowNull: false,

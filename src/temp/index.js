@@ -97,7 +97,7 @@ function getPropertiesByType(type) {
       ...property.type,
       idProperty: property.property.idProperty,
     }))
-    .filter((house) => house.name === type);
+    .filter((property) => property.type === type);
 
   return propertiesByType;
 }
