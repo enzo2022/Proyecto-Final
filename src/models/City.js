@@ -10,19 +10,20 @@ module.exports = (sequelize) => {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
 			},
-			city: {
+			name: {
 				type: DataTypes.STRING,
 				allowNull: true,
 			},
-			provincia: {
+			province: {
 				type: DataTypes.STRING,
 				allowNull: true,
 			},
+			string: {
+				type: DataTypes.STRING,
+			}
 		},
 		{
 			timestamps: false,
-			createdAt: false,
-			updatedAd: false,
 		}
 	);
 };

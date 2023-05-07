@@ -21,7 +21,6 @@ Asegurate de crear el archivo ` .env ` en el directorio raíz, con la siguiente 
 
 ```javascript
 DATABASE = ""
-API_PORT = ""
 SECRET_KEY = ""
 ```
 
