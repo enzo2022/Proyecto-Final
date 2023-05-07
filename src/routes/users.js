@@ -5,7 +5,7 @@ const {authenticateToken,authorizeAdmin} = require('../middlewares')
 const {
   signUp,
   signIn,
-  getUser,
+  getUserById,
   getUsers,
   setState,
   updateUser,
@@ -17,7 +17,7 @@ router.post("/signup", signUp);
 router.post("/signin", signIn);
 
 router.get("/all", getUsers);
-router.get("/:idUser", getUser);
+router.get("/:idUser", getUserById);
 
 router.put("/state/:idUser", authenticateToken,authorizeAdmin, setState)
 router.put("/premium/:idUser", setPremium);
