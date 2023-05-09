@@ -45,9 +45,9 @@ async function addProperties() {
   }));
   await Property.bulkCreate(allProperties);
 
-  const Houses = getPropertiesByType("House");
-  const PHs = getPropertiesByType("PH");
-  const Apartments = getPropertiesByType("Apartment");
+  const Houses = getPropertiesByType("house");
+  const PHs = getPropertiesByType("ph");
+  const Apartments = getPropertiesByType("apartment");
 
   await House.bulkCreate(Houses);
   await PH.bulkCreate(PHs);

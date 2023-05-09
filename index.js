@@ -3,7 +3,7 @@ const { conn } = require("./src/db.js");
 const {addInformation} = require("./src/temp")
 
 const PORT = require("./src/config").PORT || 3001 
-const FORCE = false
+const FORCE = true
 
 conn.sync({ force: FORCE }).then(async () => {
   server.listen(PORT, async () => {

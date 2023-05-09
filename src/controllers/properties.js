@@ -1,4 +1,4 @@
-const { Property, User, Feedback, House, PH, Apartment } = require("../db.js");
+const { Property, User, House, PH, Apartment } = require("../db.js");
 
 const notifier = require("node-notifier");
 const path = require("path");
@@ -6,43 +6,47 @@ const {
   transport,
   messageForUsersCreateProperty,
 } = require("../utils/nodemailer/nodemailer.js");
-const { log } = require("console");
 
 //POST
 const createProperty = async (req, res) => {
-  const {
-    address,
-    area,
-    bathrooms,
-    environments,
-    antiquity,
-    floors,
-    rooms,
-    garage,
-    price,
-    type,
-    description,
-  } = req.body;
+  const { idCity, address, images, description, geolocation, idUser, type } =
+    req.body;
+
+  const { missing, message } = checkEntriesProperty(req.body);
+  if (missing)
+    return res.status(400).json({
+      error: {
+        message,
+      },
+    });
 
   try {
-    if (
-      ![
-        address,
-        area,
-        bathrooms,
-        environments,
-        antiquity,
-        floors,
-        rooms,
-        garage,
-        price,
-        type,
-        description,
-      ].every(Boolean)
-    ) {
-      throw new Error("Faltan completar datos");
-    }
-    const properties = await Property.create(req.body);
+    const { idProperty } = await Property.create({
+      idCity,
+      address,
+      images,
+      description,
+      geolocation,
+      idUser,
+    });
+
+    const PROPERTY_TYPE = type.type;
+
+    if (PROPERTY_TYPE === "house")
+      await House.create({
+        ...type,
+        idProperty,
+      });
+    else if (PROPERTY_TYPE === "ph")
+      await PH.create({
+        ...type,
+        idProperty,
+      });
+    else if (PROPERTY_TYPE === "apartment")
+      await Apartment.create({
+        ...type,
+        idProperty,
+      });
 
     // const { id_User } = req.body;
 
@@ -60,7 +64,7 @@ const createProperty = async (req, res) => {
     // );
 
     // notify property created succes
-    notifier.notify(
+    /* notifier.notify(
       {
         sound: true,
         wait: true,
@@ -73,14 +77,17 @@ const createProperty = async (req, res) => {
       function (err, response) {
         console.log(err, response);
       }
-    );
+    ); */
 
     res.status(201).json({
-      Message: "Propiedad creada",
-      payload: properties,
+      info: {
+        message: "property created successfully",
+        idProperty,
+        type: PROPERTY_TYPE
+      },
     });
   } catch (err) {
-    res.status(401).json({ Error: err.message });
+    res.status(500).json({ Error: err.message });
   }
 };
 
@@ -165,6 +172,14 @@ const getPropertyById = async (req, res) => {
           include: [{ model: User }],
         },
         attributes: { exclude: ["id"] },
+      });
+    else
+      property = await Property.findOne({
+        where: { idProperty },
+        include: {
+          model: User,
+        },
+        attributes: { exclude: ["idUser"] },
       });
 
     if (!property)
@@ -253,6 +268,73 @@ const deleteProperty = async (req, res) => {
   } catch (err) {
     res.status(400).json({ Message: err.message });
   }
+};
+
+const checkEntriesProperty = (PROPERTY) => {
+  const { idCity, address, images, description, idUser, type } = PROPERTY;
+  const entries = {
+    comon: ["bedrooms", "bathrooms", "livingRoom", "diningRoom", "kitchen"],
+    house: ["garage", "garden"],
+    ph: ["garage", "garden", "floors"],
+    apartment: ["balcony"],
+  };
+  if (![idCity, address, images, description, idUser, type].every(Boolean))
+    return {
+      missing: true,
+      message:
+        "Missing data → idCity, address, images, description, idUser, type are required",
+    };
+
+  for (let i = 0; i < entries.comon.length; i++) {
+    if (!type.hasOwnProperty(entries.comon[i])) {
+      return {
+        missing: true,
+        message: `Missing data → ${entries.comon.join(", ")} are required`,
+      };
+    }
+  }
+
+  const PROPERTY_TYPE = type.type;
+
+  if (PROPERTY_TYPE === "house") {
+    for (let i = 0; i < entries.house.length; i++) {
+      if (!type.hasOwnProperty(entries.house[i])) {
+        return {
+          missing: true,
+          message: `Missing data → ${entries.house.join(", ")} are required`,
+        };
+      }
+    }
+  } else if (PROPERTY_TYPE === "ph") {
+    for (let i = 0; i < entries.ph.length; i++) {
+      if (!type.hasOwnProperty(entries.ph[i])) {
+        return {
+          missing: true,
+          message: `Missing data → ${entries.ph.join(", ")} are required`,
+        };
+      }
+    }
+  } else if (PROPERTY_TYPE === "apartment") {
+    for (let i = 0; i < entries.apartment.length; i++) {
+      if (!type.hasOwnProperty(entries.apartment[i])) {
+        return {
+          missing: true,
+          message: `Missing data → ${entries.apartment.join(
+            ", "
+          )} are required`,
+        };
+      }
+    }
+  }
+
+  return ["house", "ph", "apartment"].includes(PROPERTY_TYPE)
+    ? {
+        missing: false,
+      }
+    : {
+        missing: true,
+        message: `Type property ${PROPERTY_TYPE} no valid`,
+      };
 };
 
 module.exports = {

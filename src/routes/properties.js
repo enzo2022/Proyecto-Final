@@ -17,7 +17,7 @@ const {
   noAuthorizeLogged,
 } = require("../middlewares");
 
-router.post("/create", authenticateToken, authorizePremium, createProperty);
+router.post("/", authenticateToken, authorizePremium, createProperty);
 
 router.get("/all", getAllProperties);
 router.get("/getAllAddress", getAllAddress);
