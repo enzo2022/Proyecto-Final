@@ -118,7 +118,7 @@ const getUserById = async (req, res) => {
     });
 
     if (!user)
-      res.status(404).json({
+      return res.status(404).json({
         error: {
           message: "user not found",
         },
@@ -137,9 +137,11 @@ const getUsers = async (req, res) => {
     });
 
     if (!users.length)
-      return res.send({ error: {message:"No hay usuarios en la base de datos"} });
+      return res.send({
+        error: { message: "No hay usuarios en la base de datos" },
+      });
 
-    res.status(200).json({ info:{mesagge:"Success"}, users});
+    res.status(200).json({ info: { mesagge: "Success" }, users });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
