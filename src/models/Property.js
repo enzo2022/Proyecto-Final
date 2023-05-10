@@ -1,4 +1,5 @@
 const { DataTypes } = require("sequelize");
+const { PropertyType } = require("../utils").entries;
 
 module.exports = (sequelize) => {
   sequelize.define(
@@ -9,25 +10,47 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      idCity: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
       address: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      images: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
+      idCity: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      geolocation: {
+        type: DataTypes.JSON(),
+        allowNull: true,
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      geolocation: {
-        type: DataTypes.JSON(),
-        allowNull: true,
+      photos: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+      },
+      bedrooms: {
+        type: DataTypes.INTEGER,
+      },
+      bathrooms: {
+        type: DataTypes.INTEGER,
+      },
+      squareMeters: {
+        type: DataTypes.DOUBLE,
+      },
+      yearBuilt: {
+        type: DataTypes.INTEGER,
+      },
+      amenities: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+      },
+      type: {
+        type: DataTypes.ENUM(
+          PropertyType.HOUSE,
+          PropertyType.PH,
+          PropertyType.APARTMENT,
+          PropertyType.RANCH
+        ),
       },
     },
     {

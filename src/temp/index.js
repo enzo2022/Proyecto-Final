@@ -42,6 +42,7 @@ async function addProperties() {
   const allProperties = properties.map((property, i) => ({
     ...property.property,
     idUser: usersPremium[i],
+    type: property.type.type
   }));
   await Property.bulkCreate(allProperties);
 
