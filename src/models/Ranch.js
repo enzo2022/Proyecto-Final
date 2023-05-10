@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      posture: {
+      pasture: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
