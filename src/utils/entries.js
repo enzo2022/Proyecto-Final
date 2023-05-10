@@ -22,61 +22,75 @@ module.exports = {
     apartment: ["floorNumber", "balcony"],
     ranch: ["acreage", "barn"],
   },
-  checkRequiredPropertyEntries: (PROPERTY) => {
-    const { idCity, address, images, description, idUser, type } = PROPERTY;
+  checkRequiredPropertyEntries: function (PROPERTY) {
+    const {
+      idCity,
+      address,
+      photos,
+      bedrooms,
+      bathrooms,
+      squareMeters,
+      yearBuilt,
+      description,
+      idUser,
+      type,
+    } = PROPERTY;
     const { common, house, ph, apartment, ranch } =
       this.requiredPropertyEntries;
+
+    const { HOUSE, PH, APARTMENT, RANCH } = this.PropertyType;
     
-      if (![idCity, address, images, description, idUser, type].every(Boolean))
+    if (
+      ![
+        idCity,
+        address,
+        photos,
+        bedrooms,
+        bathrooms,
+        squareMeters,
+        yearBuilt,
+        description,
+        idUser,
+        type,
+      ].every(Boolean)
+    )
       return {
         missing: true,
-        message:
-          "Missing data → idCity, address, images, description, idUser, type are required",
+        message: `Missing data → ${common.join(", ")} are required`,
       };
-
-    for (let i = 0; i < entries.comon.length; i++) {
-      if (!type.hasOwnProperty(entries.comon[i])) {
-        return {
-          missing: true,
-          message: `Missing data → ${entries.comon.join(", ")} are required`,
-        };
-      }
-    }
 
     const PROPERTY_TYPE = type.type;
 
-    if (PROPERTY_TYPE === "house") {
-      for (let i = 0; i < entries.house.length; i++) {
-        if (!type.hasOwnProperty(entries.house[i])) {
+    if (PROPERTY_TYPE === HOUSE) {
+      for (let i = 0; i < house.length; i++) {
+        if (!type.hasOwnProperty(house[i])) {
           return {
             missing: true,
-            message: `Missing data → ${entries.house.join(", ")} are required`,
+            message: `Missing data → ${house.join(", ")} are required`,
           };
         }
       }
-    } else if (PROPERTY_TYPE === "ph") {
-      for (let i = 0; i < entries.ph.length; i++) {
+    } else if (PROPERTY_TYPE === PH) {
+      for (let i = 0; i < ph.length; i++) {
         if (!type.hasOwnProperty(entries.ph[i])) {
           return {
             missing: true,
-            message: `Missing data → ${entries.ph.join(", ")} are required`,
+            message: `Missing data → ${ph.join(", ")} are required`,
           };
         }
       }
-    } else if (PROPERTY_TYPE === "apartment") {
-      for (let i = 0; i < entries.apartment.length; i++) {
-        if (!type.hasOwnProperty(entries.apartment[i])) {
+    } else if (PROPERTY_TYPE === APARTMENT) {
+      for (let i = 0; i < apartment.length; i++) {
+        if (!type.hasOwnProperty(apartment[i])) {
           return {
             missing: true,
-            message: `Missing data → ${entries.apartment.join(
-              ", "
-            )} are required`,
+            message: `Missing data → ${apartment.join(", ")} are required`,
           };
         }
       }
     }
 
-    return ["house", "ph", "apartment"].includes(PROPERTY_TYPE)
+    return [HOUSE, PH, APARTMENT].includes(PROPERTY_TYPE)
       ? {
           missing: false,
         }

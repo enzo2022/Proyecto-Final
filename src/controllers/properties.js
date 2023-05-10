@@ -1,4 +1,5 @@
 const { Property, User, House, PH, Apartment } = require("../db.js");
+const {checkRequiredPropertyEntries, PropertyType} = require("../utils").entries
 
 const notifier = require("node-notifier");
 const path = require("path");
@@ -9,10 +10,12 @@ const {
 
 //POST
 const createProperty = async (req, res) => {
-  const { idCity, address, images, description, geolocation, idUser, type } =
-    req.body;
+  const PROPERTY = req.body;
+  const {type} = req.body
 
-  const { missing, message } = checkEntriesProperty(req.body);
+  const boundCheckRequiredPropertyEntries = checkRequiredPropertyEntries.bind(require("../utils").entries)
+  const { missing, message } = boundCheckRequiredPropertyEntries(PROPERTY);
+
   if (missing)
     return res.status(400).json({
       error: {
@@ -20,29 +23,26 @@ const createProperty = async (req, res) => {
       },
     });
 
+  const PROPERTY_TYPE =type.type ;
   try {
     const { idProperty } = await Property.create({
-      idCity,
-      address,
-      images,
-      description,
-      geolocation,
-      idUser,
+      ...PROPERTY,
+      type: PROPERTY_TYPE
     });
 
-    const PROPERTY_TYPE = type.type;
+    
 
-    if (PROPERTY_TYPE === "house")
+    if (PROPERTY_TYPE === PropertyType.HOUSE)
       await House.create({
         ...type,
         idProperty,
       });
-    else if (PROPERTY_TYPE === "ph")
+    else if (PROPERTY_TYPE === PropertyType.PH)
       await PH.create({
         ...type,
         idProperty,
       });
-    else if (PROPERTY_TYPE === "apartment")
+    else if (PROPERTY_TYPE === PropertyType.APARTMENT)
       await Apartment.create({
         ...type,
         idProperty,
@@ -268,73 +268,6 @@ const deleteProperty = async (req, res) => {
   } catch (err) {
     res.status(400).json({ Message: err.message });
   }
-};
-
-const checkEntriesProperty = (PROPERTY) => {
-  const { idCity, address, images, description, idUser, type } = PROPERTY;
-  const entries = {
-    comon: ["bedrooms", "bathrooms", "livingRoom", "diningRoom", "kitchen"],
-    house: ["garage", "garden"],
-    ph: ["garage", "garden", "floors"],
-    apartment: ["balcony"],
-  };
-  if (![idCity, address, images, description, idUser, type].every(Boolean))
-    return {
-      missing: true,
-      message:
-        "Missing data → idCity, address, images, description, idUser, type are required",
-    };
-
-  for (let i = 0; i < entries.comon.length; i++) {
-    if (!type.hasOwnProperty(entries.comon[i])) {
-      return {
-        missing: true,
-        message: `Missing data → ${entries.comon.join(", ")} are required`,
-      };
-    }
-  }
-
-  const PROPERTY_TYPE = type.type;
-
-  if (PROPERTY_TYPE === "house") {
-    for (let i = 0; i < entries.house.length; i++) {
-      if (!type.hasOwnProperty(entries.house[i])) {
-        return {
-          missing: true,
-          message: `Missing data → ${entries.house.join(", ")} are required`,
-        };
-      }
-    }
-  } else if (PROPERTY_TYPE === "ph") {
-    for (let i = 0; i < entries.ph.length; i++) {
-      if (!type.hasOwnProperty(entries.ph[i])) {
-        return {
-          missing: true,
-          message: `Missing data → ${entries.ph.join(", ")} are required`,
-        };
-      }
-    }
-  } else if (PROPERTY_TYPE === "apartment") {
-    for (let i = 0; i < entries.apartment.length; i++) {
-      if (!type.hasOwnProperty(entries.apartment[i])) {
-        return {
-          missing: true,
-          message: `Missing data → ${entries.apartment.join(
-            ", "
-          )} are required`,
-        };
-      }
-    }
-  }
-
-  return ["house", "ph", "apartment"].includes(PROPERTY_TYPE)
-    ? {
-        missing: false,
-      }
-    : {
-        missing: true,
-        message: `Type property ${PROPERTY_TYPE} no valid`,
-      };
 };
 
 module.exports = {

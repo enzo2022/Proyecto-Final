@@ -1,5 +1,5 @@
 const { users, properties } = require("../data/data.json");
-const { User, Property, House, PH, Apartment, City } = require("../db");
+const { User, Property, House, PH, Apartment, City, Ranch} = require("../db");
 const { hashPassword } = require("../utils");
 const axios = require("axios");
 
@@ -49,11 +49,12 @@ async function addProperties() {
   const Houses = getPropertiesByType("house");
   const PHs = getPropertiesByType("ph");
   const Apartments = getPropertiesByType("apartment");
+  const Ranches = getPropertiesByType("ranch")
 
   await House.bulkCreate(Houses);
   await PH.bulkCreate(PHs);
   await Apartment.bulkCreate(Apartments);
-
+  await Ranch.bulkCreate(Ranches)
   return "Ok → properties added";
 }
 
