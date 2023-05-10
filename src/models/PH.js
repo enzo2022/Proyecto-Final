@@ -4,35 +4,24 @@ module.exports = (sequelize) => {
   sequelize.define(
     "PH",
     {
-      floors: {
+      idPh: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
+      floorNumber: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      bedrooms: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      bathrooms: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      livingRoom: {
+      elevator: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      diningRoom: {
+      balcony: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      kitchen: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
-      garage: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
-      garden: {
+      gym: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },

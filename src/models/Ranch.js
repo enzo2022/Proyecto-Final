@@ -2,26 +2,25 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Apartment",
+    "Ranch",
     {
-      idApartment: {
+      idRanch: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      floorNumber: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      acreage: {
+        type: DataTypes.DOUBLE
       },
-      elevator: {
+      barn: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      balcony: {
+      pasture: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
-      gym: {
+      pond: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },

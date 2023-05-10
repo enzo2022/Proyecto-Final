@@ -1,6 +1,7 @@
-const { users, properties} = require("../data/data.json");
-const { User, Property, House, PH, Apartment} = require("../db");
+const { users, properties } = require("../data/data.json");
+const { User, Property, House, PH, Apartment, City, Ranch} = require("../db");
 const { hashPassword } = require("../utils");
+const axios = require("axios");
 
 require("dotenv").config();
 const { ADMIN } = process.env;
@@ -37,22 +38,24 @@ async function addAdmin(ADMIN) {
 
 async function addProperties() {
   const usersPremium = await addUsersPremium();
- 
-  const allProperties = properties.map((property, i)=>({
+
+  const allProperties = properties.map((property, i) => ({
     ...property.property,
-    idUser: usersPremium[i]
-  }))
-  await Property.bulkCreate(allProperties)
+    idUser: usersPremium[i],
+    type: property.type.type
+  }));
+  await Property.bulkCreate(allProperties);
 
-  const Houses = getPropertiesByType("House")
-  const PHs = getPropertiesByType("PH")
-  const Apartments = getPropertiesByType("Apartment")
+  const Houses = getPropertiesByType("house");
+  const PHs = getPropertiesByType("ph");
+  const Apartments = getPropertiesByType("apartment");
+  const Ranches = getPropertiesByType("ranch")
 
-  await House.bulkCreate(Houses)
-  await PH.bulkCreate(PHs)
-  await Apartment.bulkCreate(Apartments)
-
-  return "Ok → properties added"
+  await House.bulkCreate(Houses);
+  await PH.bulkCreate(PHs);
+  await Apartment.bulkCreate(Apartments);
+  await Ranch.bulkCreate(Ranches)
+  return "Ok → properties added";
 }
 
 async function addUsersPremium() {
@@ -90,16 +93,46 @@ function ramdomsUsers(size, num) {
   return ramdoms;
 }
 
-function  getPropertiesByType(type) {
-  const propertiesByType = properties.map((property) =>({
-    ...property.type,
-    idProperty: property.property.idProperty
-  })).filter(house => house.name === type)
+function getPropertiesByType(type) {
+  const propertiesByType = properties
+    .map((property) => ({
+      ...property.type,
+      idProperty: property.property.idProperty,
+    }))
+    .filter((property) => property.type === type);
 
-  return propertiesByType
+  return propertiesByType;
 }
 
+async function addCities() {
+  let URL =
+    "https://apis.datos.gob.ar/georef/api/municipios?campos=id,nombre,%20provincia.nombre&max=5000";
+  try {
+    let { data } = await axios.get(URL);
+
+    const cities = data.municipios.map((city) => ({
+      idCity: city.id,
+      name: city.nombre,
+      province: city.provincia.nombre,
+      string: city.nombre + " " + city.provincia.nombre,
+    }));
+
+    await City.bulkCreate(cities);
+
+    return "Ok → cities added";
+  } catch (error) {
+    return error.message;
+  }
+}
+
+async function addInformation() {
+  console.log(await addUsers());
+  console.log(await addCities());
+  console.log(await addProperties());
+}
 module.exports = {
   addUsers,
   addProperties,
+  addCities,
+  addInformation
 };

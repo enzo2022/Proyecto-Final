@@ -1,4 +1,6 @@
-const { Property, User, Feedback } = require("../db.js");
+const { Property, User, House, PH, Apartment } = require("../db.js");
+const {checkRequiredPropertyEntries, PropertyType} = require("../utils").entries
+
 const notifier = require("node-notifier");
 const path = require("path");
 const {
@@ -6,41 +8,45 @@ const {
   messageForUsersCreateProperty,
 } = require("../utils/nodemailer/nodemailer.js");
 
-//create properties //POST AL FRONT
+//POST
 const createProperty = async (req, res) => {
-  const {
-    address,
-    area,
-    bathrooms,
-    environments,
-    antiquity,
-    floors,
-    rooms,
-    garage,
-    price,
-    type,
-    description,
-  } = req.body;
+  const PROPERTY = req.body;
+  const {type} = req.body
 
+  const boundCheckRequiredPropertyEntries = checkRequiredPropertyEntries.bind(require("../utils").entries)
+  const { missing, message } = boundCheckRequiredPropertyEntries(PROPERTY);
+
+  if (missing)
+    return res.status(400).json({
+      error: {
+        message,
+      },
+    });
+
+  const PROPERTY_TYPE =type.type ;
   try {
-    if (
-      ![
-        address,
-        area,
-        bathrooms,
-        environments,
-        antiquity,
-        floors,
-        rooms,
-        garage,
-        price,
-        type,
-        description,
-      ].every(Boolean)
-    ) {
-      throw new Error("Faltan completar datos");
-    }
-    const properties = await Property.create(req.body);
+    const { idProperty } = await Property.create({
+      ...PROPERTY,
+      type: PROPERTY_TYPE
+    });
+
+    
+
+    if (PROPERTY_TYPE === PropertyType.HOUSE)
+      await House.create({
+        ...type,
+        idProperty,
+      });
+    else if (PROPERTY_TYPE === PropertyType.PH)
+      await PH.create({
+        ...type,
+        idProperty,
+      });
+    else if (PROPERTY_TYPE === PropertyType.APARTMENT)
+      await Apartment.create({
+        ...type,
+        idProperty,
+      });
 
     // const { id_User } = req.body;
 
@@ -58,7 +64,7 @@ const createProperty = async (req, res) => {
     // );
 
     // notify property created succes
-    notifier.notify(
+    /* notifier.notify(
       {
         sound: true,
         wait: true,
@@ -71,72 +77,120 @@ const createProperty = async (req, res) => {
       function (err, response) {
         console.log(err, response);
       }
-    );
+    ); */
 
     res.status(201).json({
-      Message: "Propiedad creada",
-      payload: properties,
+      info: {
+        message: "property created successfully",
+        idProperty,
+        type: PROPERTY_TYPE
+      },
     });
   } catch (err) {
-    res.status(401).json({ Error: err.message });
+    res.status(500).json({ Error: err.message });
   }
 };
 
-//GET ALL PROPERTIES / GET AL FRONT
+//GET
 const getAllProperties = async (req, res) => {
   try {
-    const properties = await Property.findAll({
-      include: [
-        {
-          model: User,
-          attributes: { exclude: ["password"] },
-        },
-        { model: Feedback },
-      ],
+    const Houses = await House.findAll({
+      include: {
+        model: Property,
+        attributes: { exclude: ["idUser", "idProperty"] },
+        include: [{ model: User }],
+      },
+      attributes: { exclude: ["id"] },
     });
 
-    if (!properties.length) throw new Error("No hay propiedades");
+    const PHs = await PH.findAll({
+      include: {
+        model: Property,
+        attributes: { exclude: ["idUser", "idProperty"] },
+        include: [{ model: User }],
+      },
+      attributes: { exclude: ["id"] },
+    });
 
-    res.status(200).json({ Message: "Success", payload: properties });
+    const Apartments = await Apartment.findAll({
+      include: {
+        model: Property,
+        attributes: { exclude: ["idUser", "idProperty"] },
+        include: [{ model: User }],
+      },
+      attributes: { exclude: ["id"] },
+    });
+    const properties = [...Houses, ...PHs, ...Apartments];
+
+    if (!properties.length) throw new Error("There isn't properties");
+
+    res.status(200).json({
+      info: { message: "success", quantity: properties.length },
+      properties,
+    });
   } catch (err) {
-    res.status(400).json({ Error: err.message });
+    res.status(500).json({
+      error: {
+        message: err.message,
+      },
+    });
   }
 };
 
-//function find by id
-const findPropertyById = async (req, res) => {
+const getPropertyById = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { idProperty } = req.params;
+    const { type } = req.query;
 
-    const searchByPK = await Property.findOne({
-      where: { id: id },
-      include: [{ model: User }, { model: Feedback }],
-    });
-
-    const userJson = searchByPK.toJSON();
-
-    await Property.update(
-      {
-        ...userJson,
-        views: userJson.views + 1,
-        state: userJson.state === "Activado",
-      },
-      {
-        where: {
-          id,
+    let property;
+    if (type === "house")
+      property = await House.findOne({
+        where: { idProperty },
+        include: {
+          model: Property,
+          attributes: { exclude: ["idUser", "idProperty"] },
+          include: [{ model: User }],
         },
-      }
-    );
+        attributes: { exclude: ["id"] },
+      });
+    else if (type === "ph")
+      property = await PH.findOne({
+        where: { idProperty },
+        include: {
+          model: Property,
+          attributes: { exclude: ["idUser", "idProperty"] },
+          include: [{ model: User }],
+        },
+        attributes: { exclude: ["id"] },
+      });
+    else if (type === "apartment")
+      property = await Apartment.findOne({
+        where: { idProperty },
+        include: {
+          model: Property,
+          attributes: { exclude: ["idUser", "idProperty"] },
+          include: [{ model: User }],
+        },
+        attributes: { exclude: ["id"] },
+      });
+    else
+      property = await Property.findOne({
+        where: { idProperty },
+        include: {
+          model: User,
+        },
+        attributes: { exclude: ["idUser"] },
+      });
 
-    if (!searchByPK) throw new Error("Id inexistente");
+    if (!property)
+      return res.status(404).json({ error: { message: `Property not found` } });
 
     res.status(200).json({
-      Message: "Succes",
-      paylaod: { ...userJson, views: userJson.views + 1 },
-      views: userJson.views + 1,
+      info: { message: "Succes" },
+      property,
     });
   } catch (err) {
-    res.status(400).json({ Error: err.message });
+    res.status(500).json({ error: { message: err.message } });
   }
 };
 
@@ -166,7 +220,7 @@ const disableProperty = async (req, res) => {
     if (!searchPropertyById) return res.send("Propiedad no encontrada");
 
     const uploadProperty = await Property.update(
-      { ...req.body},
+      { ...req.body },
       {
         where: {
           id: id,
@@ -204,6 +258,7 @@ const uplaodProperty = async (req, res) => {
   }
 };
 
+//DELETE
 const deleteProperty = async (req, res) => {
   const { id } = req.params;
   try {
@@ -218,7 +273,7 @@ const deleteProperty = async (req, res) => {
 module.exports = {
   createProperty,
   getAllProperties,
-  findPropertyById,
+  getPropertyById,
   getAllAddress,
   disableProperty,
   uplaodProperty,

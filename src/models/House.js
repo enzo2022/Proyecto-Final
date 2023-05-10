@@ -1,36 +1,32 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("House", {
-    bedrooms: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+  sequelize.define(
+    "House",
+    {
+      idHouse: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
+      floors: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+      },
+      garage: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      backyard: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      pool: {
+        type: DataTypes.BOOLEAN,
+      },
     },
-    bathrooms: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    livingRoom: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-    diningRoom: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-    kitchen: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-    garage: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-    garden: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-  },{
-    timestamps: false,
-  });
+    {
+      timestamps: false,
+    }
+  );
 };

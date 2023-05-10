@@ -109,16 +109,22 @@ const signIn = async (req, res) => {
 };
 
 //GET
-const getUser = async (req, res) => {
+const getUserById = async (req, res) => {
   const { idUser } = req.params;
   try {
-    const searchByPK = await User.findOne({
+    const user = await User.findOne({
       where: { idUser: idUser },
       include: { model: Favorite },
     });
 
-    if (!searchByPK) throw new Error("User not found");
-    res.status(200).json({ Message: "Success", payload: searchByPK });
+    if (!user)
+      return res.status(404).json({
+        error: {
+          message: "user not found",
+        },
+      });
+
+    res.status(200).json({ info: { status: 200, message: "Success" }, user });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
@@ -131,9 +137,11 @@ const getUsers = async (req, res) => {
     });
 
     if (!users.length)
-      return res.send({ Error: "No hay usuarios en la base de datos" });
+      return res.send({
+        error: { message: "No hay usuarios en la base de datos" },
+      });
 
-    res.status(200).json({ Message: "Success", payload: users });
+    res.status(200).json({ info: { mesagge: "Success" }, users });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
@@ -150,11 +158,14 @@ const setState = async (req, res) => {
     let user = await User.findByPk(idUser);
     if (!user?.idUser) return res.status(404).json({ Error: "User not found" });
 
-    await User.update({state}, {
-      where: {
-        idUser: idUser,
-      },
-    });
+    await User.update(
+      { state },
+      {
+        where: {
+          idUser: idUser,
+        },
+      }
+    );
     res.send({ Message: `Correct updated` });
   } catch (err) {
     res.status(404).send({ Error: err.message });
@@ -214,7 +225,7 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
   deleteUser,
-  getUser,
+  getUserById,
   getUsers,
   setPremium,
   setState,

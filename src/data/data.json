@@ -101,146 +101,202 @@
     {
       "property": {
         "idProperty": "8577872e-49ae-41bc-9042-6b9d35e7add1",
-        "idCity": 820042,
-        "address": "Av Santa fe 908",
-        "images": [
-          "https://cdna.artstation.com/p/assets/images/images/001/855/390/large/emi-martinez-frente-3c.jpg?1534647282"
+        "address": "Av Santa Fe 908, Buenos Aires",
+        "idCity": 386161,
+        "description": "Hermosa casa de dos plantas, con amplio jardín y piscina. Cuenta con 3 dormitorios y 2 baños completos, todos ellos con aire acondicionado. Cocina completamente equipada y moderna, con comedor diario. Sala de estar con sofás cómodos y TV de pantalla plana. WiFi y estacionamiento privado disponibles.",
+        "photos": [
+          "https://picsum.photos/800/600?random=1",
+          "https://picsum.photos/800/600?random=2",
+          "https://picsum.photos/800/600?random=3"
         ],
-        "description": "casa amplia y luminosa con un hermoso ventanal con vista a la calle"
-      },
-      "type": {
-        "name": "House",
         "bedrooms": 3,
-        "bathrooms": 1,
-        "livingRoom": true,
-        "diningRoom": true,
-        "kitchen": true,
-        "garage": false,
-        "garden": false
-      }
-    },
-    {
-      "property": {
-        "idProperty": "6a32d38c-6c25-4250-b22d-1d814fb72a10",
-        "idCity": 386154,
-        "address": "Saenz 45",
-        "images": [
-          "https://cdna.artstation.com/p/assets/images/images/001/855/390/large/emi-martinez-frente-3c.jpg?1534647282"
-        ],
-        "description": "PH con buenos cimientos y gran potencial de renovación"
-      },
-      "type": {
-        "name": "PH",
-        "floors": 0,
-        "bedrooms": 3,
-        "bathrooms": 1,
-        "livingRoom": true,
-        "diningRoom": true,
-        "kitchen": true,
-        "garage": false,
-        "garden": false
-      }
-    },
-    {
-      "property": {
-        "idProperty": "aed4fe8e-e6a1-4358-b9eb-2fd88bd3e873",
-        "idCity": 386252,
-        "address": "Villa Lugano 7867",
-        "images": [
-          "https://http2.mlstatic.com/D_NQ_NP_759608-MLA45114947400_032021-W.jpg"
-        ],
-        "description": "Apartamento acogedor con una hermosa vista panorámica de la ciudad"
-      },
-      "type": {
-        "name": "Apartment",
-        "bedrooms": 3,
-        "bathrooms": 1,
-        "livingRoom": true,
-        "diningRoom": true,
-        "kitchen": true,
-        "balcony": false
-      }
-    },
-    {
-      "property": {
-        "idProperty": "a45d11e5-69f2-4b5e-a02c-5f4840e75e1a",
-        "idCity": 236924,
-        "address": "Calle Mitre 568",
-        "images": [
-          "https://cdn.pixabay.com/photo/2017/03/21/15/09/house-2164635_960_720.jpg"
-        ],
-        "description": "Hermosa casa de dos plantas con detalles de estilo colonial y jardín con piscina"
-      },
-      "type": {
-        "name": "House",
-        "bedrooms": 4,
         "bathrooms": 2,
-        "livingRoom": true,
-        "diningRoom": true,
-        "kitchen": true,
+        "squareMeters": 250,
+        "yearBuilt": 2015,
+        "amenities": [
+          "WiFi",
+          "Aire acondicionado",
+          "Piscina",
+          "Jardín",
+          "Estacionamiento privado"
+        ]
+      },
+      "type": {
+        "type": "house",
+        "floors": 2,
         "garage": true,
-        "garden": true
+        "backyard": true,
+        "pool": true
       }
     },
     {
       "property": {
-        "idProperty": "3b1d1292-3a81-47a2-86c2-e2e9fc9a8401",
-        "idCity": 386025,
-        "address": "Av. Corrientes 1515",
-        "images": [
-          "https://www.viajesfalabella.com.ar/static/img/hoteles/argentina/buenos-aires/centro-historico/sheraton-buenos-aires-hotel-y-centro-de-convenciones.jpg"
+        "idProperty": "a105e76a-3843-4393-a202-97d4c6c3ab6e",
+        "address": "Calle 7 650, La Plata",
+        "idCity": 100238,
+        "description": "Amplia casa de 4 dormitorios y 3 baños, con capacidad para 8 personas. Cuenta con cocina totalmente equipada, sala de estar con chimenea, comedor y sala de TV. Patio con parrilla y mesa al aire libre para disfrutar de las tardes de verano. Ubicada en una zona tranquila y segura, cerca de restaurantes y tiendas locales.",
+        "photos": [
+          "https://picsum.photos/800/600?random=4",
+          "https://picsum.photos/800/600?random=5",
+          "https://picsum.photos/800/600?random=6"
         ],
-        "description": "Departamento elegante y espacioso en el corazón de Buenos Aires."
-      },
-      "type": {
-        "name": "Apartment",
-        "bedrooms": 2,
-        "bathrooms": 2,
-        "livingRoom": true,
-        "diningRoom": true,
-        "kitchen": true,
-        "balcony": true
-      }
-    },
-    {
-      "property": {
-        "idProperty": "f2f9c7c8-f1b3-4fa3-88b5-7b8c0bf14e7e",
-        "idCity": 386110,
-        "address": "Rivadavia 301",
-        "images": [
-          "https://cdn.hotelplanner.com/Common/Images/_HotelPlanner/Home/inner-banner-buenos-aires.jpg"
-        ],
-        "description": "Cómodo departamento en el centro de la ciudad, cerca de tiendas y restaurantes."
-      },
-      "type": {
-        "name": "Apartment",
-        "bedrooms": 1,
-        "bathrooms": 1,
-        "livingRoom": true,
-        "diningRoom": true,
-        "kitchen": true,
-        "balcony": false
-      }
-    },
-    {
-      "property": {
-        "idProperty": "7a348f85-b8df-4e85-a1e3-3f6ce732d4bb",
-        "idCity": 386170,
-        "address": "Los Plátanos 110",
-        "images": [
-          "https://i.pinimg.com/originals/9b/c7/c1/9bc7c10b18a41d342a172a207ca1c8a1.jpg"
-        ],
-        "description": "Hermosa casa con jardín en un barrio tranquilo de la ciudad de Buenos Aires."
-      },
-      "type": {
-        "name": "House",
         "bedrooms": 4,
         "bathrooms": 3,
-        "livingRoom": true,
-        "diningRoom": true,
-        "kitchen": true,
+        "squareMeters": 350,
+        "yearBuilt": 2008,
+        "amenities": [
+          "WiFi",
+          "Chimenea",
+          "Patio con parrilla",
+          "TV",
+          "Cocina equipada"
+        ]
+      },
+      "type": {
+        "type": "house",
+        "floors": 1,
         "garage": true,
-        "garden": true
+        "backyard": true,
+        "pool": false
+      }
+    },
+    {
+      "property": {
+        "idProperty": "7252b3e3-04c1-465f-8c88-01f1559b558d",
+        "address": "Calle 22 # 10-45",
+        "idCity": 660315,
+        "description": "Moderno apartamento con acabados de lujo, en un sector exclusivo de la ciudad.",
+        "photos": [
+          "https://cdn.pixabay.com/photo/2020/03/12/15/32/living-room-4929058_960_720.jpg"
+        ],
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "squareMeters": 120,
+        "yearBuilt": 2019,
+        "amenities": ["Piscina", "Gimnasio", "Parqueadero"]
+      },
+      "type": {
+        "type": "ph",
+        "floorNumber": 2,
+        "elevator": true,
+        "balcony": true,
+        "gym": true
+      }
+    },
+    {
+      "property": {
+        "idProperty": "dbd5c67d-fa5c-4e71-a1db-ee9d5b5a5a5a",
+        "address": "Calle 36 # 10-27",
+        "idCity": 460098,
+        "description": "Amplio y cómodo apartamento ubicado en el corazón de la ciudad, cerca a centros comerciales y restaurantes.",
+        "photos": [
+          "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_960_720.jpg",
+          "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_960_720.jpg"
+        ],
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "squareMeters": 80,
+        "yearBuilt": 2010,
+        "amenities": []
+      },
+      "type": {
+        "type": "ph",
+        "floorNumber": 0,
+        "elevator": true,
+        "balcony": true,
+        "gym": false
+      }
+    },
+    {
+      "property": {
+        "idProperty": "11f47b80-87a5-45fd-845d-8c038aee0c63",
+        "address": "Calle Moreno 851",
+        "idCity": 540007,
+        "description": "Departamento amplio y luminoso con vista panorámica de la ciudad",
+        "photos": [
+          "https://i.pinimg.com/originals/c8/cf/97/c8cf97b8cfa38d23e1cbed01d42b85f8.jpg"
+        ],
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "squareMeters": 90,
+        "yearBuilt": 2015,
+        "amenities": ["piscina", "gimnasio", "sauna"]
+      },
+      "type": {
+        "type": "apartment",
+        "floorNumber": 10,
+        "elevator": true,
+        "balcony": true,
+        "gym": true
+      }
+    },
+    {
+      "property": {
+        "idProperty": "b7a85d79-9e11-4b1c-bbca-4a4a998d12ba",
+        "address": "Calle San Martín 1111",
+        "idCity": 700042,
+        "description": "Hermoso apartamento en el centro de la ciudad, totalmente amueblado y equipado",
+        "photos": [
+          "https://www.chicagotribune.com/resizer/G_sUvNcALQl6Ux2WnQz1_p9NGfY=/1200x0/top/arc-anglerfish-arc2-prod-tronc.s3.amazonaws.com/public/L6W4X6U2QZFPJOM6F3PN4WJTB4.jpg"
+        ],
+        "bedrooms": 1,
+        "bathrooms": 1,
+        "squareMeters": 50,
+        "yearBuilt": 2010,
+        "amenities": ["aire acondicionado", "calefacción", "wifi"]
+      },
+      "type": {
+        "type": "apartment",
+        "floorNumber": 5,
+        "elevator": true,
+        "balcony": false,
+        "gym": false
+      }
+    },
+    {
+      "property": {
+        "idProperty": "d5d66a7a-18f6-4e8f-a9d5-7c18e1e71a7d",
+        "address": "Ruta 3 Km 150",
+        "idCity": 500028,
+        "description": "Hermosa casa de campo en la Pampa Argentina, rodeada de campo y tranquilidad. Ideal para descansar y desconectar del mundo.",
+        "photos": [
+          "https://images.unsplash.com/photo-1572119382613-cf9e9e7ccaa2?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&dl=drew-coffman-sZGRXCpCtEw-unsplash.jpg"
+        ],
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "squareMeters": 300,
+        "yearBuilt": 2010,
+        "amenities": ["Parrilla", "Piscina"]
+      },
+      "type": {
+        "type": "ranch",
+        "acreage": 50,
+        "barn": true,
+        "pasture": true,
+        "pond": false
+      }
+    },
+    {
+      "property": {
+        "idProperty": "2ccf64d8-1aae-4685-85cb-64c9eac7b5d1",
+        "address": "Calle 40, 1234",
+        "idCity": 660063,
+        "description": "Granja en la provincia de Buenos Aires, con todas las comodidades para una estadía cómoda y tranquila. Rodeada de árboles y animales de granja.",
+        "photos": [
+          "https://images.unsplash.com/photo-1620418133182-f122797b732f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&dl=tirza-van-dijk-X8n9q_fJtVI-unsplash.jpg"
+        ],
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "squareMeters": 250,
+        "yearBuilt": 2005,
+        "amenities": ["Parrilla", "Cancha de tenis"]
+      },
+      "type": {
+        "type": "ranch",
+        "acreage": 100,
+        "barn": true,
+        "pasture": true,
+        "pond": true
       }
     }
   ]
