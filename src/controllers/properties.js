@@ -1,5 +1,6 @@
-const { Property, User, House, PH, Apartment } = require("../db.js");
-const {checkRequiredPropertyEntries, PropertyType} = require("../utils").entries
+const { Property, User, House, PH, Apartment, Ranch } = require("../db.js");
+const { checkRequiredPropertyEntries, PropertyType } =
+  require("../utils").entries;
 
 const notifier = require("node-notifier");
 const path = require("path");
@@ -11,9 +12,11 @@ const {
 //POST
 const createProperty = async (req, res) => {
   const PROPERTY = req.body;
-  const {type} = req.body
+  const { type } = req.body;
 
-  const boundCheckRequiredPropertyEntries = checkRequiredPropertyEntries.bind(require("../utils").entries)
+  const boundCheckRequiredPropertyEntries = checkRequiredPropertyEntries.bind(
+    require("../utils").entries
+  );
   const { missing, message } = boundCheckRequiredPropertyEntries(PROPERTY);
 
   if (missing)
@@ -23,14 +26,12 @@ const createProperty = async (req, res) => {
       },
     });
 
-  const PROPERTY_TYPE =type.type ;
+  const PROPERTY_TYPE = type.type;
   try {
     const { idProperty } = await Property.create({
       ...PROPERTY,
-      type: PROPERTY_TYPE
+      type: PROPERTY_TYPE,
     });
-
-    
 
     if (PROPERTY_TYPE === PropertyType.HOUSE)
       await House.create({
@@ -44,6 +45,11 @@ const createProperty = async (req, res) => {
       });
     else if (PROPERTY_TYPE === PropertyType.APARTMENT)
       await Apartment.create({
+        ...type,
+        idProperty,
+      });
+    else if (PROPERTY_TYPE === PropertyType.RANCH)
+      await Ranch.create({
         ...type,
         idProperty,
       });
@@ -83,7 +89,7 @@ const createProperty = async (req, res) => {
       info: {
         message: "property created successfully",
         idProperty,
-        type: PROPERTY_TYPE
+        type: PROPERTY_TYPE,
       },
     });
   } catch (err) {
@@ -98,29 +104,39 @@ const getAllProperties = async (req, res) => {
       include: {
         model: Property,
         attributes: { exclude: ["idUser", "idProperty"] },
-        include: [{ model: User }],
+        include: [{ model: User, attributes: { exclude: ["password"] } }],
       },
-      attributes: { exclude: ["id"] },
+      attributes: { exclude: ["idHouse"] },
     });
 
     const PHs = await PH.findAll({
       include: {
         model: Property,
         attributes: { exclude: ["idUser", "idProperty"] },
-        include: [{ model: User }],
+        include: [{ model: User, attributes: { exclude: ["password"] } }],
       },
-      attributes: { exclude: ["id"] },
+      attributes: { exclude: ["idPh"] },
     });
 
     const Apartments = await Apartment.findAll({
       include: {
         model: Property,
         attributes: { exclude: ["idUser", "idProperty"] },
-        include: [{ model: User }],
+        include: [{ model: User, attributes: { exclude: ["password"] } }],
       },
-      attributes: { exclude: ["id"] },
+      attributes: { exclude: ["idApartment"] },
     });
-    const properties = [...Houses, ...PHs, ...Apartments];
+
+    const Ranches = await Ranch.findAll({
+      include: {
+        model: Property,
+        attributes: { exclude: ["idUser", "idProperty"] },
+        include: [{ model: User, attributes: { exclude: ["password"] } }],
+      },
+      attributes: { exclude: ["idRanch"] },
+    });
+
+    const properties = [...Houses, ...PHs, ...Apartments, ...Ranches];
 
     if (!properties.length) throw new Error("There isn't properties");
 

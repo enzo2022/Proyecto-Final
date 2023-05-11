@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const {sequelize} = require("./config");
+const { sequelize } = require("./config");
 
 //DB-CONNECTION
 sequelize
@@ -47,15 +47,15 @@ const {
   PayOrder,
   House,
   PH,
-  Apartment
+  Apartment,
+  Ranch,
 } = sequelize.models;
 
-
 //Relation between Property and Type Property
-House.belongsTo(Property, { foreignKey: 'idProperty' })
-PH.belongsTo(Property, { foreignKey: 'idProperty' })
-Apartment.belongsTo(Property, { foreignKey: 'idProperty' })
-
+House.belongsTo(Property, { foreignKey: "idProperty" });
+PH.belongsTo(Property, { foreignKey: "idProperty" });
+Apartment.belongsTo(Property, { foreignKey: "idProperty" });
+Ranch.belongsTo(Property, { foreignKey: "idProperty" });
 
 Property.belongsTo(User, { foreignKey: "idUser", onDelete: "CASCADE" });
 //User.hasMany(Property, { foreignKey: "idUser", onDelete: "CASCADE" });
