@@ -22,6 +22,7 @@ module.exports = {
     apartment: ["floorNumber", "balcony"],
     ranch: ["acreage", "barn"],
   },
+  requiredPublicationEntries: {},
   checkRequiredPropertyEntries: function (PROPERTY) {
     const {
       idCity,
@@ -39,7 +40,7 @@ module.exports = {
       this.requiredPropertyEntries;
 
     const { HOUSE, PH, APARTMENT, RANCH } = this.PropertyType;
-    
+
     if (
       ![
         idCity,
@@ -98,6 +99,19 @@ module.exports = {
           missing: true,
           message: `Type property ${PROPERTY_TYPE} no valid`,
         };
+  },
+  checkRequiredPublicationEntries: function (PUBLISH) {
+    const { idProperty, idUser, price, modality } = PUBLISH;
+    if (![idProperty, idUser, price, modality].every(Boolean))
+      return {
+        missing: true,
+        message: `Missing data → idProperty, idUser, price, modality are required`,
+      };
+    
+      return {
+      missing: false,
+      message: { msg: "all is correct", temp: PUBLISH },
+    };
   },
 };
 
