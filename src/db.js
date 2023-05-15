@@ -35,20 +35,21 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 const {
+  Apartment,
   City,
-  Property,
-  User,
+  deleteProperty,
   Favorite,
   Feedback,
+  House,
+  Interested,
   Membership,
   MembershipType,
-  deleteProperty,
-  Interested,
   PayOrder,
-  House,
+  Property,
   PH,
-  Apartment,
+  Publication,
   Ranch,
+  User,
 } = sequelize.models;
 
 //Relation between Property and Type Property
@@ -62,6 +63,9 @@ Property.belongsTo(User, { foreignKey: "idUser", onDelete: "CASCADE" });
 
 Property.belongsTo(City, { foreignKey: "idCity" });
 //City.hasMany(Property, { foreignKey: "idCity" });
+
+Publication.belongsTo(Property, {foreignKey: "idProperty", onDelete:"CASCADE"})
+Publication.belongsTo(User, {foreignKey: "idUser"})
 
 // Relacion 1:M => User => Favorite
 Favorite.belongsTo(User, { foreignKey: "idUser", onDelete: "CASCADE" });

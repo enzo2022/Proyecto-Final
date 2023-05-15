@@ -8,6 +8,7 @@ const interested = require("./interested");
 const mercado = require("./mercado");
 const membership = require("./memberships");
 const properties = require("./properties");
+const publish = require('./publish')
 const users = require("./users");
 
 const router = Router();
@@ -20,6 +21,7 @@ router.use("/", interested);
 router.use("/", mercado);
 router.use("/", membership);
 router.use("/property", properties);
+router.use('/publish',publish)
 router.use("/user", users);
 
 module.exports = router;
