@@ -64,7 +64,7 @@ Property.belongsTo(User, { foreignKey: "idUser", onDelete: "CASCADE" });
 Property.belongsTo(City, { foreignKey: "idCity" });
 //City.hasMany(Property, { foreignKey: "idCity" });
 
-Publication.belongsTo(Property, {foreignKey: "idProperty"})
+Publication.belongsTo(Property, {foreignKey: "idProperty", onDelete:"CASCADE"})
 Publication.belongsTo(User, {foreignKey: "idUser"})
 
 // Relacion 1:M => User => Favorite

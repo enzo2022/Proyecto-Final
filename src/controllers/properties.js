@@ -276,11 +276,16 @@ const uplaodProperty = async (req, res) => {
 
 //DELETE
 const deleteProperty = async (req, res) => {
-  const { id } = req.params;
+  const { idProperty } = req.params;
+
   try {
-    if (!id) return res.send("Id inexistente");
-    const deleteProperty = await Property.destroy({ where: { id: id } });
-    res.status(200).json({ Message: "Delete property succes" });
+    const deleteProperty = await Property.destroy({ where: { idProperty } });
+    res.status(200).json({
+      info: {
+        message: "Delete property succes",
+      },
+      deleteProperty,
+    });
   } catch (err) {
     res.status(400).json({ Message: err.message });
   }

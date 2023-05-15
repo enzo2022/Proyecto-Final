@@ -26,6 +26,6 @@ router.get("/:idProperty", getPropertyById);
 router.put("/disable/:id", disableProperty);
 router.put("/:id", uplaodProperty);
 
-router.delete("/:id", authenticateToken, noAuthorizeLogged, deleteProperty);
+router.delete("/:idProperty", /* authenticateToken, authorizePremium, */ deleteProperty);
 
 module.exports = router;
