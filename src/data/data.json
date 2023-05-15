@@ -127,6 +127,10 @@
         "garage": true,
         "backyard": true,
         "pool": true
+      },
+      "publish": {
+        "modality": "sale",
+        "price": 100000
       }
     },
     {
@@ -158,6 +162,10 @@
         "garage": true,
         "backyard": true,
         "pool": false
+      },
+      "publish": {
+        "modality": "sale",
+        "price": 150000
       }
     },
     {
@@ -181,6 +189,10 @@
         "elevator": true,
         "balcony": true,
         "gym": true
+      },
+      "publish": {
+        "modality": "sale",
+        "price": 11200
       }
     },
     {
@@ -205,6 +217,10 @@
         "elevator": true,
         "balcony": true,
         "gym": false
+      },
+      "publish": {
+        "modality": "rental",
+        "price": 2500
       }
     },
     {
@@ -228,6 +244,10 @@
         "elevator": true,
         "balcony": true,
         "gym": true
+      },
+      "publish": {
+        "modality": "rental",
+        "price": 3020 
       }
     },
     {
@@ -251,6 +271,10 @@
         "elevator": true,
         "balcony": false,
         "gym": false
+      },
+      "publish": {
+        "modality": "rental",
+        "price": 2500 
       }
     },
     {
@@ -274,6 +298,10 @@
         "barn": true,
         "pasture": true,
         "pond": false
+      },
+      "publish": {
+        "modality": "sale",
+        "price": 1500000 
       }
     },
     {
@@ -297,6 +325,10 @@
         "barn": true,
         "pasture": true,
         "pond": true
+      },
+      "publish": {
+        "modality": "rental",
+        "price": 15000
       }
     }
   ]

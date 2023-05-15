@@ -1,5 +1,5 @@
 const { users, properties } = require("../data/data.json");
-const { User, Property, House, PH, Apartment, City, Ranch} = require("../db");
+const { User, Property, House, PH, Apartment, City, Ranch, Publication} = require("../db");
 const { hashPassword } = require("../utils");
 const axios = require("axios");
 
@@ -42,9 +42,18 @@ async function addProperties() {
   const allProperties = properties.map((property, i) => ({
     ...property.property,
     idUser: usersPremium[i],
-    type: property.type.type
+    type: property.type.type,
+    publish: property.publish
   }));
   await Property.bulkCreate(allProperties);
+
+  const publish = allProperties.map((property)=>({
+    idProperty: property.idProperty,
+    idUser: property.idUser,
+    ...property.publish
+  }))
+
+  await Publication.bulkCreate(publish)
 
   const Houses = getPropertiesByType("house");
   const PHs = getPropertiesByType("ph");
@@ -55,6 +64,8 @@ async function addProperties() {
   await PH.bulkCreate(PHs);
   await Apartment.bulkCreate(Apartments);
   await Ranch.bulkCreate(Ranches)
+
+
   return "Ok → properties added";
 }
 
