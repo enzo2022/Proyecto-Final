@@ -66,42 +66,31 @@ const signIn = async (req, res) => {
     return res.status(404).json({ Error: "Email and password are required" });
 
   try {
-    const searchUser = await User.findOne({
+    const _user = await User.findOne({
       where: { email: email },
-      include: [
-        { model: Property },
-        { model: Favorite },
-        { model: Membership },
-      ],
     });
 
-    if (!searchUser) return res.status(404).json({ Error: "Email not found" });
+    if (!_user) return res.status(404).json({ Error: "Email not found" });
 
-    const passwordMatch = await verifyPassword(searchUser.password, password);
+    const passwordMatch = await verifyPassword(_user.password, password);
     if (!passwordMatch)
       res.status(401).json({ Error: "Incorrect email or password." });
 
-    if (searchUser.state === "blocked")
+    if (_user.state === "blocked")
       return res.status(401).json({ Error: "This user is blocked" });
 
-    let user = {
-      email: searchUser.email,
-      userName: searchUser.userName,
-      idUser: searchUser.idUser,
-      photo: searchUser.photo,
-      userType: searchUser.userType,
-      property: searchUser.Properties,
-      favorites: searchUser.Favorites,
-      memberships: searchUser.Memberships,
-      cellphone: searchUser.cellphone,
-    };
-
     const token = generateToken({
-      email: user.email,
-      user: user.userName,
-      type: user.userType,
+      id: _user.idUser,
+      email: _user.email,
+      user: _user.userName,
+      type: _user.userType,
     });
 
+    const user = {};
+    for (const key in _user.dataValues) {
+      if (key !== "password") user[key] = _user[key];
+    }
+    
     res.json({ user, token: token });
   } catch (error) {
     res.status(400).json({ Error: error.message });
