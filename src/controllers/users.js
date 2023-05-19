@@ -95,7 +95,7 @@ const signIn = async (req, res) => {
 
     const passwordMatch = await verifyPassword(_user.password, password);
     if (!passwordMatch)
-      res.status(401).json({ Error: "Incorrect email or password." });
+      return res.status(401).json({ Error: "Incorrect email or password." });
 
     if (_user.state === "blocked")
       return res.status(401).json({ Error: "This user is blocked" });
