@@ -34,6 +34,7 @@ const signUp = async (req, res) => {
       fName,
       userName,
       email,
+      cellphone,
       password: hashPass,
     });
     
