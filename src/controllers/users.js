@@ -15,7 +15,6 @@ const {
 //here
 const { hashPassword, verifyPassword, generateToken } = require("../utils");
 
-
 //POST
 const signUp = async (req, res) => {
   const { fName, lName, password, email, cellphone, userName } = req.body;
@@ -37,7 +36,7 @@ const signUp = async (req, res) => {
       cellphone,
       password: hashPass,
     });
-    
+
     const user = {};
     for (const key in _user.dataValues) {
       if (key !== "password") user[key] = _user[key];
@@ -50,7 +49,7 @@ const signUp = async (req, res) => {
       type: user.userType,
     });
 
-    return res.send({ 
+    return res.send({
       info: {
         message: "Usuario created successfully",
       },
@@ -75,7 +74,6 @@ const signUp = async (req, res) => {
     );
     //NODEMAILER, SEND EMAIL TO USER
     const info = await transport.sendMail(registerMessage(userName, email)); */
-
   } catch (err) {
     return res.status(500).send({ Error: err.message });
   }
@@ -111,7 +109,7 @@ const signIn = async (req, res) => {
     for (const key in _user.dataValues) {
       if (key !== "password") user[key] = _user[key];
     }
-    
+
     res.json({ user, token: token });
   } catch (error) {
     res.status(400).json({ Error: error.message });
@@ -184,17 +182,36 @@ const setState = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { idUser } = req.params;
-  try {
-    let user = await User.findByPk(idUser);
-    if (!user?.idUser) return res.status(404).json({ Error: "User not found" });
+  if (idUser == undefined || idUser == null)
+    return res.status(400).json({ error: { message: "idUser is required" } });
 
-    await User.update(req.body, {
+  try {
+    const newData = {};
+    for (const key in req.body) {
+      if (["lName", "fName", "userName", "cellphone", "photo"].includes(key)) {
+        newData[key] = req.body[key];
+      }
+    }
+
+    await User.update(newData, {
       where: {
-        idUser: idUser,
+        idUser,
       },
     });
 
-    res.status(200).send({ Message: "User Updated" });
+    const user = await User.findOne({
+      where: { idUser },
+      attributes: { exclude: ["password"] },
+    });
+    if (!user)
+      return res.status(404).json({ error: { message: "User not found" } });
+
+    res.status(200).send({
+      info: {
+        message: "user updated",
+      },
+      user,
+    });
   } catch (err) {
     res.status(404).send({ Error: err.message });
   }
