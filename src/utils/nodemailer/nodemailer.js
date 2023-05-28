@@ -15,7 +15,7 @@ const transport = nodemailer.createTransport({
 })
 
 const registerMessage = (userName, email) => ({
-  from: "'Properties&you' <pfgrupo05a@gmail.com>",
+  from: '"Properties&you" <pfgrupo05a@gmail.com>',
   to: email,
   subject: 'Gracias por registrarse en Properties&you',
   text: `Bienvenido ${userName} a Properties&you, su registro fue exitoso`,

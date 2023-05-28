@@ -3,7 +3,7 @@ const { Property, User } = require('../db')
 const deleteUser = async (req, res, next) => {
   const { id } = req.params
   try {
-    await User.update({ state: true }, { where: { id_User: id } })
+    await User.update({ state: true }, { where: { idUser: id } })
     res.send('Se baneo al usuario')
   } catch (error) {
     next(error)
@@ -13,7 +13,7 @@ const deleteUser = async (req, res, next) => {
 const restoreUser = async (req, res, next) => {
   const { id } = req.params
   try {
-    await User.update({ state: false }, { where: { id_User: id } })
+    await User.update({ state: false }, { where: { idUser: id } })
     res.send('Se restauro al usuario')
   } catch (error) {
     next(error)
@@ -25,7 +25,7 @@ const acces = async (req, res) => {
   const { id } = req.query
 
   try {
-    await User.update({ user_type: 'admin' }, { where: { id_User: id } })
+    await User.update({ userType: 'admin' }, { where: { idUser: id } })
     res.send('Eres Admin !')
   } catch (e) {
     res.send('todo mal')

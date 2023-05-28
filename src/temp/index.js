@@ -22,15 +22,14 @@ async function addUsers() {
       await addAdmin(MY_ADMIN)
     }
 
-    if (true) {
-      const newUsers = users.map(async (user) => ({
-        ...user,
-        password: await hashPassword(user.password),
-      }))
+    const newUsers = users.map(async (user) => ({
+      ...user,
+      password: await hashPassword(user.password),
+    }))
 
-      const usersWithHashedPasswords = await Promise.all(newUsers)
-      await User.bulkCreate(usersWithHashedPasswords)
-    }
+    const usersWithHashedPasswords = await Promise.all(newUsers)
+    await User.bulkCreate(usersWithHashedPasswords)
+
     return 'Ok → users added'
   } catch (error) {
     return error.message
@@ -147,6 +146,7 @@ async function addInformation() {
   console.log(await addCities())
   console.log(await addProperties())
 }
+
 module.exports = {
   addUsers,
   addProperties,

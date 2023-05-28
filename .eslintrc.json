@@ -5,29 +5,36 @@
     "es2021": true,
     "node": true
   },
-  "extends": "airbnb-base",
-  "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest"
   },
+  "extends": "eslint:recommended",
   "rules": {
     "semi": "off",
     "linebreak-style": "off",
     "no-unused-vars": "warn",
-    "implicit-arrow-linebreak": "off",
-    "global-require": "off",
-    "import/no-dynamic-require": "off",
-    "operator-linebreak": "off",
-    "no-use-before-define": "off",
-    "function-paren-newline": "off",
     "no-plusplus": "off",
-    "object-curly-newline": "off",
-    "nonblock-statement-body-position": "off",
-    "curly": "off",
-    "no-underscore-dangle": "off",
-    "consistent-return": "off",
-    "no-restricted-syntax": "off",
-    "object-shorthand": "warn",
-    "no-prototype-builtins": "warn"
+    "no-var": "error",
+    "prefer-const": "error",
+    "no-console": "warn",
+    "no-prototype-builtins": "off",
+    "no-redeclare": "error",
+    "no-multi-spaces": "error",
+    "quotes": [
+      "error",
+      "single",
+      { "avoidEscape": true, "allowTemplateLiterals": false }
+    ],
+    "no-extra-semi": "error",
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "no-trailing-spaces": "error",
+    "no-whitespace-before-property": "error",
+    "prefer-template": "error",
+    "camelcase": [
+      "error",
+      {
+        "properties": "never"
+      }
+    ]
   }
 }
