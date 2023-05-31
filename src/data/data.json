@@ -119,7 +119,8 @@
           "Piscina",
           "Jardín",
           "Estacionamiento privado"
-        ]
+        ],
+        "published": true
       },
       "type": {
         "type": "house",
@@ -154,7 +155,8 @@
           "Patio con parrilla",
           "TV",
           "Cocina equipada"
-        ]
+        ],
+        "published": true
       },
       "type": {
         "type": "house",
@@ -183,7 +185,8 @@
         "bathrooms": 2,
         "squareMeters": 120,
         "yearBuilt": 2019,
-        "amenities": ["Piscina", "Gimnasio", "Parqueadero"]
+        "amenities": ["Piscina", "Gimnasio", "Parqueadero"],
+        "published": true
       },
       "type": {
         "type": "ph",
@@ -212,7 +215,8 @@
         "bathrooms": 2,
         "squareMeters": 80,
         "yearBuilt": 2010,
-        "amenities": []
+        "amenities": [],
+        "published": true
       },
       "type": {
         "type": "ph",
@@ -241,7 +245,8 @@
         "bathrooms": 2,
         "squareMeters": 90,
         "yearBuilt": 2015,
-        "amenities": ["piscina", "gimnasio", "sauna"]
+        "amenities": ["piscina", "gimnasio", "sauna"],
+        "published": true
       },
       "type": {
         "type": "apartment",
@@ -270,7 +275,8 @@
         "bathrooms": 1,
         "squareMeters": 50,
         "yearBuilt": 2010,
-        "amenities": ["aire acondicionado", "calefacción", "wifi"]
+        "amenities": ["aire acondicionado", "calefacción", "wifi"],
+        "published": true
       },
       "type": {
         "type": "apartment",
@@ -299,7 +305,8 @@
         "bathrooms": 2,
         "squareMeters": 300,
         "yearBuilt": 2010,
-        "amenities": ["Parrilla", "Piscina"]
+        "amenities": ["Parrilla", "Piscina"],
+        "published": true
       },
       "type": {
         "type": "ranch",
@@ -328,7 +335,8 @@
         "bathrooms": 2,
         "squareMeters": 250,
         "yearBuilt": 2005,
-        "amenities": ["Parrilla", "Cancha de tenis"]
+        "amenities": ["Parrilla", "Cancha de tenis"],
+        "published": true
       },
       "type": {
         "type": "ranch",
