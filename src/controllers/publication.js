@@ -138,9 +138,9 @@ module.exports = {
     try {
       const { params, propertyParams, city } = req.body
 
-      params ? addOpBetween(params, "price") : null;
-      propertyParams ? addOpBetween(Property, "squareMeters") : null;
-      city ? addOpBetween(Property, "yearBuilt") : null;
+      params ? addOpBetween(params, 'price') : null;
+      propertyParams ? addOpBetween(Property, 'squareMeters') : null;
+      city ? addOpBetween(Property, 'yearBuilt') : null;
       
       const publications = await Publication.findAll({
         where: {
