@@ -136,25 +136,25 @@ module.exports = {
 
   getFilteredPublications: async (req, res) => {
     try {
-      const { params, propertyParams, city } = req.body
+      const { byPublication, byProperty, byCity } = req.body
 
-      params ? addOpBetween(params, 'price') : null
-      propertyParams ? addOpBetween(Property, 'squareMeters') : null
-      city ? addOpBetween(Property, 'yearBuilt') : null
+      byPublication ? addOpBetween(byPublication, 'price') : null
+      byProperty ? addOpBetween(Property, 'squareMeters') : null
+      byProperty ? addOpBetween(Property, 'yearBuilt') : null
 
       const publications = await Publication.findAll({
         where: {
           enabled: true,
           [Op.or]: [{ state: 'approved' }, { state: 'pending' }],
-          ...params,
+          ...byPublication,
         },
         include: [
           { model: User, attributes: { exclude: ['password'] } },
           {
             model: Property,
             attributes: { exclude: ['idUser', 'idCity'] },
-            where: propertyParams,
-            include: [{ model: City, where: city }],
+            where: byProperty,
+            include: [{ model: City, where: byCity }],
           },
         ],
       })
