@@ -14,12 +14,19 @@ const { checkRequiredPublicationEntries, PropertyType } =
   require('../utils').entries
 
 function addOpBetween(obj, key) {
-  const { min, max } = obj[key]
+  /* const { min, max } = obj[key]
   obj[key]
     ? (obj[key] = {
         [Op.between]: [min, max],
       })
-    : delete obj[key]
+    : delete obj[key] */
+  if(obj[key]) {
+    const { min, max } = obj[key]
+    obj[key] = {
+      [Op.between]: [min, max],
+    }
+  } else delete obj[key];
+  
   return obj
 }
 
@@ -137,10 +144,10 @@ module.exports = {
   getFilteredPublications: async (req, res) => {
     try {
       const { byPublication, byProperty, byCity } = req.body
-
-      byPublication ? addOpBetween(byPublication, 'price') : null
-      byProperty ? addOpBetween(Property, 'squareMeters') : null
-      byProperty ? addOpBetween(Property, 'yearBuilt') : null
+      console.log(req.body)
+      byPublication.price ? addOpBetween(byPublication, 'price') : null
+      byProperty.squareMeters ? addOpBetween(Property, 'squareMeters') : null
+      byProperty.yearBuilt ? addOpBetween(Property, 'yearBuilt') : null
 
       const publications = await Publication.findAll({
         where: {
@@ -158,7 +165,7 @@ module.exports = {
           },
         ],
       })
-
+      
       publications.length
         ? res.status(200).json({
             info: {
