@@ -144,7 +144,7 @@ module.exports = {
   getFilteredPublications: async (req, res) => {
     try {
       const { byPublication, byProperty, byCity } = req.body
-      console.log(req.body)
+      
       byPublication.price ? addOpBetween(byPublication, 'price') : null
       byProperty.squareMeters ? addOpBetween(Property, 'squareMeters') : null
       byProperty.yearBuilt ? addOpBetween(Property, 'yearBuilt') : null
