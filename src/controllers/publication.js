@@ -20,13 +20,13 @@ function addOpBetween(obj, key) {
         [Op.between]: [min, max],
       })
     : delete obj[key] */
-  if(obj[key]) {
+  if (obj[key]) {
     const { min, max } = obj[key]
     obj[key] = {
       [Op.between]: [min, max],
     }
-  } else delete obj[key];
-  
+  } else delete obj[key]
+
   return obj
 }
 
@@ -142,12 +142,24 @@ module.exports = {
   },
 
   getFilteredPublications: async (req, res) => {
+    function deleteEmptyKeys(obj) {
+      for (const key in obj) {
+        if (obj[key] === '' || obj[key] === null) {
+          delete obj[key]
+        }
+      }
+      return obj
+    }
+
     try {
-      const { byPublication, byProperty, byCity } = req.body
-      
-      byPublication.price ? addOpBetween(byPublication, 'price') : null
-      byProperty.squareMeters ? addOpBetween(Property, 'squareMeters') : null
-      byProperty.yearBuilt ? addOpBetween(Property, 'yearBuilt') : null
+      let { byPublication, byProperty, byCity } = req.body
+      byPublication = deleteEmptyKeys(byPublication)
+      byProperty = deleteEmptyKeys(byProperty)
+      byCity = deleteEmptyKeys(byCity)
+
+      byPublication?.price ? addOpBetween(byPublication, 'price') : null
+      byProperty?.squareMeters ? addOpBetween(Property, 'squareMeters') : null
+      byProperty?.yearBuilt ? addOpBetween(Property, 'yearBuilt') : null
 
       const publications = await Publication.findAll({
         where: {
@@ -165,7 +177,7 @@ module.exports = {
           },
         ],
       })
-      
+
       publications.length
         ? res.status(200).json({
             info: {
@@ -173,7 +185,9 @@ module.exports = {
             },
             publications,
           })
-        : res.status(204).send('no publications with the indicated filters')
+        : res.status(200).json({
+            error: 'no publications with the indicated filters',
+          })
     } catch (error) {
       res.status(500).json({ Error: error.message })
     }
