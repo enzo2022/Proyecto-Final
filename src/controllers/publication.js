@@ -14,12 +14,19 @@ const { checkRequiredPublicationEntries, PropertyType } =
   require('../utils').entries
 
 function addOpBetween(obj, key) {
-  const { min, max } = obj[key]
+  /* const { min, max } = obj[key]
   obj[key]
     ? (obj[key] = {
         [Op.between]: [min, max],
       })
-    : delete obj[key]
+    : delete obj[key] */
+  if (obj[key]) {
+    const { min, max } = obj[key]
+    obj[key] = {
+      [Op.between]: [min, max],
+    }
+  } else delete obj[key]
+
   return obj
 }
 
@@ -135,26 +142,38 @@ module.exports = {
   },
 
   getFilteredPublications: async (req, res) => {
-    try {
-      const { params, propertyParams, city } = req.body
+    function deleteEmptyKeys(obj) {
+      for (const key in obj) {
+        if (obj[key] === '' || obj[key] === null) {
+          delete obj[key]
+        }
+      }
+      return obj
+    }
 
-      params ? addOpBetween(params, 'price') : null
-      propertyParams ? addOpBetween(Property, 'squareMeters') : null
-      city ? addOpBetween(Property, 'yearBuilt') : null
+    try {
+      let { byPublication, byProperty, byCity } = req.body
+      byPublication = deleteEmptyKeys(byPublication)
+      byProperty = deleteEmptyKeys(byProperty)
+      byCity = deleteEmptyKeys(byCity)
+
+      byPublication?.price ? addOpBetween(byPublication, 'price') : null
+      byProperty?.squareMeters ? addOpBetween(Property, 'squareMeters') : null
+      byProperty?.yearBuilt ? addOpBetween(Property, 'yearBuilt') : null
 
       const publications = await Publication.findAll({
         where: {
           enabled: true,
           [Op.or]: [{ state: 'approved' }, { state: 'pending' }],
-          ...params,
+          ...byPublication,
         },
         include: [
           { model: User, attributes: { exclude: ['password'] } },
           {
             model: Property,
             attributes: { exclude: ['idUser', 'idCity'] },
-            where: propertyParams,
-            include: [{ model: City, where: city }],
+            where: byProperty,
+            include: [{ model: City, where: byCity }],
           },
         ],
       })
@@ -166,7 +185,9 @@ module.exports = {
             },
             publications,
           })
-        : res.status(204).send('no publications with the indicated filters')
+        : res.status(200).json({
+            error: 'no publications with the indicated filters',
+          })
     } catch (error) {
       res.status(500).json({ Error: error.message })
     }
