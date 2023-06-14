@@ -178,16 +178,37 @@ module.exports = {
         ],
       })
 
-      publications.length
-        ? res.status(200).json({
-            info: {
-              quantity: publications.length,
+      if (publications.length) {
+        res.status(200).json({
+          info: {
+            quantity: publications.length,
+          },
+          publications,
+        })
+      } else {
+        const publications = await Publication.findAll({
+          where: {
+            enabled: true,
+            [Op.or]: [{ state: 'approved' }, { state: 'pending' }],
+          },
+          include: [
+            { model: User, attributes: { exclude: ['password'] } },
+            {
+              model: Property,
+              include: [{ model: City }],
+              attributes: { exclude: ['idUser', 'idCity'] },
             },
-            publications,
-          })
-        : res.status(200).json({
+          ],
+          attributes: { exclude: ['idUser', 'idProperty'] },
+        })
+        res.status(200).json({
+          info: {
+            quantity: publications.length,
             error: 'no publications with the indicated filters',
-          })
+          },
+          publications,
+        })
+      }
     } catch (error) {
       res.status(500).json({ Error: error.message })
     }
