@@ -43,7 +43,6 @@ const signUp = async (req, res) => {
     const token = generateToken({
       id: user.idUser,
       email: user.email,
-      user: user.userName,
       type: user.userType,
     })
 
@@ -99,7 +98,6 @@ const signIn = async (req, res) => {
     const token = generateToken({
       id: _user.idUser,
       email: _user.email,
-      user: _user.userName,
       type: _user.userType,
     })
 
@@ -133,7 +131,7 @@ const googleSignin = async (req, res) => {
         lName: details.family_name,
         email: details.email,
         photo: details.picture,
-        userName: details.given_name.replace(' ','_'),
+        userName: details.given_name.replace(' ', '_'),
         password: hashPass,
         state: details.email_verified ? 'verified' : 'pending',
       })
@@ -146,7 +144,6 @@ const googleSignin = async (req, res) => {
     const token = generateToken({
       id: user.idUser,
       email: user.email,
-      user: user.userName,
       type: user.userType,
     })
 
@@ -281,6 +278,35 @@ const setPremium = async (req, res) => {
   }
 }
 
+const updatePassword = async (req, res) => {
+  const { idUser } = req.params
+  const { password, newPassword } = req.body
+  if (!idUser || !password || !newPassword)
+    return res.status(401).json({ Error: 'Missing data' })
+
+  try {
+    const user = await User.findByPk(idUser)
+    if (!user) return res.status(401).json({ Error: 'Not Found' })
+    const passwordMatch = await verifyPassword(user.password, password)
+    if (!passwordMatch)
+      return res.status(401).json({ Error: 'Incorrect password.' })
+
+    const hashPass = await hashPassword(newPassword)
+    await User.update(
+      { password: hashPass },
+      {
+        where: {
+          idUser,
+        },
+      },
+    )
+    res.send('User Updated')
+  } catch (error) {
+    res.status(500).send({
+      Error: error.mesagge,
+    })
+  }
+}
 // DELETE
 const deleteUser = async (req, res) => {
   const { idUser } = req.params
@@ -305,4 +331,5 @@ module.exports = {
   signUp,
   signIn,
   updateUser,
+  updatePassword,
 }

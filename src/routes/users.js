@@ -9,6 +9,7 @@ const {
   setPremium,
   deleteUser,
   googleSignin,
+  updatePassword,
 } = require('../controllers/users')
 
 const router = Router()
@@ -23,6 +24,7 @@ router.get('/:idUser', getUserById)
 
 router.put('/state/:idUser', authenticateToken, authorizeAdmin, setState)
 router.put('/premium/:idUser', setPremium)
+router.put('/new-password/:idUser', authenticateToken, updatePassword)
 router.put('/:idUser', authenticateToken, updateUser)
 
 router.delete('/:idUser', authenticateToken, deleteUser)
