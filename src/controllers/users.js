@@ -3,9 +3,11 @@ const path = require('path')
 const {
   User,
   Property,
-  Favorite,
   Membership,
   MembershipType,
+  Saved,
+  Publication,
+  City
 } = require('../db')
 const { transport, registerMessage } = require('../utils/nodemailer/nodemailer')
 
@@ -162,7 +164,6 @@ const getUserById = async (req, res) => {
   try {
     const user = await User.findOne({
       where: { idUser },
-      include: { model: Favorite },
       attributes: { exclude: ['password'] },
     })
 
@@ -321,6 +322,38 @@ const deleteUser = async (req, res) => {
   }
 }
 
+const getSaveds = async (req, res) => {
+  try {
+    const { idUser } = req.body
+    const publications = await Saved.findAll({
+      where: {
+        UserIdUser: idUser,
+      },
+      include: [
+        {
+          model: Publication,
+          include: [
+            { model: User, attributes: { exclude: ['password'] } },
+            {
+              model: Property,
+              include: [{ model: City }],
+              attributes: { exclude: ['idUser', 'idCity'] },
+            },
+          ],
+          attributes: { exclude: ['idUser', 'idProperty'] },
+        },
+      ],
+      attributes: { exclude: ['id', 'PublicationIdPublication'] },
+    })
+    res.json({
+      quantity: publications.length,
+      publications,
+    })
+  } catch (error) {
+    res.status(500).json({ error: { message: error.message}})
+  }
+}
+
 module.exports = {
   deleteUser,
   getUserById,
@@ -332,4 +365,5 @@ module.exports = {
   signIn,
   updateUser,
   updatePassword,
+  getSaveds,
 }

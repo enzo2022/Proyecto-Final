@@ -14,12 +14,6 @@ const { checkRequiredPublicationEntries, PropertyType } =
   require('../utils').entries
 
 function addOpBetween(obj, key) {
-  /* const { min, max } = obj[key]
-  obj[key]
-    ? (obj[key] = {
-        [Op.between]: [min, max],
-      })
-    : delete obj[key] */
   if (obj[key]) {
     const { min, max } = obj[key]
     obj[key] = {
@@ -161,7 +155,6 @@ module.exports = {
       byProperty?.squareMeters ? addOpBetween(byProperty, 'squareMeters') : null
       byProperty?.yearBuilt ? addOpBetween(byProperty, 'yearBuilt') : null
 
-      console.log(byProperty)
       const publications = await Publication.findAll({
         where: {
           enabled: true,
@@ -183,7 +176,7 @@ module.exports = {
         res.status(200).json({
           info: {
             quantity: publications.length,
-            objs: {byPublication, byProperty, byCity}
+            objs: { byPublication, byProperty, byCity },
           },
           publications,
         })
@@ -207,7 +200,7 @@ module.exports = {
           info: {
             quantity: publications.length,
             error: 'no publications with the indicated filters',
-            objs: {byPublication, byProperty, byCity}
+            objs: { byPublication, byProperty, byCity },
           },
           publications,
         })
@@ -263,25 +256,21 @@ module.exports = {
         include: [
           {
             model: Publication,
-            include: [
-              { model: User, attributes: { exclude: ['password'] } },
-              {
-                model: Property,
-                include: [{ model: City }],
-                attributes: { exclude: ['idUser', 'idCity'] },
-              },
-            ],
             attributes: { exclude: ['idUser', 'idProperty'] },
           },
         ],
         attributes: { exclude: ['id', 'PublicationIdPublication'] },
+      })
+      const dictionary = {}
+      publications.forEach((p) => {
+        dictionary[p.Publication.idPublication] = p.UserIdUser
       })
 
       res.status(200).json({
         info: {
           quantity: publications.length,
         },
-        publications,
+        dictionary,
       })
     } catch (error) {
       res.status(500).json({ error: { message: error.message } })
