@@ -239,10 +239,9 @@ module.exports = {
   },
   savePublication: async (req, res) => {
     const { idUser, idsPublication } = req.body
-    const { remove } = req.query
     try {
-      //bulk
       if (idsPublication?.length && idUser) {
+        console.log(idsPublication)
         await Saved.destroy({
           where: {
             UserIdUser: idUser,
@@ -257,6 +256,13 @@ module.exports = {
           },
         })
         await user.addPublications(publictns)
+      } else if(idsPublication) {
+        await Saved.destroy({
+          where: {
+            UserIdUser: idUser,
+          },
+          force: true
+        })
       }
 
       const publications = await Saved.findAll({
