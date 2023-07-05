@@ -324,7 +324,7 @@ const deleteUser = async (req, res) => {
 
 const getSaveds = async (req, res) => {
   try {
-    const { idUser } = req.body
+    const { idUser } = req.params
     const publications = await Saved.findAll({
       where: {
         UserIdUser: idUser,

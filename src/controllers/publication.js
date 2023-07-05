@@ -238,15 +238,25 @@ module.exports = {
     }
   },
   savePublication: async (req, res) => {
-    const { idUser, idPublication } = req.body
+    const { idUser, idsPublication } = req.body
     const { remove } = req.query
     try {
-      const publication = await Publication.findByPk(idPublication)
-      const user = await User.findByPk(idUser)
-      if (!remove) {
-        await user.addPublication(publication)
-      } else {
-        await user.removePublication(publication)
+      //bulk
+      if (idsPublication?.length && idUser) {
+        await Saved.destroy({
+          where: {
+            UserIdUser: idUser,
+          },
+          force: true
+        })
+
+        const user = await User.findByPk(idUser)
+        const publictns = await Publication.findAll({
+          where: {
+            idPublication: idsPublication,
+          },
+        })
+        await user.addPublications(publictns)
       }
 
       const publications = await Saved.findAll({
