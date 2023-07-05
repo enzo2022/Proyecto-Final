@@ -10,6 +10,7 @@ const {
   deleteUser,
   googleSignin,
   updatePassword,
+  getSaveds,
 } = require('../controllers/users')
 
 const router = Router()
@@ -20,6 +21,7 @@ router.post('/signin', signIn)
 router.post('/google', googleSignin)
 
 router.get('/all', getUsers)
+router.get('/saveds/:idUser', getSaveds)
 router.get('/:idUser', getUserById)
 
 router.put('/state/:idUser', authenticateToken, authorizeAdmin, setState)
