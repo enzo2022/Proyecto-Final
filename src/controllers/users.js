@@ -1,5 +1,3 @@
-const notifier = require('node-notifier')
-const path = require('path')
 const {
   User,
   Property,
@@ -9,7 +7,7 @@ const {
   Publication,
   City
 } = require('../db')
-const { transport, registerMessage } = require('../utils/nodemailer/nodemailer')
+const { sendMail, template } = require('../utils')
 
 // here
 const { hashPassword, verifyPassword, generateToken } = require('../utils')
@@ -48,6 +46,13 @@ const signUp = async (req, res) => {
       type: user.userType,
     })
 
+    await sendMail({
+      from: 'Bienvenido <jhonny30ca@gmail.com>',
+      to: user.email,
+      subject: 'Ahora eres parte de Properties and You',
+      template: template.registerMessage({userName: user.userName})
+    });
+
     return res.send({
       info: {
         message: 'Usuario created successfully',
@@ -55,24 +60,6 @@ const signUp = async (req, res) => {
       user,
       token,
     })
-
-    /*     //notify property created succes
-    notifier.notify(
-      {
-        sound: true,
-        wait: true,
-        title: `Bienvenid@ ${myuser.userName}! `,
-        message: "Gracias por registrarte en Properties&&you",
-        icon: path.join(
-          "https://res.cloudinary.com/dg05pzjsq/image/upload/v1669030750/propertiesandyouicon_c9h24a.png"
-        ),
-      },
-      function (err, response) {
-        // console.log(err, response);
-      }
-    );
-    //NODEMAILER, SEND EMAIL TO USER
-    const info = await transport.sendMail(registerMessage(userName, email)); */
   } catch (err) {
     return res.status(500).send({ Error: err.message })
   }
